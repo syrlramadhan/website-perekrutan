@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content />
+    <meta name="author" content />
+    <title>Modern Business - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <style>
+        .logo {
+            width: 200px;
+            /* position: fixed; */
+            margin: -1.3rem;
+        }
+
+        .navbar-toggler {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <div class="container px-5">
+                <a class="navbar-brand" href="{{ url_for('index')}}"><span class="fw-bolder text-primary">
+                        <img class="logo" src="{{ url_for('static', filename='assets/img/coconut.png')}}" alt="">
+                    </span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('index')}}">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('pendaftar')}}">Pendaftar</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li> -->
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('daftar')}}">daftar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <section class="py-5">
+            <div class="container px-5">
+                <!-- daftar form-->
+                <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                    <div class="text-center mb-5">
+                        <img src="{{ url_for('static', filename='assets/img/logo.png')}}" alt="" width="20%">
+                        <!-- <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div> -->
+                        <h1 class="fw-bolder">Form Pendaftaran</h1>
+                        <p class="lead fw-normal text-muted mb-0">isi formulir dibawah!</p>
+                    </div>
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <!-- * * * * * * * * * * * * * * *-->
+                            <!-- * * SB Forms daftar Form * *-->
+                            <!-- * * * * * * * * * * * * * * *-->
+                            <!-- This form is pre-integrated with SB Forms.-->
+                            <!-- To make this form functional, sign up at-->
+                            <!-- https://startbootstrap.com/solution/daftar-forms-->
+                            <!-- to get an API token!-->
+                            <form id="daftarForm" data-sb-form-api-token="API_TOKEN">
+                                <!-- nama_lengkap input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="nama_lengkap" type="text"
+                                        placeholder="Masukkan Nama Lengkap..." data-sb-validations="required" />
+                                    <label for="nama_lengkap">Nama Lengkap</label>
+                                    <div class="invalid-feedback" data-sb-feedback="nama_lengkap:required">Nama Lengkap
+                                        Di Butuhkan.
+                                    </div>
+                                </div>
+                                <!-- nama_panggilan input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="nama_panggilan" type="text"
+                                        placeholder="Masukkan Nama Panggilan..." data-sb-validations="required" />
+                                    <label for="nama_panggilan">Nama Panggilan</label>
+                                    <div class="invalid-feedback" data-sb-feedback="nama_panggilan:required">Nama
+                                        Panggilan Di Butuhkan.
+                                    </div>
+                                </div>
+
+                                <!-- Jenis Kelamin -->
+                                <div class="mb-3">
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="jenisKelamin" id="pria"
+                                            value="Pria" data-sb-validations="required" />
+                                        <label class="form-check-label" for="pria">Laki-laki</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="jenisKelamin" id="wanita"
+                                            value="Wanita" data-sb-validations="required" />
+                                        <label class="form-check-label" for="wanita">Perempuan</label>
+                                    </div>
+                                    <div class="invalid-feedback" data-sb-feedback="jenisKelamin:required">Pilih jenis
+                                        kelamin.</div>
+                                </div>
+
+                                <!-- Email address input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="email" placeholder="name@example.com"
+                                        data-sb-validations="required,email" />
+                                    <label for="email">Alamat Email</label>
+                                    <div class="invalid-feedback" data-sb-feedback="email:required">Email Di Butuhkan.
+                                    </div>
+                                    <div class="invalid-feedback" data-sb-feedback="email:email">Email Tidak valid.
+                                    </div>
+                                </div>
+
+                                <!-- Phone number input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="nomor_wa" type="tel" placeholder="+62 812 4567 8910"
+                                        data-sb-validations="required" />
+                                    <label for="nomor_wa">Nomor Whatsapp</label>
+                                    <div class="invalid-feedback" data-sb-feedback="nomor_wa:required">Nomor Whatsapp Di
+                                        Butuhkan.</div>
+                                </div>
+
+                                <!-- alamat input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="alamat" type="text"
+                                        placeholder="Masukkan Alamat tempat tinggal..."
+                                        data-sb-validations="required" />
+                                    <label for="alamat">Alamat tempat tinggal</label>
+                                    <div class="invalid-feedback" data-sb-feedback="alamat:required">Alamat tempat
+                                        tinggal Di Butuhkan.
+                                    </div>
+                                </div>
+
+                                <!-- kampus input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="kampus" type="text"
+                                        placeholder="Masukkan Asal Kampus..." data-sb-validations="required" />
+                                    <label for="kampus">Asal Kampus</label>
+                                    <div class="invalid-feedback" data-sb-feedback="kampus:required">Asal Kampus Di
+                                        Butuhkan.
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Jurusan input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="jurusan" type="text"
+                                        placeholder="Masukkan Jurusan..." data-sb-validations="required" />
+                                    <label for="jurusan">Jurusan</label>
+                                    <div class="invalid-feedback" data-sb-feedback="jurusan:required">Jurusan Di
+                                        Butuhkan.
+                                    </div>
+                                </div>
+
+                                <!-- Input untuk memilih foto -->
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Pilih Foto</label>
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*" />
+                                </div>
+
+                                <!-- Input untuk memilih foto -->
+                                <!-- <div class="mb-3">
+                                    <label for="photo" class="form-label">Pilih Foto</label>
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*" />
+                                </div> -->
+
+                                <!-- alasan input-->
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="alasan" type="text"
+                                        placeholder="Masukkan alasan anda di sini..." style="height: 10rem"
+                                        data-sb-validations="required"></textarea>
+                                    <label for="alasan">Alasan Masuk COCONUT</label>
+                                    <div class="invalid-feedback" data-sb-feedback="alasan:required">Alasan Di Butuhkan.
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Submit success message-->
+                                <!---->
+                                <!-- This is what your users will see when the form-->
+                                <!-- has successfully submitted-->
+                                <div class="d-none" id="submitSuccessMessage">
+                                    <div class="text-center mb-3">
+                                        <div class="fw-bolder">Formulir pendaftaran berhasil di kirim!</div>
+                                        Cek disini
+                                        <br />
+                                        <a href="{{ url_for('pendaftar')}}">Pendaftar</a>
+                                    </div>
+                                </div>
+                                <!-- Submit error message-->
+                                <!---->
+                                <!-- This is what your users will see when there is-->
+                                <!-- an error submitting the form-->
+                                <div class="d-none" id="submitErrorMessage">
+                                    <div class="text-center text-danger mb-3">Error sending message!</div>
+                                </div>
+                                <!-- Submit Button-->
+                                <div class="d-grid"><button class="btn btn-primary btn-lg disabled" id="submitButton"
+                                        type="submit" onclick="sendData()">Daftar</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0">Copyright &copy; marvel012 2023</div>
+                </div>
+                <div class="col-auto">
+                    <a class="small" href="#!">Privacy</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="#!">Terms</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="#!">daftar</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // document.addEventListener("DOMContentLoaded", function () {
+        // Fungsi untuk mengirim data formulir
+        function sendData() {
+            // Mengambil nilai dari elemen-elemen formulir
+            var namaLengkap = document.getElementById('nama_lengkap').value;
+            var namaPanggilan = document.getElementById('nama_panggilan').value;
+            var jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked').value;
+            var email = document.getElementById('email').value;
+            var nomorWa = document.getElementById('nomor_wa').value;
+            var alamat = document.getElementById('alamat').value;
+            var kampus = document.getElementById('kampus').value;
+            var jurusan = document.getElementById('jurusan').value;
+            // var photoInput = document.getElementById('photo');
+            var photo = document.getElementById('photo');
+            var alasan = document.getElementById('alasan').value;
+
+            // Membuat objek FormData untuk mengirim data formulir
+            var formData = new FormData();
+            formData.append('nama_lengkap', namaLengkap);
+            formData.append('nama_panggilan', namaPanggilan);
+            formData.append('jenis_kelamin', jenisKelamin);
+            formData.append('email', email);
+            formData.append('nomor_wa', nomorWa);
+            formData.append('alamat', alamat);
+            formData.append('kampus', kampus);
+            formData.append('jurusan', jurusan);    
+            // formData.append('photo', photoInput.files[0]);
+            formData.append('photo', photo.files[0]);
+            formData.append('alasan', alasan);
+
+            // Mengirim permintaan POST dengan Fetch API
+            fetch('{{ url_for("postData")}}', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle response data
+                    console.log('Response:', data);
+                    // Tampilkan pesan sukses atau gagal di sini
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                    // Tampilkan pesan kesalahan di sini
+                });
+        }
+
+        // Mendengarkan peristiwa saat formulir dikirimkan
+        var form = document.getElementById('daftarForm');
+        form.addEventListener('submit', function (event) {
+            // Mencegah perilaku formulir bawaan yang akan menyegarkan halaman
+            event.preventDefault();
+
+            // Memanggil fungsi untuk mengirim data formulir
+            sendData();
+        });
+        // });
+    </script>
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/daftar-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+
+</html>
