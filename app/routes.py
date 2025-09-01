@@ -115,15 +115,3 @@ def postData():
 		return {'status': 'success'}
 	except:
 		return {'status': 'error'}
-
-	
-	
-
-	# db.session.add(add_calgot)
-	# db.session.commit()
-	# print(nama_lengkap)
-	# print(nama_lengkap)
-	# data = request.get_json()
-	# respon = {'pesan':f'Data Telah diterima, data:{data}'}
-	# print(data)
-	# print(data.keys())
