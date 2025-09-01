@@ -14,7 +14,7 @@ from werkzeug.utils import secure_filename
 import io
 from datetime import datetime
 import re
-from flask import escape
+from markupsafe import escape
 
 
 class LoginForm(FlaskForm):
@@ -219,7 +219,18 @@ def postData():
 				name_part = secure_filename(nama_lengkap) if nama_lengkap else base or 'photo'
 				save_name = f"{name_part}{ext}"
 				full_path = os.path.join(dest_dir, save_name)
-				photo.save(full_path)
+				# Try to save file; if saving fails due to missing dir or permission, attempt to create dir and retry
+				try:
+					photo.save(full_path)
+				except Exception as save_e:
+					print(f"WARN: initial photo.save failed: {save_e}; attempting to create dir and retry")
+					try:
+						os.makedirs(dest_dir, exist_ok=True)
+						photo.stream.seek(0)
+						photo.save(full_path)
+					except Exception as retry_e:
+						print(f"ERROR: failed to save uploaded photo after retry: {retry_e}")
+						return jsonify({'status': 'error', 'message': 'Gagal menyimpan file foto. Pastikan direktori server dapat ditulisi.'}), 500
 				# Store path relative to static folder (so frontend can use /static/<foto>)
 				photo_path = os.path.join('foto_calgot', save_name)
 				print(f"DEBUG: Photo saved to {full_path}")
