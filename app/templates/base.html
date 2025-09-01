@@ -35,6 +35,10 @@
       --bg-light: #F8F9FA;
       --font-poppins: 'Poppins', sans-serif;
       --font-roboto: 'Roboto', sans-serif;
+  /* Offsets to account for the fixed header so page content doesn't sit under it */
+  --header-offset-desktop: 50px;
+  --header-offset-tablet: 70px;
+  --header-offset-mobile: 100px;
     }
 
     body {
@@ -92,10 +96,20 @@
       font-size: 28px;
     }
 
-    /* Main Content */
+    /* Main Content - add top offset so fixed header doesn't overlap page headings */
     #main {
-      padding-top: 100px;
-      padding-bottom: 50px;
+      padding-top: var(--header-offset-desktop);
+      padding-bottom: 150px;
+      margin-bottom: 50px;
+    }
+
+    /* Responsive adjustments for smaller screens where header becomes taller */
+    @media (max-width: 992px) {
+      #main { padding-top: var(--header-offset-tablet); }
+    }
+
+    @media (max-width: 576px) {
+      #main { padding-top: var(--header-offset-mobile); }
     }
 
     /* Footer */
@@ -186,9 +200,9 @@
       </div>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Beranda</a></li>
-          <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Pendaftaran</a></li>
-          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">Berita</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Registration</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">News</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -200,37 +214,37 @@
   <footer id="footer">
       <div class="container">
         <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-info">
+          <div class="col-lg-3 col-md-6 footer-info">
             <h3 class="--secondary-blue">COCONUT</h3>
-            <p>Computer Club Oriented Network Utility and Technology. Menghubungkan mahasiswa dengan teknologi untuk dampak sosial.</p>
+            <p>Computer Club Oriented Network Utility and Technology</p>
           </div>
           <div class="col-lg-2 col-md-6 footer-links">
             <h4 class="--secondary-blue">Menu</h4>
             <ul>
-              <li><a href="{{ url_for('index') }}">Beranda</a></li>
-              <li><a href="{{ url_for('daftar') }}">Pendaftaran</a></li>
-              <li><a href="{{ url_for('news') }}">Berita</a></li>
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('daftar') }}">Registration</a></li>
+              <li><a href="{{ url_for('news') }}">News</a></li>
             </ul>
           </div>
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-4 col-md-6 footer-contact">
             <h4 class="--secondary-blue">Kontak</h4>
             <p>
-              Bandung, Jawa Barat<br>
-              Indonesia <br><br>
               <strong>Email:</strong> hello@coconut.or.id<br>
+              Jln. Emmysaelan III No.70, Makassar, Indonesia<br>
+              Jln. Dago Pakar Mawar 1 No 9, Bandung, Indonesia<br>
             </p>
           </div>
           <div class="col-lg-3 col-md-6 footer-links">
             <h4 class="--secondary-blue">Sosial Media</h4>
             <div class="social-links mt-3">
-              <a href="https://www.facebook.com/coconutcomputer" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="https://www.instagram.com/coconutdotorg/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
               <a href="https://www.linkedin.com/company/coconut-computer-club/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              <a href="https://www.instagram.com/coconutdotorg/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="https://www.facebook.com/coconutcomputer" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
             </div>
           </div>
           <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
           <div class="copyright text-center">
-            &copy; Copyright <strong><span>COCONUT</span></strong>. All Rights Reserved Didesain oleh <a href="https://coconut.or.id">COCONUT COMPUTER CLUB</a>
+            &copy; 2025 <a href="https://coconut.or.id" class="text-white"><strong><span>Coconut Lab</span></strong>.</a> Crafted with ❤️  by hacklab
           </div>
       </div>
     </div>

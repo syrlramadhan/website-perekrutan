@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<main id="main">
-
   <!-- ======= Hero Section: Quantum Particles & Creative Growth ======= -->
   <section id="hero" class="d-flex align-items-center position-relative overflow-hidden">
     <div class="background-animation"></div>
@@ -13,7 +11,7 @@
           <h2 class="display-5 fw-semibold mb-4 text-white-50">Chapter Bandung</h2>
           <p class="lead mb-4 text-white">Bergabunglah dengan ekosistem belajar kami, tempat ide-ide brilian berkembang menjadi inovasi yang berdampak nyata.</p>
           <div class="d-flex justify-content-center justify-content-lg-start gap-3 mt-4">
-            <a href="{{ url_for('daftar')}}" class="btn btn-primary btn-lg px-4 py-2 rounded-pill shadow-lg animate__animated animate__pulse animate__infinite">DAFTAR SEKARANG</a>
+            <a href="{{ url_for('daftar')}}" class="btn btn-primary btn-lg px-4 py-2 rounded-pill shadow-lg animate__animated animate__pulse animate__infinite">Join the Club</a>
           </div>
         </div>
         <div class="col-lg-6 hero-img text-center mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
@@ -23,20 +21,53 @@
     </div>
   </section><!-- End Hero -->
 
+  <!-- ======= Highlights Section: quick stats ======= -->
+  <section class="highlights">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-10 text-center">
+          <h3 class="fw-bold">COCONUT at a glance</h3>
+          <p class="text-muted">A research-focused community since 2008 that connects students, researchers and industry partners.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="num">200+</div>
+              <div class="label">Members & Alumni</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">150+</div>
+              <div class="label">Projects & Collaborations</div>
+            </div>
+            <div class="stat-box">
+              <div class="num">100+</div>
+              <div class="label">Publications & Resources</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ======= About COCONUT Research Group Section ======= -->
   <section id="about-us" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="row align-items-center">
         <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
           <div class="card p-4 shadow-sm border-0">
-            <h2 class="fw-bold text-danger mb-3">About Research Group</h2>
             <p class="mb-4">COCONUT Computer Club didirikan pada tahun 2008 di STMIK Profesional, Indonesia, dengan visi menjadi institut riset terapan berkualitas tinggi. Kami bertujuan menciptakan revolusi IT di Indonesia dan membangun ekonomi berbasis pengetahuan.</p>
             <p>Sejak itu, keanggotaan kami telah meluas ke berbagai universitas terkemuka seperti UNISMUH, UNM, UNHAS, UMI, dan UIN. Terdaftar resmi di Kementerian Hukum dan HAM, kami berdedikasi untuk melahirkan generasi baru peneliti dan insinyur muda.</p>
+            <div class="mt-3">
+              <a class="btn btn-primary rounded-pill ms-2" href="https://coconut.or.id/publications" target="_blank">Explore publications</a>
+            </div>
           </div>
         </div>
         <div class="col-lg-6" data-aos="fade-left">
           <div class="card p-4 shadow-sm border-0 h-100 d-flex flex-column justify-content-center">
-            <h4 class="fw-semibold text-danger mb-3">Leading Research Fields</h4>
+            <h4 class="fw-semibold text-primary mb-3">Leading Research Fields</h4>
             <div class="row gx-4 gy-2">
               <div class="col-md-6">
                 <div class="d-flex align-items-center">
@@ -63,7 +94,10 @@
                 </div>
               </div>
             </div>
-            <p class="mt-4 mb-0 text-muted">Banyak alumni kami telah menjadi profesional di industri global, bukti dari lingkungan suportif yang kami berikan.</p>
+            <p class="mt-4 mb-0 text-muted">COCONUT berkolaborasi dengan peneliti, institusi, konferensi, dan organisasi — baik lokal maupun internasional — untuk menerjemahkan riset menjadi solusi nyata.Banyak alumni kami telah menjadi profesional di industri global, bukti dari lingkungan suportif yang kami berikan.</p>
+            <div class="mt-3">
+              <a class="btn btn-outline-primary rounded-pill" href="https://coconut.or.id/people" target="_blank">Meet the people</a>
+            </div>
           </div>
         </div>
       </div>
@@ -74,118 +108,198 @@
   <section id="metaphor" class="py-5 bg-light position-relative overflow-hidden">
     <div class="bg-lines"></div>
     <div class="container text-center" data-aos="fade-up">
-      <h2 class="fw-bold text-danger mb-4">Every Entity Best Seed</h2>
+      <h2 class="fw-bold text-primary mb-4">Every Entity Best Seed</h2>
       <p class="lead mb-5 mx-auto" style="max-width: 800px;">
         "Seperti partikel kuantum yang menunggu pengamatan untuk berkolaps menjadi realitas, atau seperti benih yang memerlukan cahaya fotosintesis dan resonansi emosional untuk bertransformasi menjadi karya. Kita adalah persilangan antara hukum entropi yang kacau dan keindahan fraktal; membutuhkan logika sains dan kelembutan seni untuk mencapai simetri sempurna dalam pertumbuhan."
       </p>
-      <div class="d-flex justify-content-center align-items-center gap-4 mt-5">
-        <div class="feature-box text-center p-4">
-          <i class="bi bi-robot text-success display-4 mb-3"></i>
-          <h4 class="fw-bold">Logika Sains</h4>
-          <p class="text-muted">Analisis, pemecahan masalah, dan riset terapan.</p>
+      <div class="row justify-content-center g-4 mt-5">
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-robot text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Logika Sains</h4>
+            <p class="text-muted">Analisis, pemecahan masalah, dan riset terapan.</p>
+          </div>
         </div>
-        <div class="feature-box text-center p-4">
-          <i class="bi bi-palette-fill text-success display-4 mb-3"></i>
-          <h4 class="fw-bold">Kelembutan Seni</h4>
-          <p class="text-muted">Kreativitas, inovasi, dan kolaborasi tim.</p>
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-palette-fill text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Seni & Kreativitas</h4>
+            <p class="text-muted">Kreativitas, inovasi, dan kolaborasi tim.</p>
+          </div>
         </div>
-        <div class="feature-box text-center p-4">
-          <i class="bi bi-star-fill text-success display-4 mb-3"></i>
-          <h4 class="fw-bold">Simetri Sempurna</h4>
-          <p class="text-muted">Pertumbuhan pribadi dan dampak sosial.</p>
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-star-fill text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Simetri Sempurna</h4>
+            <p class="text-muted">Pertumbuhan pribadi dan dampak sosial.</p>
+          </div>
         </div>
       </div>
     </div>
   </section><!-- End Metaphor -->
 
-  <!-- ======= Recruitment Process Section ======= -->
-  <section id="process" class="py-5">
+  <!-- ======= Publications & Resources ======= -->
+  <section class="publications py-5 bg-light">
     <div class="container" data-aos="fade-up">
-      <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-danger">Recruitment Stages</h2>
-        <p class="text-muted">A process designed to discover potential and alignment</p>
-      </div>
-
-      <div class="row gy-5">
-        <!-- Step 1: Requirement -->
-        <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 p-4">
-            <h4 class="card-title fw-bold text-center">Requirement</h4>
-            <p class="card-text text-muted text-center">Langkah awal untuk memastikan kesiapanmu bergabung dengan ekosistem belajar COCONUT.</p>
-            <hr>
-            <ul class="list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Kriteria Dasar</b>: Mahasiswa aktif maksimal semester 3.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Keterampilan Awal</b>: Pemahaman dasar teknologi dan logika.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Sikap & Komitmen</b>: Semangat belajar, kolaborasi, dan tanggung jawab sosial.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Step 2: Test -->
-        <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 p-4">
-            <h4 class="card-title fw-bold text-center">Test</h4>
-            <p class="card-text text-muted text-center">Penilaian potensi melalui empat bagian: pilihan ganda, esai, psikotes, dan MBTI.</p>
-            <hr>
-            <ul class="list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Logika & Kreativitas</b>: Cara menganalisis dan menyelesaikan masalah.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Minat Teknologi</b>: Ketertarikan pada pemrograman, desain, atau inovasi digital.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Kepribadian</b>: Gaya belajar dan komunikasi untuk kolaborasi tim.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Step 3: Interview -->
-        <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 p-4">
-            <h4 class="card-title fw-bold text-center">Interview</h4>
-            <p class="card-text text-muted text-center">Kesempatan untuk mengenal motivasi, nilai, dan komitmen secara lebih mendalam.</p>
-            <hr>
-            <ul class="list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Motivasi Pribadi</b>: Alasanmu bergabung dengan COCONUT.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Keselarasan Nilai</b>: Kecocokanmu dengan budaya kolaborasi kami.</li>
-              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Kesiapan Belajar</b>: Komitmenmu untuk terlibat aktif dalam proyek.</li>
-            </ul>
+      <div class="row">
+        <div class="col-lg-8">
+          <h3 class="fw-bold">Latest publications & resources</h3>
+          <p class="text-muted">Keluaran dan sumber daya yang dipilih baru-baru ini dari kegiatan penelitian COCONUT.</p>
+          <div class="list-group">
+            <div class="publication-item">
+              <div>
+                <strong>An overview of applied ML projects</strong>
+                <div class="meta">2024 — Case studies & open datasets</div>
+              </div>
+              <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
+            </div>
+            <div class="publication-item">
+              <div>
+                <strong>Computer Vision for local industry</strong>
+                <div class="meta">2023 — Applied solutions & prototypes</div>
+              </div>
+              <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
+            </div>
+            <div class="publication-item">
+              <div>
+                <strong>Data & code resources</strong>
+                <div class="meta">Datasets, notebooks and tools</div>
+              </div>
+              <a href="https://coconut.or.id/resources" target="_blank" class="btn btn-sm btn-outline-primary">Explore</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ======= Recruitment Process Section: Timeline Style ======= -->
+  <section id="process" class="py-5">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header text-center mb-5">
+        <h2 class="fw-bold text-primary">Recruitment Roudmap</h2>
+        <p class="text-muted">Proses yang dirancang untuk menemukan potensi dan keselarasan</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="timeline">
+            <!-- Timeline Item 1: Requirement -->
+            <div class="timeline-item">
+              <div class="timeline-icon bg-success">
+                <i class="bi bi-check-circle-fill text-white"></i>
+              </div>
+              <div class="timeline-content card shadow-sm border-0 p-4">
+                <div class="timeline-phase-badge">Fase 1</div>
+                <h4 class="fw-bold text-success mb-2">Tahap 1: Persyaratan</h4>
+                <p class="text-muted">Kesiapan Anda bergabung dengan ekosistem belajar COCONUT Computer Club.</p>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Mahasiswa aktif semester 1-3.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Bersedia mengikuti seluruh rangkaian kegiatan rekrutmen.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Memiliki semangat belajar, kolaborasi, dan tanggung jawab sosial.</li>
+                </ul>
+                <div class="timeline-progress">
+                  <div class="progress-label"><span>Kemajuan fase</span><small>1/5</small></div>
+                  <div class="progress-track"><div class="progress-fill" style="width:20%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2: Test -->
+            <div class="timeline-item">
+              <div class="timeline-icon bg-primary">
+                <i class="bi bi-pencil-square text-white"></i>
+              </div>
+              <div class="timeline-content card shadow-sm border-0 p-4">
+                <div class="timeline-phase-badge">Fase 2</div>
+                <h4 class="fw-bold text-primary mb-2">Tahap 2: Tes</h4>
+                <p class="text-muted">Penilaian potensi melalui empat bagian: pilihan ganda, esai, psikotes, dan MBTI.</p>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Logika & Kreativitas</strong>: Cara menganalisis dan menyelesaikan masalah.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Minat Teknologi</strong>: Ketertarikan pada pemrograman, desain, atau inovasi digital.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Kepribadian</strong>: Gaya belajar dan komunikasi untuk kolaborasi tim.</li>
+                </ul>
+                <div class="timeline-progress">
+                  <div class="progress-label"><span>Kemajuan fase</span><small>2/5</small></div>
+                  <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 3: Interview -->
+            <div class="timeline-item">
+              <div class="timeline-icon bg-info">
+                <i class="bi bi-person-fill text-white"></i>
+              </div>
+              <div class="timeline-content card shadow-sm border-0 p-4">
+                <div class="timeline-phase-badge">Fase 3</div>
+                <h4 class="fw-bold text-info mb-2">Tahap 3: Wawancara</h4>
+                <p class="text-muted">Kesempatan untuk mengenal motivasi, nilai, dan komitmen secara lebih mendalam.</p>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Motivasi Pribadi</strong>: Alasan bergabung dengan COCONUT.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Keselarasan Nilai</strong>: Penyesuaian dengan budaya kolaborasi kami.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Kesiapan Belajar</strong>: Komitmen untuk terlibat aktif dalam proyek.</li>
+                </ul>
+                <div class="timeline-progress">
+                  <div class="progress-label"><span>Kemajuan fase</span><small>3/5</small></div>
+                  <div class="progress-track"><div class="progress-fill" style="width:60%"></div></div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section><!-- End Recruitment Process -->
 
   <!-- ======= Benefit & Impact Section ======= -->
-  <section id="benefits" class="py-5 bg-light">
+  <section id="benefits" class="py-5 bg-light benefits">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-danger">Why Join Us?</h2>
+        <h2 class="fw-bold text-primary">Why Join Us?</h2>
         <p class="text-muted">More than just a club, this is a pathway to the future</p>
       </div>
 
       <div class="row gy-4">
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 text-center p-4">
+          <div class="card flex-grow-1 border-0 text-center p-4">
             <div class="icon-box-circle">
-              <i class="bi bi-code-slash text-white display-5"></i>
+              <i class="bi bi-code-slash"></i>
             </div>
-            <h5 class="fw-bold mt-3">Mentorship Terstruktur</h5>
-            <p class="text-muted">Dapatkan bimbingan langsung dari anggota senior dan para profesional di bidang IT.</p>
+            <h5 class="fw-bold mt-3">Structured Mentorship</h5>
+            <p>Dapatkan bimbingan langsung dari anggota senior dan para profesional di bidang IT.</p>
+            <div class="feature-meta">
+              <span class="pill">Mentoring</span>
+              <span class="pill">Live Projects</span>
+            </div>
           </div>
         </div>
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 text-center p-4">
+          <div class="card flex-grow-1 border-0 text-center p-4">
             <div class="icon-box-circle">
-              <i class="bi bi-briefcase-fill text-white display-5"></i>
+              <i class="bi bi-briefcase-fill"></i>
             </div>
-            <h5 class="fw-bold mt-3">Portofolio Proyek Nyata</h5>
-            <p class="text-muted">Bangun portofolio yang kuat melalui proyek-proyek teknososial yang berdampak langsung.</p>
+            <h5 class="fw-bold mt-3">Real Project Portfolio</h5>
+            <p>Bangun portofolio yang kuat melalui proyek-proyek teknososial yang berdampak langsung.</p>
+            <div class="feature-meta">
+              <span class="pill">Portfolio</span>
+              <span class="pill">Showcase</span>
+            </div>
           </div>
         </div>
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 shadow-sm border-0 text-center p-4">
+          <div class="card flex-grow-1 border-0 text-center p-4">
             <div class="icon-box-circle">
-              <i class="bi bi-hand-thumbs-up-fill text-white display-5"></i>
+              <i class="bi bi-hand-thumbs-up-fill"></i>
             </div>
-            <h5 class="fw-bold mt-3">Lingkungan Kolaboratif</h5>
-            <p class="text-muted">Belajar dan berinovasi bersama dalam lingkungan yang suportif dan inklusif.</p>
+            <h5 class="fw-bold mt-3">Collaborative Environment</h5>
+            <p>Belajar dan berinovasi bersama dalam lingkungan yang suportif dan inklusif.</p>
+            <div class="feature-meta">
+              <span class="pill">Teamwork</span>
+              <span class="pill">Community</span>
+            </div>
           </div>
         </div>
       </div>
@@ -198,7 +312,7 @@
     <div class="container position-relative z-index-1" data-aos="fade-up">
       <h3 class="fw-bold display-6 mb-3">Siap Menjadi Bagian dari Perubahan?</h3>
       <p class="lead mt-3">Mari berkolaborasi, berinovasi, dan berkontribusi untuk masa depan teknologi yang lebih baik.</p>
-      <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar')}}">Daftar Sekarang</a>
+      <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar')}}">Join the Club</a>
     </div>
   </section><!-- End CTA -->
 
@@ -206,9 +320,8 @@
   <section id="contact" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-danger">Secretariat Location</h2>
+        <h2 class="fw-bold text-primary">Secretariat Location</h2>
         <p class="text-muted">Visit us for more information</p>
-        <p class="text-muted">We are located at Jl. Dago No.288, Dago, Kecamatan Coblong, Kota Bandung, Jawa Barat 40135, Indonesia</p>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -220,5 +333,4 @@
     </div>
   </section><!-- End Contact -->
 
-</main>
 {% endblock %}
