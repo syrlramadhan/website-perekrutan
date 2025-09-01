@@ -10,6 +10,7 @@ from app.models import calgot, Admin
 from app.forms import CalgotForm
 
 import os
+from werkzeug.utils import secure_filename
 import io
 from datetime import datetime
 
@@ -139,15 +140,27 @@ def postData():
 		print(f"DEBUG: New fields - telegram: {username_telegram}, pilihan_tinggal: {pilihan_tinggal}")
 		
 		# Handle photo
-		photo_path = "tidak_ada.jpg"  # default
+		photo_path = "tidak_ada.jpg"  # default (relative to static)
 		if 'photo' in request.files:
 			photo = request.files['photo']
-			if photo.filename != '':
-				# Clean filename
-				clean_name = nama_lengkap.replace(' ','_').replace(',','').replace('.','')
-				photo_path = os.path.join("app/static/foto_calgot", clean_name + '.jpg')
-				photo.save(photo_path)
-				print(f"DEBUG: Photo saved to {photo_path}")
+			if photo and photo.filename:
+				# Ensure destination directory exists inside the app static folder
+				dest_dir = os.path.join(app.root_path, 'static', 'foto_calgot')
+				os.makedirs(dest_dir, exist_ok=True)
+				# Secure filename and preserve extension
+				orig_filename = secure_filename(photo.filename)
+				base, ext = os.path.splitext(orig_filename)
+				ext = ext.lower() if ext else '.jpg'
+				if ext not in ('.jpg', '.jpeg', '.png'):
+					ext = '.jpg'
+				# Use cleaned nama_lengkap as filename if available
+				name_part = secure_filename(nama_lengkap) if nama_lengkap else base or 'photo'
+				save_name = f"{name_part}{ext}"
+				full_path = os.path.join(dest_dir, save_name)
+				photo.save(full_path)
+				# Store path relative to static folder (so frontend can use /static/<foto>)
+				photo_path = os.path.join('foto_calgot', save_name)
+				print(f"DEBUG: Photo saved to {full_path}")
 		
 		# Create calgot object
 		add_calgot = calgot(
