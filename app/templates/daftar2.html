@@ -177,23 +177,23 @@
                 }
                 return response.json();
             })
-            .then(data => {
-                console.log('Response:', data);
-                if (data.status === 'success') {
-                    daftarForm.reset();
-                    successMessage.classList.remove('d-none');
-                    errorMessage.classList.add('d-none');
-                    alert('Pendaftaran berhasil! Terima kasih telah mendaftar.');
-                } else {
-                    throw new Error(data.message || 'Server responded with an error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                errorMessage.classList.remove('d-none');
-                successMessage.classList.add('d-none');
-                alert('Terjadi kesalahan: ' + error.message);
-            })
+                .then(data => {
+                    console.log('Response:', data);
+                    if (data.status === 'success') {
+                        daftarForm.reset();
+                        successMessage.classList.remove('d-none');
+                        errorMessage.classList.add('d-none');
+                        showToast('success', 'Pendaftaran berhasil! Terima kasih telah mendaftar.');
+                    } else {
+                        throw new Error(data.message || 'Server responded with an error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorMessage.classList.remove('d-none');
+                    successMessage.classList.add('d-none');
+                    showToast('danger', 'Terjadi kesalahan: ' + error.message);
+                })
             .finally(() => {
                 submitButton.disabled = false;
             });
@@ -224,6 +224,42 @@
             sendData(formData);
         });
     });
+</script>
+<!-- Toast container -->
+<div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
+
+<script>
+// helper to show Bootstrap toast messages
+function showToast(type, message, title) {
+        title = title || (type === 'success' ? 'Sukses' : 'Error');
+        try {
+                const container = document.getElementById('toast-container');
+                if (!container) return;
+                const toastId = 'toast-' + Date.now();
+                const bgClass = type === 'success' ? 'bg-success text-white' : 'bg-danger text-white';
+                const html = `
+                <div id="${toastId}" class="toast ${bgClass}" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>`;
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const toastEl = temp.firstElementChild;
+                container.appendChild(toastEl);
+                // eslint-disable-next-line no-undef
+                const bsToast = bootstrap && bootstrap.Toast ? new bootstrap.Toast(toastEl, { delay: 5000 }) : null;
+                if (bsToast) bsToast.show();
+                // remove toast from DOM after hidden
+                toastEl.addEventListener('hidden.bs.toast', function () { toastEl.remove(); });
+                // fallback removal after 6s if bootstrap not present
+                setTimeout(() => { if (document.getElementById(toastId)) toastEl.remove(); }, 7000);
+        } catch (e) {
+                console.warn('showToast error', e);
+                alert(message);
+        }
+}
 </script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 {% endblock %}
