@@ -223,6 +223,53 @@
             
             sendData(formData);
         });
+            // Client-side validation: enable/disable submit button based on required fields
+            const requiredFields = [
+                'nama_lengkap','nama_panggilan','email','nomor_wa','username_telegram','alamat','pilihan_tinggal','kampus','jurusan','alasan'
+            ];
+
+            function fieldIsFilled(id) {
+                const el = document.getElementById(id);
+                if (!el) return false;
+                if (el.tagName === 'SELECT') return el.value && el.value.trim() !== '';
+                return el.value && el.value.trim() !== '';
+            }
+
+            function validateAll() {
+                // jenis_kelamin radio
+                const jk = document.querySelector('input[name="jenis_kelamin"]:checked');
+                const photoInput = document.getElementById('photo');
+                let ok = true;
+                if (!jk) ok = false;
+                for (const id of requiredFields) {
+                    if (!fieldIsFilled(id)) { ok = false; break; }
+                }
+                // photo required
+                if (!photoInput || photoInput.files.length === 0) ok = false;
+
+                // simple email check
+                const emailEl = document.getElementById('email');
+                if (emailEl && emailEl.value && !/^\S+@\S+\.\S+$/.test(emailEl.value)) ok = false;
+
+                // phone numeric check
+                const waEl = document.getElementById('nomor_wa');
+                if (waEl && waEl.value && !/^[0-9+\-\s]{6,20}$/.test(waEl.value)) ok = false;
+
+                submitButton.disabled = !ok;
+            }
+
+            // attach listeners
+            requiredFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('input', validateAll);
+                el.addEventListener('change', validateAll);
+            });
+            document.querySelectorAll('input[name="jenis_kelamin"]').forEach(r => r.addEventListener('change', validateAll));
+            const photoInputEl = document.getElementById('photo');
+            if (photoInputEl) photoInputEl.addEventListener('change', validateAll);
+            // initial check
+            validateAll();
     });
 </script>
 <!-- Toast container -->

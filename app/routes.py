@@ -13,6 +13,8 @@ import os
 from werkzeug.utils import secure_filename
 import io
 from datetime import datetime
+import re
+from flask import escape
 
 
 class LoginForm(FlaskForm):
@@ -124,26 +126,86 @@ def postData():
 		print("DEBUG: Files:", request.files)
 		
 		# Get form data
-		nama_lengkap = request.form.get('nama_lengkap')
-		nama_panggilan = request.form.get('nama_panggilan')
-		jenis_kelamin = request.form.get('jenis_kelamin')
-		email = request.form.get('email')
-		nomor_wa = request.form.get('nomor_wa')
-		username_telegram = request.form.get('username_telegram')
-		alamat = request.form.get('alamat')
-		pilihan_tinggal = request.form.get('pilihan_tinggal')
-		kampus = request.form.get('kampus')
-		jurusan = request.form.get('jurusan')
-		alasan = request.form.get('alasan')
-		
+		nama_lengkap = (request.form.get('nama_lengkap') or '').strip()
+		nama_panggilan = (request.form.get('nama_panggilan') or '').strip()
+		jenis_kelamin = (request.form.get('jenis_kelamin') or '').strip()
+		email = (request.form.get('email') or '').strip()
+		nomor_wa = (request.form.get('nomor_wa') or '').strip()
+		username_telegram = (request.form.get('username_telegram') or '').strip()
+		alamat = (request.form.get('alamat') or '').strip()
+		pilihan_tinggal = (request.form.get('pilihan_tinggal') or '').strip()
+		kampus = (request.form.get('kampus') or '').strip()
+		jurusan = (request.form.get('jurusan') or '').strip()
+		alasan = (request.form.get('alasan') or '').strip()
+
 		print(f"DEBUG: Received data - nama: {nama_lengkap}, email: {email}")
 		print(f"DEBUG: New fields - telegram: {username_telegram}, pilihan_tinggal: {pilihan_tinggal}")
-		
-		# Handle photo
+
+		# --- Server-side validation and sanitization ---
+		# Required checks
+		required = {
+			'nama_lengkap': nama_lengkap,
+			'nama_panggilan': nama_panggilan,
+			'jenis_kelamin': jenis_kelamin,
+			'email': email,
+			'nomor_wa': nomor_wa,
+			'alamat': alamat,
+			'pilihan_tinggal': pilihan_tinggal,
+			'kampus': kampus,
+			'jurusan': jurusan,
+			'alasan': alasan
+		}
+		for k, v in required.items():
+			if not v:
+				return jsonify({'status': 'error', 'message': f'Field {k} is required.'}), 400
+
+		# Basic email validation
+		if not re.match(r"^\S+@\S+\.\S+$", email):
+			return jsonify({'status': 'error', 'message': 'Email format tidak valid.'}), 400
+
+		# Phone validation (digits, plus, dash, space)
+		if not re.match(r'^[0-9+\-\s]{6,20}$', nomor_wa):
+			return jsonify({'status': 'error', 'message': 'Nomor WA tidak valid. Gunakan angka dan +/-.'}), 400
+
+		# jenis_kelamin allowed values (normalize)
+		if jenis_kelamin.lower() not in ('l', 'p', 'laki-laki', 'perempuan', 'male', 'female'):
+			return jsonify({'status': 'error', 'message': 'Pilihan jenis kelamin tidak valid.'}), 400
+
+		# Length limits
+		if len(nama_lengkap) > 200 or len(nama_panggilan) > 100:
+			return jsonify({'status': 'error', 'message': 'Panjang nama terlalu panjang.'}), 400
+		if len(alamat) > 1000 or len(alasan) > 3000:
+			return jsonify({'status': 'error', 'message': 'Teks terlalu panjang.'}), 400
+		if len(kampus) > 300 or len(jurusan) > 300:
+			return jsonify({'status': 'error', 'message': 'Panjang kampus/jurusan terlalu panjang.'}), 400
+
+		# Sanitize inputs roughly: escape HTML tags to avoid stored XSS
+		nama_lengkap = escape(nama_lengkap)
+		nama_panggilan = escape(nama_panggilan)
+		username_telegram = escape(username_telegram)
+		alamat = escape(alamat)
+		pilihan_tinggal = escape(pilihan_tinggal)
+		kampus = escape(kampus)
+		jurusan = escape(jurusan)
+		alasan = escape(alasan)
+
+		# Handle photo (validate and save) - default
 		photo_path = "tidak_ada.jpg"  # default (relative to static)
 		if 'photo' in request.files:
 			photo = request.files['photo']
 			if photo and photo.filename:
+				# Basic mimetype check
+				mimetype = photo.mimetype or ''
+				if not mimetype.startswith('image/'):
+					return jsonify({'status': 'error', 'message': 'File harus berupa gambar.'}), 400
+				# size check (read bytes then rewind)
+				photo_stream = photo.stream
+				photo_stream.seek(0, os.SEEK_END)
+				size = photo_stream.tell()
+				photo_stream.seek(0)
+				MAX_BYTES = 5 * 1024 * 1024
+				if size > MAX_BYTES:
+					return jsonify({'status': 'error', 'message': 'File gambar terlalu besar (max 5MB).'}), 400
 				# Ensure destination directory exists inside the app static folder
 				dest_dir = os.path.join(app.root_path, 'static', 'foto_calgot')
 				os.makedirs(dest_dir, exist_ok=True)
