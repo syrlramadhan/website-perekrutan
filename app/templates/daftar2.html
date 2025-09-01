@@ -170,22 +170,29 @@
                 method: 'POST',
                 body: formData,
             })
-            .then(response => {
+            .then(async response => {
                 console.log('Response status:', response.status);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    // response not JSON
                 }
-                return response.json();
+                if (!response.ok) {
+                    const msg = data && (data.message || data.error) ? (data.message || data.error) : `HTTP error! status: ${response.status}`;
+                    throw new Error(msg);
+                }
+                return data;
             })
-                .then(data => {
+            .then(data => {
                     console.log('Response:', data);
-                    if (data.status === 'success') {
+                    if (data && data.status === 'success') {
                         daftarForm.reset();
                         successMessage.classList.remove('d-none');
                         errorMessage.classList.add('d-none');
                         showToast('success', 'Pendaftaran berhasil! Terima kasih telah mendaftar.');
                     } else {
-                        throw new Error(data.message || 'Server responded with an error');
+                        throw new Error((data && (data.message || data.error)) || 'Server responded with an error');
                     }
                 })
                 .catch(error => {

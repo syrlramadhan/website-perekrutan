@@ -168,7 +168,12 @@ def postData():
 			return jsonify({'status': 'error', 'message': 'Nomor WA tidak valid. Gunakan angka dan +/-.'}), 400
 
 		# jenis_kelamin allowed values (normalize)
-		if jenis_kelamin.lower() not in ('l', 'p', 'laki-laki', 'perempuan', 'male', 'female'):
+		jk_lower = jenis_kelamin.lower()
+		if jk_lower in ('l', 'laki-laki', 'male', 'pria'):
+			jenis_kelamin = 'Pria'
+		elif jk_lower in ('p', 'perempuan', 'female', 'wanita'):
+			jenis_kelamin = 'Wanita'
+		else:
 			return jsonify({'status': 'error', 'message': 'Pilihan jenis kelamin tidak valid.'}), 400
 
 		# Length limits
