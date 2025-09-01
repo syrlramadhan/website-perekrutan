@@ -22,17 +22,17 @@
                             <h2 class="fw-bolder text-primary">Formulir Pendaftaran Anggota</h2>
                             <p class="lead fw-normal text-muted mb-0">Isi setiap kolom dengan data yang valid dan akurat.</p>
                         </div>
-                        <form id="daftarForm" class="row g-4" data-sb-form-api-token="API_TOKEN">
+                        <form id="daftarForm" class="row g-4">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="nama_lengkap" type="text" placeholder="Masukkan Nama Lengkap..." data-sb-validations="required" />
+                                    <input class="form-control" id="nama_lengkap" name="nama_lengkap" type="text" placeholder="Masukkan Nama Lengkap..." data-sb-validations="required" />
                                     <label for="nama_lengkap">Nama Lengkap</label>
                                     <div class="invalid-feedback" data-sb-feedback="nama_lengkap:required">Nama Lengkap diperlukan.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="nama_panggilan" type="text" placeholder="Masukkan Nama Panggilan..." data-sb-validations="required" />
+                                    <input class="form-control" id="nama_panggilan" name="nama_panggilan" type="text" placeholder="Masukkan Nama Panggilan..." data-sb-validations="required" />
                                     <label for="nama_panggilan">Nama Panggilan</label>
                                     <div class="invalid-feedback" data-sb-feedback="nama_panggilan:required">Nama Panggilan diperlukan.</div>
                                 </div>
@@ -42,20 +42,20 @@
                                 <label class="form-label fw-semibold">Jenis Kelamin</label>
                                 <div class="d-flex gap-4 mt-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenisKelamin" id="pria" value="Laki-laki" data-sb-validations="required" />
-                                        <label class="form-check-label" for="pria">Laki-laki</label>
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="Pria" data-sb-validations="required" />
+                                        <label class="form-check-label" for="pria">Pria</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenisKelamin" id="wanita" value="Perempuan" data-sb-validations="required" />
-                                        <label class="form-check-label" for="wanita">Perempuan</label>
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="Wanita" data-sb-validations="required" />
+                                        <label class="form-check-label" for="wanita">Wanita</label>
                                     </div>
                                 </div>
-                                <div class="invalid-feedback" data-sb-feedback="jenisKelamin:required">Pilih jenis kelamin.</div>
+                                <div class="invalid-feedback" data-sb-feedback="jenis_kelamin:required">Pilih jenis kelamin.</div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
                                     <label for="email">Alamat Email</label>
                                     <div class="invalid-feedback" data-sb-feedback="email:required">Email diperlukan.</div>
                                     <div class="invalid-feedback" data-sb-feedback="email:email">Email tidak valid.</div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="nomor_wa" type="tel" placeholder="+62 812 4567 8910" data-sb-validations="required" pattern="[0-9]+" />
+                                    <input class="form-control" id="nomor_wa" name="nomor_wa" type="tel" placeholder="+62 812 4567 8910" data-sb-validations="required" pattern="[0-9]+" />
                                     <label for="nomor_wa">Nomor WhatsApp</label>
                                     <div class="invalid-feedback" data-sb-feedback="nomor_wa:required">Nomor WhatsApp diperlukan.</div>
                                     <div class="invalid-feedback" data-sb-feedback="nomor_wa:pattern">Hanya angka yang diperbolehkan.</div>
@@ -72,7 +72,7 @@
 
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input class="form-control" id="username_telegram" type="text" placeholder="Masukkan Username Telegram..." data-sb-validations="required" />
+                                    <input class="form-control" id="username_telegram" name="username_telegram" type="text" placeholder="Masukkan Username Telegram..." data-sb-validations="required" />
                                     <label for="username_telegram">Username Telegram</label>
                                     <div class="invalid-feedback" data-sb-feedback="username_telegram:required">Username Telegram diperlukan.</div>
                                 </div>
@@ -80,14 +80,14 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="alamat" type="text" placeholder="Masukkan Alamat tempat tinggal..." data-sb-validations="required" />
+                                    <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Masukkan Alamat tempat tinggal..." data-sb-validations="required" />
                                     <label for="alamat">Alamat Tempat Tinggal</label>
                                     <div class="invalid-feedback" data-sb-feedback="alamat:required">Alamat tempat tinggal diperlukan.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-select" id="pilihan_tinggal" data-sb-validations="required">
+                                    <select class="form-select" id="pilihan_tinggal" name="pilihan_tinggal" data-sb-validations="required">
                                         <option value="" disabled selected>Pilih...</option>
                                         <option value="Orangtua">Tinggal dengan Orangtua</option>
                                         <option value="Keluarga">Tinggal dengan Keluarga</option>
@@ -100,14 +100,14 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="kampus" type="text" placeholder="Masukkan Asal Kampus..." data-sb-validations="required" />
+                                    <input class="form-control" id="kampus" name="kampus" type="text" placeholder="Masukkan Asal Kampus..." data-sb-validations="required" />
                                     <label for="kampus">Asal Kampus</label>
                                     <div class="invalid-feedback" data-sb-feedback="kampus:required">Asal Kampus diperlukan.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="jurusan" type="text" placeholder="Masukkan Jurusan..." data-sb-validations="required" />
+                                    <input class="form-control" id="jurusan" name="jurusan" type="text" placeholder="Masukkan Jurusan..." data-sb-validations="required" />
                                     <label for="jurusan">Jurusan</label>
                                     <div class="invalid-feedback" data-sb-feedback="jurusan:required">Jurusan diperlukan.</div>
                                 </div>
@@ -122,7 +122,7 @@
                             
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="alasan" type="text" placeholder="Masukkan alasan anda di sini..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                    <textarea class="form-control" id="alasan" name="alasan" type="text" placeholder="Masukkan alasan anda di sini..." style="height: 10rem" data-sb-validations="required"></textarea>
                                     <label for="alasan">Alasan Masuk COCONUT</label>
                                     <div class="invalid-feedback" data-sb-feedback="alasan:required">Alasan Masuk diperlukan.</div>
                                 </div>
@@ -161,13 +161,20 @@
         const errorMessage = document.getElementById('submitErrorMessage');
 
         function sendData(formData) {
-            fetch('{{ url_for("postData")}}', {
+            // Debug: Log form data
+            console.log('Sending form data:');
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+            
+            fetch('/api/postData', {
                 method: 'POST',
                 body: formData,
             })
             .then(response => {
+                console.log('Response status:', response.status);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
@@ -177,6 +184,7 @@
                     daftarForm.reset();
                     successMessage.classList.remove('d-none');
                     errorMessage.classList.add('d-none');
+                    alert('Pendaftaran berhasil! Terima kasih telah mendaftar.');
                 } else {
                     throw new Error(data.message || 'Server responded with an error');
                 }
@@ -185,6 +193,7 @@
                 console.error('Error:', error);
                 errorMessage.classList.remove('d-none');
                 successMessage.classList.add('d-none');
+                alert('Terjadi kesalahan: ' + error.message);
             })
             .finally(() => {
                 submitButton.disabled = false;
@@ -193,34 +202,26 @@
 
         daftarForm.addEventListener('submit', function (event) {
             event.preventDefault();
+            console.log('Form submission started');
             submitButton.disabled = true;
 
             const formData = new FormData(this);
+            
+            // Handle photo file
             const photoInput = document.getElementById('photo');
             if (photoInput.files.length > 0) {
-                formData.append('photo', photoInput.files[0]);
+                formData.set('photo', photoInput.files[0]);
+                console.log('Photo file added:', photoInput.files[0].name);
+            } else {
+                console.log('No photo file selected');
             }
 
-            // Memperbaiki nilai radio button yang tidak terdaftar oleh FormData
-            const jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked');
-            if (jenisKelamin) {
-                formData.append('jenis_kelamin', jenisKelamin.value);
+            // Debug: Log all form fields
+            console.log('Form fields before sending:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
             }
-
-            // Memperbaiki nilai select yang tidak terdaftar oleh FormData
-            const pilihanTinggal = document.getElementById('pilihan_tinggal');
-            formData.append('pilihan_tinggal', pilihanTinggal.value);
             
-            // Tambahkan nilai dari input lainnya secara manual
-            formData.append('nama_lengkap', document.getElementById('nama_lengkap').value);
-            formData.append('nama_panggilan', document.getElementById('nama_panggilan').value);
-            formData.append('email', document.getElementById('email').value);
-            formData.append('nomor_wa', document.getElementById('nomor_wa').value);
-            formData.append('alamat', document.getElementById('alamat').value);
-            formData.append('kampus', document.getElementById('kampus').value);
-            formData.append('jurusan', document.getElementById('jurusan').value);
-            formData.append('alasan', document.getElementById('alasan').value);
-
             sendData(formData);
         });
     });

@@ -39,8 +39,11 @@ def login():
 		return redirect(url_for('pendaftar'))
 	return render_template('login.html', form=form)
 	
-
-
+@app.route('/logout')
+@login_required
+def logout():
+	logout_user()
+	return redirect(url_for('login'))
 
 @app.route('/newDaftar', methods=['GET','POST'])
 def newDaftar():
@@ -67,51 +70,111 @@ def news():
 
 @app.route('/api/getData', methods=['GET'])
 def getData():
-	daftar_calgot = calgot.query.all()
-	# for isi in daftar_calgot:
-	# 	print(isi.id)
-	data_jsom = []
-	for baris in daftar_calgot:
-		data_jsom.append({
-			'id':baris.id,
-			'nama_lengkap':baris.nama_lengkap,
-			'nama_panggilan':baris.nama_panggilan,
-			'jenis_kelamin':baris.jenis_kelamin,
-			'nomor_wa':baris.nomor_wa,
-			'email':baris.email,
-			'alamat':baris.alamat,
-			'kampus':baris.kampus,
-			'jurusan':baris.jurusan,
-			'foto':baris.foto[11:],
-			'tanggal':baris.timestamp,
-			'alasan':baris.alasan
-		})
-	return jsonify(data_jsom)
+	try:
+		print("DEBUG: getData route called")
+		daftar_calgot = calgot.query.all()
+		print(f"DEBUG: Found {len(daftar_calgot)} records")
+		
+		data_jsom = []
+		for baris in daftar_calgot:
+			print(f"DEBUG: Processing record {baris.id}: {baris.nama_lengkap}")
+			# Handle foto path safely
+			foto_path = baris.foto
+			if foto_path and len(foto_path) > 11:
+				foto_path = foto_path[11:]  # Remove 'app/static/' prefix
+			elif foto_path:
+				foto_path = foto_path
+			else:
+				foto_path = "tidak_ada.jpg"
+			
+			data_jsom.append({
+				'id': baris.id,
+				'nama_lengkap': baris.nama_lengkap,
+				'nama_panggilan': baris.nama_panggilan,
+				'jenis_kelamin': baris.jenis_kelamin,
+				'nomor_wa': baris.nomor_wa,
+				'email': baris.email,
+				'username_telegram': baris.username_telegram or '',
+				'alamat': baris.alamat,
+				'pilihan_tinggal': baris.pilihan_tinggal or '',
+				'kampus': baris.kampus,
+				'jurusan': baris.jurusan,
+				'foto': foto_path,
+				'tanggal': baris.timestamp.strftime('%d-%m-%Y %H:%M') if baris.timestamp else '',
+				'alasan': baris.alasan
+			})
+		
+		print(f"DEBUG: Returning {len(data_jsom)} records")
+		return jsonify(data_jsom)
+	except Exception as e:
+		print(f"ERROR in getData: {e}")
+		import traceback
+		traceback.print_exc()
+		return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/postData', methods=['GET','POST'])
 def postData():
-	nama_lengkap = request.form.get('nama_lengkap')
 	try:
-		photo = request.files['photo']
-		nama_lengkap = nama_lengkap.replace(' ','_').replace(',','').replace('.','')
-		photo_path = os.path.join("app/static/foto_calgot", nama_lengkap+'.jpg')
-		photo.save(photo_path)
+		print("DEBUG: postData route called")
+		print("DEBUG: Form data:", request.form)
+		print("DEBUG: Files:", request.files)
+		
+		# Get form data
+		nama_lengkap = request.form.get('nama_lengkap')
+		nama_panggilan = request.form.get('nama_panggilan')
+		jenis_kelamin = request.form.get('jenis_kelamin')
+		email = request.form.get('email')
+		nomor_wa = request.form.get('nomor_wa')
+		username_telegram = request.form.get('username_telegram')
+		alamat = request.form.get('alamat')
+		pilihan_tinggal = request.form.get('pilihan_tinggal')
+		kampus = request.form.get('kampus')
+		jurusan = request.form.get('jurusan')
+		alasan = request.form.get('alasan')
+		
+		print(f"DEBUG: Received data - nama: {nama_lengkap}, email: {email}")
+		print(f"DEBUG: New fields - telegram: {username_telegram}, pilihan_tinggal: {pilihan_tinggal}")
+		
+		# Handle photo
+		photo_path = "tidak_ada.jpg"  # default
+		if 'photo' in request.files:
+			photo = request.files['photo']
+			if photo.filename != '':
+				# Clean filename
+				clean_name = nama_lengkap.replace(' ','_').replace(',','').replace('.','')
+				photo_path = os.path.join("app/static/foto_calgot", clean_name + '.jpg')
+				photo.save(photo_path)
+				print(f"DEBUG: Photo saved to {photo_path}")
+		
+		# Create calgot object
 		add_calgot = calgot(
-			nama_lengkap=request.form.get('nama_lengkap'),
-			nama_panggilan=request.form.get('nama_panggilan'),
-			jenis_kelamin=request.form.get('jenis_kelamin'),
-			email=request.form.get('email'),
-			nomor_wa=request.form.get('nomor_wa'),
-			alamat=request.form.get('alamat'),
-			kampus=request.form.get('kampus'),
-			jurusan=request.form.get('jurusan'),
+			nama_lengkap=nama_lengkap,
+			nama_panggilan=nama_panggilan,
+			jenis_kelamin=jenis_kelamin,
+			email=email,
+			nomor_wa=nomor_wa,
+			username_telegram=username_telegram,
+			alamat=alamat,
+			pilihan_tinggal=pilihan_tinggal,
+			kampus=kampus,
+			jurusan=jurusan,
 			foto=photo_path,
-			alasan=request.form.get('alasan')
+			alasan=alasan
 		)
+		
+		print(f"DEBUG: Creating calgot object: {add_calgot}")
+		
+		# Save to database
 		db.session.add(add_calgot)
 		db.session.commit()
-		print(f"Calgot {nama_lengkap} berhasil di daftar")
-		return {'status': 'success'}
-	except:
-		return {'status': 'error'}
+		
+		print(f"DEBUG: Calgot {nama_lengkap} berhasil didaftarkan")
+		return jsonify({'status': 'success', 'message': 'Pendaftaran berhasil!'})
+		
+	except Exception as e:
+		print(f"ERROR in postData: {e}")
+		import traceback
+		traceback.print_exc()
+		db.session.rollback()
+		return jsonify({'status': 'error', 'message': str(e)}), 500

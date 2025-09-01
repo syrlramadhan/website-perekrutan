@@ -21,10 +21,16 @@
         <div class="col-lg-11 col-xl-9 col-xxl-8">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="text-primary fw-bolder mb-0">Daftar Pendaftar</h2>
-            <a class="btn btn-primary px-4 py-2 rounded-pill shadow" href="#" id="download-button">
-              <div class="d-inline-block bi bi-file-earmark-arrow-down me-2"></div>
-              Unduh Data
-            </a>
+            <div class="d-flex gap-3">
+              <a class="btn btn-primary px-4 py-2 rounded-pill shadow" href="#" id="download-button">
+                <div class="d-inline-block bi bi-file-earmark-arrow-down me-2"></div>
+                Unduh Data
+              </a>
+              <a class="btn btn-outline-danger px-4 py-2 rounded-pill shadow-sm" href="{{ url_for('logout') }}">
+                <div class="d-inline-block bi bi-box-arrow-right me-2"></div>
+                Logout
+              </a>
+            </div>
           </div>
 
           <div id="data-container" class="row g-4">
@@ -47,17 +53,24 @@
 {% block scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", async function() {
+        console.log('DOM loaded, starting fetch...');
         const dataContainer = document.getElementById('data-container');
         const loadingSpinner = document.getElementById('loading-spinner');
         const noDataMessage = document.getElementById('no-data-message');
         
         async function fetchData() {
             try {
-                const response = await fetch('{{ url_for("getData")}}');
+                const url = '{{ url_for("getData") }}';
+                console.log('Fetching data from:', url);
+                const response = await fetch(url);
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
-                    throw new Error('Gagal memuat data pendaftar.');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                console.log('Data received:', data);
+                console.log('Number of records:', data.length);
                 return data;
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -66,42 +79,126 @@
         }
 
         function displayData(data) {
+            console.log('displayData called with:', data);
+            console.log('data type:', typeof data);
+            console.log('data length:', data ? data.length : 'null');
+            
             loadingSpinner.classList.add('d-none');
-            if (!data || data.length === 0) {
+            
+            if (!data) {
+                console.log('Data is null or undefined');
+                noDataMessage.classList.remove('d-none');
+                return;
+            }
+            
+            if (data.length === 0) {
+                console.log('Data array is empty');
                 noDataMessage.classList.remove('d-none');
                 return;
             }
 
-            data.forEach(item => {
+            console.log('Displaying', data.length, 'records');
+            data.forEach((item, index) => {
                 const cardCol = document.createElement('div');
-                cardCol.className = 'col-lg-6';
+                cardCol.className = 'col-12 col-lg-6 mb-4';
 
                 const card = document.createElement('div');
-                card.className = 'card shadow-sm border-0 rounded-4 h-100';
+                card.className = 'card shadow border-0 rounded-4 h-100 overflow-hidden';
 
                 const cardBody = document.createElement('div');
                 cardBody.className = 'card-body p-4';
 
                 cardBody.innerHTML = `
-                    <div class="d-flex align-items-center mb-3">
+                    <!-- Header dengan foto dan info utama -->
+                    <div class="d-flex align-items-center mb-4">
                         <div class="me-3">
-                            <img src="{{ url_for('static', filename='') }}${item.foto}" alt="${item.nama_lengkap}" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+                            <img src="/static/${item.foto}" alt="${item.nama_lengkap}" 
+                                 class="rounded-circle border border-3 border-primary" 
+                                 style="width: 80px; height: 80px; object-fit: cover;" 
+                                 onerror="this.src='/static/assets/img/Asset 4@4x (1).png'">
                         </div>
-                        <div>
-                            <h5 class="fw-bold mb-0 text-primary">${item.nama_lengkap}</h5>
-                            <p class="text-muted small mb-0">${item.jurusan}, ${item.kampus}</p>
-                            <span class="badge bg-light text-secondary mt-1">${item.tanggal}</span>
+                        <div class="flex-grow-1">
+                            <h5 class="fw-bold mb-1 text-primary">${item.nama_lengkap}</h5>
+                            <p class="text-muted mb-1"><i class="bi bi-person-badge me-1"></i>${item.nama_panggilan}</p>
+                            <span class="badge bg-primary-subtle text-primary">${item.tanggal}</span>
                         </div>
                     </div>
-                    <hr class="my-3">
-                    <p class="card-text fw-semibold mb-2">Alasan Masuk:</p>
-                    <p class="text-muted small mb-0">${item.alasan}</p>
+                    
+                    <!-- Info Kontak -->
+                    <div class="bg-light rounded-3 p-3 mb-3">
+                        <h6 class="fw-bold text-dark mb-3"><i class="bi bi-telephone-fill me-2"></i>Informasi Kontak</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-envelope-fill text-primary me-2"></i>Email
+                                </small>
+                                <div class="fw-medium" style="word-break: break-word;">${item.email}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-whatsapp text-success me-2"></i>WhatsApp
+                                </small>
+                                <div class="fw-medium">${item.nomor_wa}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-telegram text-info me-2"></i>Telegram
+                                </small>
+                                <div class="fw-medium">${item.username_telegram || '-'}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-person-fill text-secondary me-2"></i>Jenis Kelamin
+                                </small>
+                                <div class="fw-medium">${item.jenis_kelamin}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Tempat Tinggal -->
+                    <div class="bg-warning-subtle rounded-3 p-3 mb-3">
+                        <h6 class="fw-bold text-dark mb-3"><i class="bi bi-house-fill me-2"></i>Tempat Tinggal</h6>
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-geo-alt-fill text-danger me-2 mt-1"></i>
+                            <div class="flex-grow-1">
+                                <div class="fw-medium mb-2" style="line-height: 1.4;">${item.alamat}</div>
+                                ${item.pilihan_tinggal ? `<span class="badge bg-warning text-dark px-3 py-2">${item.pilihan_tinggal}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Akademik -->
+                    <div class="bg-success-subtle rounded-3 p-3 mb-3">
+                        <h6 class="fw-bold text-dark mb-3"><i class="bi bi-mortarboard-fill me-2"></i>Informasi Akademik</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-building text-warning me-2"></i>Kampus
+                                </small>
+                                <div class="fw-medium" style="line-height: 1.4;">${item.kampus}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted d-flex align-items-center mb-1">
+                                    <i class="bi bi-book text-primary me-2"></i>Jurusan
+                                </small>
+                                <div class="fw-medium" style="line-height: 1.4;">${item.jurusan}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alasan Masuk -->
+                    <div class="bg-info-subtle rounded-3 p-3">
+                        <h6 class="fw-bold text-dark mb-3"><i class="bi bi-chat-heart-fill me-2"></i>Motivasi</h6>
+                        <p class="mb-0 fst-italic" style="line-height: 1.5; font-size: 0.95rem;">"${item.alasan}"</p>
+                    </div>
                 `;
 
                 card.appendChild(cardBody);
                 cardCol.appendChild(card);
                 dataContainer.appendChild(cardCol);
             });
+            console.log('Finished displaying data');
+            console.log('DOM elements added to:', dataContainer);
         }
         
         const data = await fetchData();
