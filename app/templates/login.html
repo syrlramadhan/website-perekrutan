@@ -1,129 +1,152 @@
-<html lang="en"><head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  
-    <title>Coconut</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-  
-    <!-- Favicons -->
-    <link href="{{ url_for('static', filename='assets/img/favicon.png')}}" rel="icon">
-    <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
-  
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  
-    <!-- Vendor CSS Files -->
-    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
-  
-    <!-- Template Main CSS File -->
-    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="id">
 
-  
-    <!-- =======================================================
-    * Template Name: NiceAdmin
-    * Updated: Aug 30 2023 with Bootstrap v5.3.1
-    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
-  </head>
-  
-  <body>
-  
-    <main>
-      <div class="container">
-  
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-  
-                <div class="d-flex justify-content-center py-4">
-                  <a href="index.html" class="logo d-flex align-items-center w-auto">
-                    <img src="{{ url_for('static', filename='assets/img/logo.png')}}" width="100" alt="">
-                    <span class="d-none d-lg-block">Coconut</span>
-                  </a>
-                </div><!-- End Logo -->
-  
-                <div class="card mb-3">
-  
-                  <div class="card-body">
-  
-                    <div class="pt-4 pb-2">
-                      <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                      <p class="text-center small">Enter your username &amp; password to login</p>
-                    </div>
-  
-                    <form action="" method="post" class="row g-3 needs-validation" novalidate="">
-                        {{ form.hidden_tag() }}
-  
-                      <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                          <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                          <!-- <input type="text" name="username" class="form-control" id="yourUsername" required=""> -->
-                          {{ form.username(class='form-control') }}
-                          <div class="invalid-feedback">Tolong masukkan nama pengguna anda.</div>
-                        </div>
-                      </div>
-  
-                      <div class="col-12">
-                        <label for="password" class="form-label">Password</label>
-                        <!-- <input type="password" name="password" class="form-control" id="yourPassword" required=""> -->
-                        {{ form.password(class='form-control') }}
-                        <div class="invalid-feedback">Tolong masukkan password anda</div>
-                      </div>
-  
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-                      <div class="col-12">
-                        <!-- <button class="btn btn-primary w-100" type="submit">Login</button> -->
-                        {{ form.submit(class='btn btn-primary w-100') }}
-                      </div>
-                    </form>
+  <title>Login - COCONUT Computer Club</title>
+  <meta content="Halaman login untuk admin COCONUT Computer Club." name="description">
+  <meta content="COCONUT, login, admin, dashboard" name="keywords">
+
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css')}}" rel="stylesheet">
   
-                  </div>
-                </div>
-  
-                <!-- <div class="credits"> -->
-                  <!-- All the links in the footer should remain intact. -->
-                  <!-- You can delete the links only if you purchased the pro version. -->
-                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                  <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-                <!-- </div> -->
-  
-              </div>
+  <style>
+    :root {
+      --primary-blue: #0A1C49;
+      --secondary-blue: #244a9b;
+      --light-blue: #e8ebf5;
+      --text-color: #444444;
+      --bg-color: #f6f9ff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+    }
+
+    .main-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+
+    .login-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo img {
+      max-height: 60px;
+    }
+
+    .login-logo span {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-left: 10px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-header .card-title {
+      color: var(--primary-blue);
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 0.25rem rgba(10, 28, 73, 0.25);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      border-color: var(--primary-blue);
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-blue);
+      border-color: var(--secondary-blue);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="login-card">
+
+            <div class="login-logo">
+              <a href="{{ url_for('index')}}">
+                <img src="{{ url_for('static', filename='assets/img/logo coconut1@4x (1).png')}}" alt="Coconut Logo">
+              </a>
             </div>
+
+            <div class="login-header">
+              <h5 class="card-title">Login ke Akun Anda</h5>
+              <p class="small text-muted">Masukkan username &amp; password untuk login</p>
+            </div>
+
+            <form action="" method="post" class="row g-3 needs-validation" novalidate="">
+              {{ form.hidden_tag() }}
+
+              <div class="col-12">
+                <label for="username" class="form-label">Username</label>
+                <div class="input-group has-validation">
+                  {{ form.username(class='form-control', placeholder='Masukkan username') }}
+                  <div class="invalid-feedback">Tolong masukkan nama pengguna anda.</div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                {{ form.password(class='form-control', placeholder='Masukkan password') }}
+                <div class="invalid-feedback">Tolong masukkan password anda.</div>
+              </div>
+
+              <div class="col-12">
+                {{ form.submit(class='btn btn-primary w-100 mt-2') }}
+              </div>
+            </form>
           </div>
-  
-        </section>
-  
+        </div>
       </div>
-    </main><!-- End #main -->
-  
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
-    <!-- Vendor JS Files -->
-    <script src="{{ url_for('static', filename='assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/chart.js/chart.umd.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/echarts/echarts.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/quill/quill.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js')}}"></script>
-  
-    <!-- Template Main JS File -->
-      <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
-  
-  
-  
-  <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body></html>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      AOS.init();
+    });
+  </script>
+
+</body>
+</html>
