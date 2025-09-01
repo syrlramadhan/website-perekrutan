@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Berita & Acara - COCONUT Computer Club{% endblock %}
+
+{% block content %}
+<main id="main">
+
+  <section id="news-hero" class="d-flex align-items-center position-relative overflow-hidden py-5">
+    <div class="background-animation"></div>
+    <div class="container position-relative z-index-1" data-aos="fade-up">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-3">Berita & Acara</h1>
+          <p class="lead -50">Temukan berita terkini, proyek inovatif, dan acara yang akan datang dari COCONUT Computer Club.</p>
+        </div>
+      </div>
+    </div>
+  </section><section id="main-news" class="py-5">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <article class="card p-4 shadow-lg border-0 mb-5 animate__animated animate__fadeInUp">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <img src="{{ url_for('static', filename='assets/img/Flyer IDSECCONF 2025 v2.0.jpg') }}" class="img-fluid rounded-3" alt="IDSecConf 2025" style="background-color: #0d2c60;">
+          </div>
+          <div class="col-lg-7">
+            <h3 class="fw-bold text-primary">Coming Soon - Kolaborasi Spesial: COCONUT Computer Club & IDSECCONF</h3>
+            <p class="text-muted">November 2025</p>
+            <p class="card-text lead">COCONUT Computer Club dengan bangga mengumumkan kolaborasi eksklusif dengan **IDSecConf 2025**, konferensi keamanan siber tahunan terbesar di Indonesia. Kami akan berkontribusi dalam riset keamanan dan penyelenggaraan acara, membuka kesempatan bagi anggota kami untuk terlibat langsung dengan ahli keamanan siber kelas dunia.</p>
+            <a href="https://2025.idsecconf.org/" target="_blank" class="btn btn-primary mt-3 px-4 py-2">Kunjungi IDSecConf 2025</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="section-header text-center mb-5 mt-5">
+        <h2 class="fw-bold text-danger">Semua Berita</h2>
+        <p class="text-muted">Ikuti perkembangan terbaru kami</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 d-flex">
+          <div class="card shadow-sm border-0 flex-grow-1" data-aos="fade-up" data-aos-delay="100">
+            <img src="{{ url_for('static', filename='assets/img/inesa.png') }}" class="card-img-top" alt="Proyek INESA">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold">INESA (Inovasi dan Edukasi Desa)</h5>
+              <p class="card-text text-muted mb-auto">Pelajari lebih lanjut tentang <b>INESA</b> (Indonesian Entrepreneur & Societal Academy), proyek riset unggulan kami yang fokus pada pengembangan teknologi untuk membantu masyarakat pedesaan. Anggota COCONUT terlibat langsung dalam menciptakan solusi teknologi yang berdampak sosial.</p>
+              <a href="https://inesa.id" target="_blank" class="btn btn-outline-primary mt-3">Baca Selengkapnya</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 d-flex">
+          <div class="card shadow-sm border-0 flex-grow-1" data-aos="fade-up" data-aos-delay="200">
+            <img src="{{ url_for('static', filename='assets/img/gmr1.png') }}" class="card-img-top" alt="Open Recruitment">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold">Pembukaan Pendaftaran Anggota Baru Batch ROOT</h5>
+              <p class="card-text text-muted mb-auto">Pendaftaran anggota baru COCONUT Computer Club kini dibuka! Kami mencari individu bersemangat yang siap untuk berkolaborasi dalam riset dan proyek inovatif. Ikuti semua tahapan seleksi untuk menjadi bagian dari keluarga kami.</p>
+              <a href="{{ url_for('daftar') }}" class="btn btn-outline-primary mt-3">Daftar Sekarang</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 d-flex">
+          <div class="card shadow-sm border-0 flex-grow-1" data-aos="fade-up" data-aos-delay="300">
+            <img src="{{ url_for('static', filename='assets/img/coc.png') }}" class="card-img-top" alt="Workshop">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold">COCONUT Open Class</h5>
+              <p class="card-text text-muted mb-auto">COCONUT Open Class adalah program workshop terbuka yang ditujukan untuk siswa, mahasiswa dan pihak eksternal. Dalam kelas ini, peserta akan mendapatkan wawasan mendalam tentang berbagai topik, mulai dari teknologi terkini hingga keterampilan soft skill yang diperlukan di dunia profesional.</p>
+              <a href="#" class="btn btn-outline-primary mt-3">Baca Selengkapnya</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section></main>
+{% endblock %}

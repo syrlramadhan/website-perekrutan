@@ -59,6 +59,12 @@ def daftar():
 
 
 
+@app.route('/news')
+def news():
+	return render_template('news.html')
+
+
+
 @app.route('/api/getData', methods=['GET'])
 def getData():
 	daftar_calgot = calgot.query.all()

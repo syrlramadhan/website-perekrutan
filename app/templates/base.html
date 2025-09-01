@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pendaftaran Coconut Computer Club</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>{% block title %}Pendaftaran COCONUT Computer Club - Bandung Chapter{% endblock %}</title>
+  <meta content="Situs pendaftaran resmi COCONUT Computer Club cabang Bandung. Bergabunglah dengan kami untuk berinovasi dan berkontribusi di dunia teknologi." name="description">
+  <meta content="COCONUT, Computer Club, Pendaftaran, Mahasiswa, Bandung, IT, Teknologi, Rekrutmen, Informatika, Riset" name="keywords">
 
-  <!-- Favicons -->
   <link href="{{ url_for('static', filename='assets/img/Asset 4@4x (1).png')}}" rel="icon">
   <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
   <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
@@ -24,78 +22,230 @@
   <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
   <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet">
 
+  <style>
+    /* Mengatur variabel warna dan font untuk konsistensi */
+    :root {
+      --primary-blue: #0A1C49;
+      --secondary-blue: #244a9b;
+      --accent-color: #ffffff; 
+      --white-text: #EFEFEF;
+      --light-gray: #B0BEC5;
+      --bg-light: #F8F9FA;
+      --font-poppins: 'Poppins', sans-serif;
+      --font-roboto: 'Roboto', sans-serif;
+    }
 
+    body {
+      font-family: var(--font-poppins);
+      color: #333;
+      background-color: var(--bg-light);
+    }
+
+    /* Header & Navigasi */
+    #header {
+      background-color: var(--primary-blue);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #header .logo img {
+      max-height: 50px;
+      transition: all 0.3s ease;
+    }
+
+    #header .logo img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+
+    .navbar a, .navbar-mobile a {
+      color: var(--white-text);
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .navbar a:hover::after, .navbar .active::after {
+      width: 100%;
+    }
+
+    .navbar a:hover, .navbar .active {
+      color: var(--accent-color);
+    }
+
+    .mobile-nav-toggle {
+      color: var(--white-text);
+      font-size: 28px;
+    }
+
+    /* Main Content */
+    #main {
+      padding-top: 100px;
+      padding-bottom: 50px;
+    }
+
+    /* Footer */
+    #footer {
+      background-color: var(--primary-blue);
+      color: var(--white-text);
+      font-family: var(--font-roboto);
+      padding: 50px 0 20px 0;
+      border-top: 4px solid var(--secondary-blue);
+    }
+
+    #footer .footer-top {
+      padding-bottom: 30px;
+    }
+
+    #footer .footer-top h3 {
+      font-weight: 700;
+      color: var(--white-text);
+      font-family: var(--font-poppins);
+    }
+
+    #footer .footer-top p {
+      color: var(--light-gray);
+      font-size: 14px;
+    }
+
+    #footer .footer-links h4, #footer .footer-contact h4 {
+      font-weight: 600;
+      color: var(--white-text);
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    #footer .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #footer .footer-links a {
+      color: var(--light-gray);
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    
+    #footer .footer-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    #footer .social-links a {
+      background-color: var(--secondary-blue);
+      color: var(--white-text);
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #footer .social-links a:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-5px);
+    }
+
+    #footer .copyright, #footer .credits {
+      color: var(--light-gray);
+      font-size: 14px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+  </style>
+
+  {% block head %}{% endblock %}
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top header-scrolled">
-    <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="{{ url_for('index')}}">
-        <img src="{{ url_for('static', filename='assets/img/logo coconut1@4x (1).png')}}" alt="">
-      </a></h1>
-
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo">
+        <a href="{{ url_for('index')}}">
+          <img src="{{ url_for('static', filename='assets/img/logo panjang putih.png')}}" alt="Coconut Logo" class="img-fluid">
+        </a>
+      </div>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Beranda</a></li>
-          <!-- <li><a class="nav-link scrollto" href="#about">ABOUT</a></li>
-          <li><a class="nav-link scrollto" href="#recent-posts">BLOCK</a></li> -->
-          <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Mendaftar</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Pendaftaran</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">Berita</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
+      </nav>
     </div>
-  </header><!-- End Header -->
-
-  {% block content %}
-
-  {% endblock %}
-
-  <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-  <!-- CONTACT END -->
-
-  <!-- ======= Footer ======= -->
+  </header>
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
   <footer id="footer">
-    <div class="container">
-      <H2>COCONUT</H2>
-      <p>COMPUTER CLUB ORIENTED NETWORK UTILITY AND TECHNOLOGY</p>
-      <div class="social-links">
-        <!-- <a href="#" class="youtube"><i class="bx bi-youtube"></i></a> -->
-        <a href="https://www.facebook.com/coconutcomputer" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="https://www.instagram.com/coconutdotorg/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <!-- <a href="#" class="tiktok"><i class="bx bi-tiktok"></i></a> -->
-      </div>
-      <div class="copyright">
-        &copy; Copyright <strong><span>COCONUT</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://coconut.or.id">COCONUT COMPUTER CLUB</a> 
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3 class="--secondary-blue">COCONUT</h3>
+            <p>Computer Club Oriented Network Utility and Technology. Menghubungkan mahasiswa dengan teknologi untuk dampak sosial.</p>
+          </div>
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4 class="--secondary-blue">Menu</h4>
+            <ul>
+              <li><a href="{{ url_for('index') }}">Beranda</a></li>
+              <li><a href="{{ url_for('daftar') }}">Pendaftaran</a></li>
+              <li><a href="{{ url_for('news') }}">Berita</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4 class="--secondary-blue">Kontak</h4>
+            <p>
+              Bandung, Jawa Barat<br>
+              Indonesia <br><br>
+              <strong>Email:</strong> hello@coconut.or.id<br>
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4 class="--secondary-blue">Sosial Media</h4>
+            <div class="social-links mt-3">
+              <a href="https://www.facebook.com/coconutcomputer" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="https://www.instagram.com/coconutdotorg/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="https://www.linkedin.com/company/coconut-computer-club/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+          <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+          <div class="copyright text-center">
+            &copy; Copyright <strong><span>COCONUT</span></strong>. All Rights Reserved Didesain oleh <a href="https://coconut.or.id">COCONUT COMPUTER CLUB</a>
+          </div>
       </div>
     </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+  </footer>
   <div id="preloader"></div>
-  <!-- Vendor JS Files -->
-  <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+
   <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js')}}"></script>
-
-  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
   <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
 
-
+  {% block scripts %}{% endblock %}
 </body>
-
 </html>

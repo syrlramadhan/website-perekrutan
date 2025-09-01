@@ -1,11 +1,18 @@
 
+:root {
+  --secondary-blue: #244a9b; /* matches base.html */
+  --primary-text: #444444;
+  --muted-text: #6182ba;
+  --white: #ffffff;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
-  color: #444444;
+  color: var(--primary-text);
 }
 
 a {
-  color: #47b2e4;
+  color: var(--secondary-blue);
   text-decoration: none;
 }
 
@@ -44,7 +51,7 @@ iframe {
   bottom: 0;
   z-index: 9999;
   overflow: hidden;
-  background: #419197;
+  background: var(--secondary-blue);
 }
 
 #preloader:before {
@@ -115,7 +122,7 @@ iframe {
 
 #header.header-scrolled,
 #header.header-inner-pages {
-  background: #419197;
+  background: var(--secondary-blue);
 }
 
 #header .logo {
@@ -192,7 +199,7 @@ iframe {
   border-radius: 50px;
   color: #fff;
   font-size: 14px;
-  border: 2px solid #47b2e4;
+  border: 2px solid var(--secondary-blue);
   font-weight: 600;
 }
 
@@ -237,7 +244,7 @@ iframe {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #47b2e4;
+  color: var(--secondary-blue);
 }
 
 .navbar .dropdown:hover>ul {
@@ -337,7 +344,7 @@ iframe {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #47b2e4;
+  color: var(--secondary-blue);
 }
 
 .navbar-mobile .getstarted,
@@ -387,8 +394,7 @@ iframe {
 #hero {
   width: 100%;
   height: 100vh;
-  background: #419197;
-  
+  background: var(--secondary-blue);
 }
 
 #hero .container {
@@ -420,7 +426,7 @@ iframe {
   transition: 0.5s;
   margin: 10px 0 0 0;
   color: #fff;
-  background: #12486B;
+  background: var(--secondary-blue);
 }
 
 #hero .btn-get-started:hover {
@@ -601,7 +607,7 @@ section {
   display: block;
   width: 50px;
   height: 3px;
-  background: var(--color-primary);
+  background: var(--secondary-blue);
   left: 0;
   right: 0;
   bottom: 0;
@@ -742,7 +748,7 @@ section {
   left: 0;
   top: 2px;
   font-size: 20px;
-  color: #47b2e4;
+  color: var(--secondary-blue);
   line-height: 1;
 }
 
@@ -782,7 +788,7 @@ section {
 .why-us .content h3 {
   font-weight: 400;
   font-size: 34px;
-  color: #37517e;
+  color: var(--secondary-blue);
 }
 
 .why-us .content h4 {
@@ -834,7 +840,7 @@ section {
 }
 
 .why-us .accordion-list span {
-  color: #47b2e4;
+  color: var(--secondary-blue);
   font-weight: 600;
   font-size: 18px;
   padding-right: 10px;
@@ -923,7 +929,7 @@ section {
 .skills .content ul i {
   font-size: 20px;
   padding-right: 4px;
-  color: #47b2e4;
+  color: var(--secondary-blue);
 }
 
 .skills .content p:last-child {
@@ -961,7 +967,7 @@ section {
   width: 1px;
   height: 10px;
   transition: 0.9s;
-  background-color: #4668a2;
+  background-color: var(--secondary-blue);
 }
 
 /*--------------------------------------------------------------
@@ -979,7 +985,7 @@ section {
 }
 
 .services .icon-box .icon i {
-  color: #47b2e4;
+  color: var(--secondary-blue);
   font-size: 36px;
   transition: 0.3s;
 }
@@ -1040,7 +1046,7 @@ section {
   margin: 10px;
   border: 2px solid #fff;
   color: #12486B;
-  margin-life: 80px;
+  margin-left: 80px;
   background: #78D6C6;
 }
 
@@ -1060,7 +1066,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-life: 80px;
+  margin-left: 80px;
   }
 }
 
@@ -1088,7 +1094,7 @@ section {
 
 .portfolio #portfolio-flters li:hover,
 .portfolio #portfolio-flters li.filter-active {
-  background: #47b2e4;
+  background: var(--secondary-blue);
   color: #fff;
 }
 
@@ -1533,8 +1539,8 @@ section {
 # Contact
 --------------------------------------------------------------*/
 .contact .info {
-  border-top: 3px solid #47b2e4;
-  border-bottom: 3px solid #47b2e4;
+  border-top: 3px solid var(--secondary-blue);
+  border-bottom: 3px solid var(--secondary-blue);
   padding: 30px;
   background: #fff;
   width: 100%;
@@ -1766,7 +1772,7 @@ section {
 --------------------------------------------------------------*/
 #footer {
   font-size: 14px;
-  background: #37517e;
+  background: var(--secondary-blue);
 }
 
 #footer .footer-newsletter {
@@ -1852,7 +1858,7 @@ section {
 #footer .footer-top h4 {
   font-size: 16px;
   font-weight: bold;
-  color: #37517e;
+  color: var(--secondary-blue);
   position: relative;
   padding-bottom: 12px;
 }
@@ -1899,7 +1905,7 @@ section {
 #footer .footer-top .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #47b2e4;
+  background: var(--secondary-blue);
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -1912,7 +1918,7 @@ section {
 }
 
 #footer .footer-top .social-links a:hover {
-  background: #209dd8;
+  background: #1b4a8a;
   color: #fff;
   text-decoration: none;
 }
