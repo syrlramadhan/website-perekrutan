@@ -117,10 +117,10 @@
                     <!-- Header dengan foto dan info utama -->
                     <div class="d-flex align-items-center mb-4">
                         <div class="me-3">
-                            <img src="/static/${item.foto}" alt="${item.nama_lengkap}" 
-                                 class="rounded-circle border border-3 border-primary" 
-                                 style="width: 80px; height: 80px; object-fit: cover;" 
-                                 onerror="this.src='/static/assets/img/Asset 4@4x (1).png'">
+             <img src="${ item.foto ? ('/static/' + item.foto) : '/static/assets/img/Asset 4@4x (1).png' }" alt="${item.nama_lengkap}" 
+               class="rounded-circle border border-3 border-primary" 
+               style="width: 80px; height: 80px; object-fit: cover;" 
+               onerror="this.src='/static/assets/img/Asset 4@4x (1).png'">
                         </div>
                         <div class="flex-grow-1">
                             <h5 class="fw-bold mb-1 text-primary">${item.nama_lengkap}</h5>

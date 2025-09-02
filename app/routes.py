@@ -84,13 +84,15 @@ def getData():
 		for baris in daftar_calgot:
 			print(f"DEBUG: Processing record {baris.id}: {baris.nama_lengkap}")
 			# Handle foto path safely
-			foto_path = baris.foto
-			if foto_path and len(foto_path) > 11:
-				foto_path = foto_path[11:]  # Remove 'app/static/' prefix
-			elif foto_path:
-				foto_path = foto_path
-			else:
-				foto_path = "tidak_ada.jpg"
+			foto_path = baris.foto or ''
+			# Only strip known prefixes; don't blindly chop the first N chars
+			if foto_path.startswith('app/static/'):
+				foto_path = foto_path[len('app/static/'):]
+			elif foto_path.startswith('static/'):
+				foto_path = foto_path[len('static/'):]
+			# If no photo uploaded, return empty string so frontend uses onerror fallback
+			if not foto_path or foto_path == 'tidak_ada.jpg':
+				foto_path = ''
 			
 			data_jsom.append({
 				'id': baris.id,
