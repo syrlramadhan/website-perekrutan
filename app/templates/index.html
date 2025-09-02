@@ -1,6 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <style>
+    :root{
+      --primary: #244a9b; /* deep blue */
+      --accent: #6dd5ed; /* aqua */
+      --accent-2: #2193b0; /* teal */
+      --muted: #6c757d;
+      --glass: rgba(255,255,255,0.7);
+      --card-bg: rgba(255,255,255,0.85);
+      --soft-shadow: 0 6px 24px rgba(16,24,40,0.08);
+    }
+
+    /* Hero gradient + subtle background animation */
+    #hero{
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-2) 55%, var(--accent) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
+    }
+    #hero .background-animation{ position:absolute; inset:0; opacity:0.12; filter: blur(24px); background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08), transparent 8%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.06), transparent 10%); z-index:0;}
+    #hero .container{ position:relative; z-index:1; }
+    #hero h1{ text-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    #hero .btn-primary{ background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)), rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color: white; box-shadow: 0 8px 30px rgba(8,10,20,0.18); }
+
+    /* Stat grid */
+    .stat-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:1rem; }
+    .stat-box{ background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45)); border-radius:12px; padding:18px; box-shadow: var(--soft-shadow); text-align:center; }
+    .stat-box .num{ font-size:1.6rem; font-weight:700; color:var(--primary); }
+    .stat-box .label{ color:var(--muted); font-size:0.95rem; }
+
+    /* Cards: glass-like panels used across the page */
+    .card.shadow-sm{ background: var(--card-bg); border-radius:14px; border: none; box-shadow: var(--soft-shadow); }
+    .card p.lead, .card .lead{ color: #243342; }
+
+    /* Timeline modern look */
+    .timeline{ display:flex; flex-direction:column; gap:1rem; }
+    .timeline-item{ display:flex; gap:1rem; align-items:flex-start; }
+    .timeline-icon{ min-width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; color:white; box-shadow: 0 8px 24px rgba(16,24,40,0.08); }
+    .timeline-content{ flex:1; }
+    .timeline-phase-badge{ display:inline-block; background: linear-gradient(90deg, rgba(36,74,155,0.12), rgba(33,147,176,0.08)); color:var(--primary); padding:6px 10px; border-radius:10px; font-weight:600; font-size:0.85rem; }
+
+    .timeline-content h4{ margin-top:0.2rem; margin-bottom:0.6rem; }
+
+    .timeline-progress{ margin-top:12px; }
+    .progress-track{ background: rgba(0,0,0,0.06); height:8px; border-radius:999px; overflow:hidden; }
+    .progress-fill{ height:100%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); border-radius:999px; }
+
+    /* Feature boxes */
+    .feature-box{ border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(245,247,250,0.9)); padding:28px; box-shadow: var(--soft-shadow); }
+    .icon-box-circle{ width:84px; height:84px; margin:0 auto; display:flex; align-items:center; justify-content:center; border-radius:50%; background: linear-gradient(135deg,var(--accent-2),var(--accent)); color:white; font-size:2rem; box-shadow: 0 12px 30px rgba(16,24,40,0.12); }
+
+    /* CTA */
+    .cta{ background: linear-gradient(180deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9)); color:white; padding:4rem 1rem; border-radius:14px; position:relative; overflow:hidden; }
+    .cta .btn-light{ background: rgba(255,255,255,0.95); color: var(--primary); font-weight:700; }
+
+    /* small helpers */
+    .bg-lightish{ background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,252,0.9)); }
+
+    @media (max-width: 767px){
+      #hero{ padding-top:3rem; padding-bottom:3rem; }
+      .icon-box-circle{ width:72px; height:72px; }
+    }
+  </style>
   <!-- ======= Hero Section: Quantum Particles & Creative Growth ======= -->
   <section id="hero" class="d-flex align-items-center position-relative overflow-hidden">
     <div class="background-animation"></div>
@@ -104,45 +168,11 @@
     </div>
   </section><!-- End About COCONUT -->
 
-  <!-- ======= Metaphorical Intro Section ======= -->
-  <section id="metaphor" class="py-5 bg-light position-relative overflow-hidden">
-    <div class="bg-lines"></div>
-    <div class="container text-center" data-aos="fade-up">
-      <h2 class="fw-bold text-primary mb-4">Every Entity Best Seed</h2>
-      <p class="lead mb-5 mx-auto" style="max-width: 800px;">
-        "Seperti partikel kuantum yang menunggu pengamatan untuk berkolaps menjadi realitas, atau seperti benih yang memerlukan cahaya fotosintesis dan resonansi emosional untuk bertransformasi menjadi karya. Kita adalah persilangan antara hukum entropi yang kacau dan keindahan fraktal; membutuhkan logika sains dan kelembutan seni untuk mencapai simetri sempurna dalam pertumbuhan."
-      </p>
-      <div class="row justify-content-center g-4 mt-5">
-        <div class="col-sm-6 col-lg-4 d-flex">
-          <div class="feature-box text-center p-4 w-100 h-100">
-            <i class="bi bi-robot text-success display-4 mb-3"></i>
-            <h4 class="fw-bold">Logika Sains</h4>
-            <p class="text-muted">Analisis, pemecahan masalah, dan riset terapan.</p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 d-flex">
-          <div class="feature-box text-center p-4 w-100 h-100">
-            <i class="bi bi-palette-fill text-success display-4 mb-3"></i>
-            <h4 class="fw-bold">Seni & Kreativitas</h4>
-            <p class="text-muted">Kreativitas, inovasi, dan kolaborasi tim.</p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 d-flex">
-          <div class="feature-box text-center p-4 w-100 h-100">
-            <i class="bi bi-star-fill text-success display-4 mb-3"></i>
-            <h4 class="fw-bold">Simetri Sempurna</h4>
-            <p class="text-muted">Pertumbuhan pribadi dan dampak sosial.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!-- End Metaphor -->
-
   <!-- ======= Publications & Resources ======= -->
   <section class="publications py-5 bg-light">
     <div class="container" data-aos="fade-up">
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-16">
           <h3 class="fw-bold">Latest publications & resources</h3>
           <p class="text-muted">Keluaran dan sumber daya yang dipilih baru-baru ini dari kegiatan penelitian COCONUT.</p>
           <div class="list-group">
@@ -305,6 +335,39 @@
       </div>
     </div>
   </section><!-- End Benefit -->
+  <!-- ======= Metaphorical Intro Section ======= -->
+  <section id="metaphor" class="py-5 bg-light position-relative overflow-hidden">
+    <div class="bg-lines"></div>
+    <div class="container text-center" data-aos="fade-up">
+      <h2 class="fw-bold text-primary mb-4">Every Entity Best Seed</h2>
+      <p class="lead mb-5 mx-auto" style="max-width: 800px;">
+        "Seperti partikel kuantum yang menunggu pengamatan untuk berkolaps menjadi realitas, atau seperti benih yang memerlukan cahaya fotosintesis dan resonansi emosional untuk bertransformasi menjadi karya. Kita adalah persilangan antara hukum entropi yang kacau dan keindahan fraktal; membutuhkan logika sains dan kelembutan seni untuk mencapai simetri sempurna dalam pertumbuhan."
+      </p>
+      <div class="row justify-content-center g-4 mt-5">
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-robot text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Logika Sains</h4>
+            <p class="text-muted">Analisis, pemecahan masalah, dan riset terapan.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-palette-fill text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Seni & Kreativitas</h4>
+            <p class="text-muted">Kreativitas, inovasi, dan kolaborasi tim.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 d-flex">
+          <div class="feature-box text-center p-4 w-100 h-100">
+            <i class="bi bi-star-fill text-success display-4 mb-3"></i>
+            <h4 class="fw-bold">Simetri Sempurna</h4>
+            <p class="text-muted">Pertumbuhan pribadi dan dampak sosial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Metaphor -->
 
   <!-- ======= CTA Section: Join Our Community ======= -->
   <section id="cta" class="cta py-5 text-white text-center position-relative overflow-hidden">

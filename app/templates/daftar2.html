@@ -2,6 +2,34 @@
 
 {% block content %}
 <main id="main">
+    <style>
+        /* form theme: match base/index gradients and glass look */
+        :root{ --primary:#244a9b; --accent:#6dd5ed; --card-bg: rgba(255,255,255,0.92); --soft-shadow: 0 10px 30px rgba(18,28,56,0.06); }
+        #daftar-hero{ background: linear-gradient(135deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9)); color: #fff; padding:3.5rem 0; }
+        #daftar-hero .background-animation{ opacity:0.08; filter: blur(20px); }
+        .card.p-4{ background: var(--card-bg); border-radius:14px; box-shadow: var(--soft-shadow); }
+
+        .form-floating > .form-control{ border-radius:10px; padding:1.35rem 1rem; background: rgba(255,255,255,0.98); border: 1px solid rgba(36,74,155,0.08); }
+        .form-floating > label{ left: 1rem; top: 0.9rem; font-size:0.95rem; }
+        .form-floating .form-control:focus{ box-shadow: 0 8px 26px rgba(36,74,155,0.08); border-color: rgba(36,74,155,0.25); }
+
+        /* radio styles */
+        .form-check-input{ width:18px; height:18px; border-radius:6px; border:1px solid rgba(36,74,155,0.12); }
+        .form-check-label{ margin-left:8px; font-weight:600; }
+
+        /* file input */
+        input[type='file'].form-control{ background: linear-gradient(180deg, #fff, #fbfdff); border-radius:10px; padding:.7rem .9rem; }
+
+        textarea.form-control{ min-height:160px; border-radius:12px; padding:1rem; }
+
+        /* submit button styling */
+        #submitButton{ background: linear-gradient(90deg,var(--primary),#2b63b0); border:none; color:#fff; font-weight:700; }
+        #submitButton:disabled{ opacity:0.6; transform:none; cursor:not-allowed; box-shadow:none; }
+
+        .invalid-feedback{ font-size:0.9rem; }
+
+        @media (max-width:767px){ .card.p-4{ padding:1.5rem; } }
+    </style>
     <section id="daftar-hero" class="d-flex align-items-center position-relative overflow-hidden py-5">
         <div class="background-animation"></div>
         <div class="container position-relative z-index-1" data-aos="fade-up">

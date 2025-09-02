@@ -25,165 +25,81 @@
   <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet">
 
   <style>
-    /* Mengatur variabel warna dan font untuk konsistensi */
+    /* Mengatur variabel warna dan font untuk konsistensi dan tema modern */
     :root {
       --primary-blue: #0A1C49;
       --secondary-blue: #244a9b;
-      --accent-color: #ffffff; 
-      --white-text: #EFEFEF;
+      --primary: #244a9b;
+      --accent: #6dd5ed;
+      --accent-2: #2193b0;
+      --white-text: #FFFFFF;
       --light-gray: #B0BEC5;
-      --bg-light: #F8F9FA;
+      --bg-light: #F6F8FA;
       --font-poppins: 'Poppins', sans-serif;
       --font-roboto: 'Roboto', sans-serif;
-  /* Offsets to account for the fixed header so page content doesn't sit under it */
-  --header-offset-desktop: 50px;
-  --header-offset-tablet: 70px;
-  --header-offset-mobile: 100px;
+      --glass-bg: rgba(255,255,255,0.06);
+      --muted: #6c757d;
+      --header-offset-desktop: 70px;
+      --header-offset-tablet: 90px;
+      --header-offset-mobile: 120px;
     }
 
     body {
       font-family: var(--font-poppins);
-      color: #333;
+      color: #243342;
       background-color: var(--bg-light);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Header & Navigasi */
+    /* Header & Navigasi: glass + gradient accent */
     #header {
-      background-color: var(--primary-blue);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      padding: 1rem 0;
-      transition: all 0.3s ease-in-out;
-    }
-
-    #header .logo img {
-      max-height: 50px;
-      transition: all 0.3s ease;
-    }
-
-    #header .logo img:hover {
-      transform: scale(1.05);
-      filter: brightness(1.2);
-    }
-
-    .navbar a, .navbar-mobile a {
+      background: linear-gradient(90deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9));
       color: var(--white-text);
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s ease;
+      box-shadow: 0 8px 30px rgba(16,24,40,0.12);
+      padding: 0.6rem 0;
+      transition: all 0.25s ease-in-out;
+      backdrop-filter: saturate(120%) blur(6px);
     }
 
-    .navbar a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: var(--accent-color);
-      bottom: -5px;
-      left: 0;
-      transition: width 0.3s ease-in-out;
-    }
+    #header.scrolled { padding: 0.4rem 0; box-shadow: 0 10px 40px rgba(8,10,30,0.18); }
 
-    .navbar a:hover::after, .navbar .active::after {
-      width: 100%;
-    }
+    #header .logo img { max-height: 56px; transition: transform .2s ease, filter .2s ease; }
+    #header .logo img:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-    .navbar a:hover, .navbar .active {
-      color: var(--accent-color);
-    }
+    /* navbar links */
+    .navbar { display:flex; gap:1.25rem; align-items:center; }
+    .navbar ul { display:flex; gap:0.5rem; align-items:center; margin:0; padding:0; list-style:none; }
+    .navbar a { color: var(--white-text); text-decoration:none; font-weight:600; padding:8px 10px; border-radius:8px; transition: all .18s ease; }
+    .navbar a:hover, .navbar .active { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-2px); }
 
-    .mobile-nav-toggle {
-      color: var(--white-text);
-      font-size: 28px;
-    }
+    .mobile-nav-toggle { color: var(--white-text); font-size: 26px; display:none; }
+    @media (max-width: 992px) { .mobile-nav-toggle { display:inline-block; } .navbar ul { display:none; } }
 
-    /* Main Content - add top offset so fixed header doesn't overlap page headings */
-    #main {
-      padding-top: var(--header-offset-desktop);
-      padding-bottom: 150px;
-      margin-bottom: 50px;
-    }
+    /* Add a subtle CTA style for header buttons (if used) */
+    .btn-header-cta { background: linear-gradient(90deg,var(--accent-2),var(--accent)); color: #fff; border-radius:999px; padding:8px 14px; font-weight:700; box-shadow: 0 10px 30px rgba(13,60,120,0.12); }
 
-    /* Responsive adjustments for smaller screens where header becomes taller */
-    @media (max-width: 992px) {
-      #main { padding-top: var(--header-offset-tablet); }
-    }
+    /* Main Content - keep top offset so fixed header doesn't overlap page headings */
+    #main { padding-top: var(--header-offset-desktop); padding-bottom: 120px; }
+    @media (max-width: 992px) { #main { padding-top: var(--header-offset-tablet); } }
+    @media (max-width: 576px) { #main { padding-top: var(--header-offset-mobile); } }
 
-    @media (max-width: 576px) {
-      #main { padding-top: var(--header-offset-mobile); }
-    }
+    /* Footer modernized */
+    #footer { background: linear-gradient(180deg, rgba(10,28,73,0.98), rgba(36,74,155,0.95)); color: var(--white-text); font-family: var(--font-roboto); padding: 48px 0 28px 0; border-top: 4px solid rgba(255,255,255,0.06); }
+    #footer a { color: rgba(255,255,255,0.92); text-decoration:none; }
+    #footer .footer-info h3 { color: #fff; margin-bottom:0.5rem; }
+    #footer p { color: rgba(255,255,255,0.75); }
+    #footer .footer-links a { color: rgba(255,255,255,0.75); transition: color .15s ease; }
+    #footer .footer-links a:hover { color: var(--accent); }
+    #footer .social-links a { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px; margin-right:8px; background: rgba(255,255,255,0.06); color:var(--white-text); transition: transform .18s ease, background .18s ease; }
+    #footer .social-links a:hover { transform: translateY(-6px); background: linear-gradient(90deg,var(--accent-2),var(--accent)); }
 
-    /* Footer */
-    #footer {
-      background-color: var(--primary-blue);
-      color: var(--white-text);
-      font-family: var(--font-roboto);
-      padding: 50px 0 20px 0;
-      border-top: 4px solid var(--secondary-blue);
-    }
+    #footer .copyright { color: rgba(255,255,255,0.6); font-size:13px; margin-top:18px; }
 
-    #footer .footer-top {
-      padding-bottom: 30px;
-    }
+    /* Scroll top button */
+    .scroll-top { position: fixed; right: 18px; bottom: 24px; width:44px; height:44px; border-radius:10px; background: linear-gradient(90deg,var(--accent-2),var(--accent)); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow: 0 12px 34px rgba(8,10,30,0.12); transition:opacity .18s ease; }
 
-    #footer .footer-top h3 {
-      font-weight: 700;
-      color: var(--white-text);
-      font-family: var(--font-poppins);
-    }
-
-    #footer .footer-top p {
-      color: var(--light-gray);
-      font-size: 14px;
-    }
-
-    #footer .footer-links h4, #footer .footer-contact h4 {
-      font-weight: 600;
-      color: var(--white-text);
-      position: relative;
-      margin-bottom: 15px;
-    }
-
-    #footer .footer-links ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #footer .footer-links a {
-      color: var(--light-gray);
-      transition: color 0.3s ease;
-      text-decoration: none;
-    }
-    
-    #footer .footer-links a:hover {
-      color: var(--accent-color);
-    }
-    
-    #footer .social-links a {
-      background-color: var(--secondary-blue);
-      color: var(--white-text);
-      width: 40px;
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin-right: 10px;
-      transition: all 0.3s ease-in-out;
-    }
-
-    #footer .social-links a:hover {
-      background-color: var(--accent-color);
-      transform: translateY(-5px);
-    }
-
-    #footer .copyright, #footer .credits {
-      color: var(--light-gray);
-      font-size: 14px;
-      margin-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 20px;
-    }
+    .scroll-top:hover { transform: translateY(-4px); }
   </style>
 
   {% block head %}{% endblock %}
