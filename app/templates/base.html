@@ -6,107 +6,450 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>{% block title %}Pendaftaran COCONUT Computer Club - Bandung Chapter{% endblock %}</title>
-  <meta content="Situs pendaftaran resmi COCONUT Computer Club cabang Bandung. Bergabunglah dengan kami untuk berinovasi dan berkontribusi di dunia teknologi." name="description">
-  <meta content="COCONUT, Computer Club, Pendaftaran, Mahasiswa, Bandung, IT, Teknologi, Rekrutmen, Informatika, Riset" name="keywords">
+  <meta content="Situs pendaftaran resmi COCONUT Computer Club cabang Bandung." name="description">
+  <meta content="COCONUT, Computer Club, Pendaftaran, Bandung, IT, Teknologi" name="keywords">
 
   <link href="{{ url_for('static', filename='assets/img/Asset 4@4x (1).png')}}" rel="icon">
   <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css')}}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
-
   <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet">
 
   <style>
-    /* Mengatur variabel warna dan font untuk konsistensi dan tema modern */
     :root {
-      --primary-blue: #0A1C49;
-      --secondary-blue: #244a9b;
-      --primary: #244a9b;
-      --accent: #6dd5ed;
-      --accent-2: #2193b0;
+      --primary: #1e40af;
+      --accent: #60a5fa;
       --white-text: #FFFFFF;
-      --light-gray: #B0BEC5;
-      --bg-light: #F6F8FA;
       --font-poppins: 'Poppins', sans-serif;
-      --font-roboto: 'Roboto', sans-serif;
-      --glass-bg: rgba(255,255,255,0.06);
-      --muted: #6c757d;
-      --header-offset-desktop: 70px;
-      --header-offset-tablet: 90px;
-      --header-offset-mobile: 120px;
+      --font-inter: 'Inter', sans-serif;
+      --header-offset: 80px; /* Increased for modern spacing */
     }
 
     body {
-      font-family: var(--font-poppins);
-      color: #243342;
-      background-color: var(--bg-light);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      font-family: var(--font-inter);
+      color: #1f2937;
+      background-color: #F6F8FA;
     }
 
-    /* Header & Navigasi: glass + gradient accent */
+    /* Modernized Header */
     #header {
-      background: linear-gradient(90deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9));
+      background: linear-gradient(90deg, rgba(30, 64, 175, 0.95), rgba(37, 99, 235, 0.9));
       color: var(--white-text);
-      box-shadow: 0 8px 30px rgba(16,24,40,0.12);
-      padding: 0.6rem 0;
-      transition: all 0.25s ease-in-out;
-      backdrop-filter: saturate(120%) blur(6px);
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
-    #header.scrolled { padding: 0.4rem 0; box-shadow: 0 10px 40px rgba(8,10,30,0.18); }
+    #header.scrolled {
+      background: linear-gradient(90deg, rgba(30, 64, 175, 1), rgba(37, 99, 235, 1)); /* Solid background on scroll */
+      transform: translateY(0);
+    }
 
-    #header .logo img { max-height: 56px; transition: transform .2s ease, filter .2s ease; }
-    #header .logo img:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    #header .logo img {
+      max-height: 50px; /* Slightly larger for prominence */
+      transition: transform 0.3s ease;
+    }
+    #header .logo img:hover {
+      transform: scale(1.05); /* Subtle zoom on hover */
+      filter: brightness(1.1);
+    }
 
-    /* navbar links */
-    .navbar { display:flex; gap:1.25rem; align-items:center; }
-    .navbar ul { display:flex; gap:0.5rem; align-items:center; margin:0; padding:0; list-style:none; }
-    .navbar a { color: var(--white-text); text-decoration:none; font-weight:600; padding:8px 10px; border-radius:8px; transition: all .18s ease; }
-    .navbar a:hover, .navbar .active { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-2px); }
+    .navbar {
+      display: flex;
+      align-items: center;
+    }
 
-    .mobile-nav-toggle { color: var(--white-text); font-size: 26px; display:none; }
-    @media (max-width: 992px) { .mobile-nav-toggle { display:inline-block; } .navbar ul { display:none; } }
+    .navbar ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
 
-    /* Add a subtle CTA style for header buttons (if used) */
-    .btn-header-cta { background: linear-gradient(90deg,var(--accent-2),var(--accent)); color: #fff; border-radius:999px; padding:8px 14px; font-weight:700; box-shadow: 0 10px 30px rgba(13,60,120,0.12); }
+    .navbar a {
+      color: var(--white-text);
+      text-decoration: none;
+      font-family: var(--font-poppins);
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      position: relative;
+      transition: none;
+    }
 
-    /* Main Content - keep top offset so fixed header doesn't overlap page headings */
-    #main { padding-top: var(--header-offset-desktop); padding-bottom: 120px; }
-    @media (max-width: 992px) { #main { padding-top: var(--header-offset-tablet); } }
-    @media (max-width: 576px) { #main { padding-top: var(--header-offset-mobile); } }
+    .navbar a:hover, .navbar a.active {
+      color: var(--white-text) !important; /* Maintain white color */
+      background: none !important; /* No background change */
+      text-decoration: none !important; /* No decoration */
+    }
 
-    /* Footer modernized */
-    #footer { background: linear-gradient(180deg, rgba(10,28,73,0.98), rgba(36,74,155,0.95)); color: var(--white-text); font-family: var(--font-roboto); padding: 48px 0 28px 0; border-top: 4px solid rgba(255,255,255,0.06); }
-    #footer a { color: rgba(255,255,255,0.92); text-decoration:none; }
-    #footer .footer-info h3 { color: #fff; margin-bottom:0.5rem; }
-    #footer p { color: rgba(255,255,255,0.75); }
-    #footer .footer-links a { color: rgba(255,255,255,0.75); transition: color .15s ease; }
-    #footer .footer-links a:hover { color: var(--accent); }
-    #footer .social-links a { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px; margin-right:8px; background: rgba(255,255,255,0.06); color:var(--white-text); transition: transform .18s ease, background .18s ease; }
-    #footer .social-links a:hover { transform: translateY(-6px); background: linear-gradient(90deg,var(--accent-2),var(--accent)); }
+    .navbar a::after {
+      display: none;
+    }
 
-    #footer .copyright { color: rgba(255,255,255,0.6); font-size:13px; margin-top:18px; }
+    .mobile-nav-toggle {
+      color: var(--white-text);
+      font-size: 28px; /* Slightly larger for better tap target */
+      display: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-nav-toggle:hover {
+      transform: rotate(90deg); /* Rotate for interactive feel */
+    }
+
+    @media (max-width: 768px) {
+      .mobile-nav-toggle {
+        display: inline-block;
+      }
+
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px; /* Adjusted for header height */
+        left: 0;
+        right: 0;
+        background: rgba(30, 64, 175, 0.95);
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .navbar a {
+        padding: 12px;
+        font-size: 1.1rem; /* Larger text for mobile */
+        text-align: center;
+      }
+
+      .navbar a::after {
+        display: none; /* Remove underline effect on mobile */
+      }
+    }
+
+    /* Main Content */
+    #main {
+      padding-top: var(--header-offset);
+      padding-bottom: 100px;
+    }
+
+    /* Footer */
+    #footer {
+      background: linear-gradient(180deg, rgba(30, 64, 175, 0.98), rgba(37, 99, 235, 0.95));
+      color: var(--white-text);
+      font-family: var(--font-inter);
+      padding: 2rem 0;
+      position: relative;
+      min-height: 240px;
+    }
+
+    #footer .container {
+      max-width: 1200px;
+      padding: 1rem;
+    }
+
+    /* Decorative elements */
+    #footer .background-decoration {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      display: none;
+    }
+    @media (min-width: 576px) {
+      #footer .background-decoration {
+        display: block;
+      }
+    }
+    #footer .background-decoration svg {
+      position: absolute;
+    }
+    #footer .background-decoration .top-line {
+      top: 20px;
+      right: 40px;
+      width: 150px;
+      height: 80px;
+    }
+    #footer .background-decoration .bottom-line {
+      bottom: 20px;
+      right: 20px;
+      width: 200px;
+      height: 100px;
+    }
+
+    #footer .mobile-decoration {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+    }
+    @media (min-width: 576px) {
+      #footer .mobile-decoration {
+        display: none;
+      }
+    }
+    #footer .mobile-decoration .circle {
+      position: absolute;
+      border: 1px solid var(--white-text);
+      border-radius: 50%;
+    }
+    #footer .mobile-decoration .circle-top {
+      top: 8px;
+      right: 8px;
+      width: 40px;
+      height: 40px;
+    }
+    #footer .mobile-decoration .circle-bottom {
+      bottom: 8px;
+      left: 8px;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* CTA Card */
+    #footer .cta-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    @media (min-width: 768px) {
+      #footer .cta-card {
+        padding: 1.5rem;
+      }
+    }
+    #footer .cta-card .cta-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    @media (min-width: 992px) {
+      #footer .cta-card .cta-content {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    #footer .cta-card p {
+      color: var(--white-text);
+      font-size: 0.875rem;
+      text-align: center;
+      margin: 0;
+    }
+    @media (min-width: 768px) {
+      #footer .cta-card p {
+        font-size: 1rem;
+        text-align: left;
+      }
+    }
+    #footer .cta-card .btn-join {
+      width: 100%;
+      background: var(--white-text);
+      color: var(--primary);
+      font-family: var(--font-poppins);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      #footer .cta-card .btn-join {
+        width: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+    #footer .cta-card .btn-join:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.05);
+    }
+
+    /* Menu Section */
+    #footer .menu-section {
+      margin-bottom: 1.5rem;
+    }
+    #footer .menu-section h3 {
+      font-family: var(--font-poppins);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--white-text);
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      #footer .menu-section h3 {
+        text-align: left;
+      }
+    }
+    #footer .menu-section .desktop-menu {
+      display: none;
+      gap: 1rem;
+    }
+    @media (min-width: 576px) {
+      #footer .menu-section .desktop-menu {
+        display: flex;
+      }
+    }
+    #footer .menu-section .desktop-menu a {
+      color: var(--white-text);
+      font-size: 0.875rem;
+      text-decoration: none;
+      font-family: var(--font-inter);
+    }
+    #footer .menu-section .desktop-menu a:hover {
+      color: var(--accent);
+    }
+    #footer .menu-section .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    @media (min-width: 576px) {
+      #footer .menu-section .mobile-menu {
+        display: none;
+      }
+    }
+    #footer .menu-section .mobile-menu a {
+      color: var(--white-text);
+      font-size: 0.75rem;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+    }
+    #footer .menu-section .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    /* Bottom Section */
+    #footer .bottom-section {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 1rem;
+    }
+    #footer .bottom-section .bottom-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      #footer .bottom-section .bottom-content {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    #footer .bottom-section .copyright {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.75rem;
+      text-align: center;
+      margin: 0;
+    }
+    @media (min-width: 768px) {
+      #footer .bottom-section .copyright {
+        text-align: left;
+      }
+    }
+    #footer .bottom-section .copyright a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    #footer .bottom-section .copyright a:hover {
+      color: var(--primary);
+    }
+    #footer .bottom-section .social-links.desktop {
+      display: none;
+      gap: 0.75rem;
+    }
+    @media (min-width: 576px) {
+      #footer .bottom-section .social-links.desktop {
+        display: flex;
+      }
+    }
+    #footer .bottom-section .social-links.mobile {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    @media (min-width: 576px) {
+      #footer .bottom-section .social-links.mobile {
+        display: none;
+      }
+    }
+    #footer .bottom-section .social-links a {
+      color: var(--white-text);
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+    #footer .bottom-section .social-links.mobile a {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      text-align: center;
+    }
+    #footer .bottom-section .social-links a:hover {
+      color: var(--accent);
+    }
 
     /* Scroll top button */
-    .scroll-top { position: fixed; right: 18px; bottom: 24px; width:44px; height:44px; border-radius:10px; background: linear-gradient(90deg,var(--accent-2),var(--accent)); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow: 0 12px 34px rgba(8,10,30,0.12); transition:opacity .18s ease; }
+    .scroll-top {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--white-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-top:hover {
+      background: var(--primary);
+    }
 
-    .scroll-top:hover { transform: translateY(-4px); }
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #F6F8FA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #preloader::before {
+      content: '';
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--primary);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 
   {% block head %}{% endblock %}
 </head>
 
 <body>
-
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="logo">
@@ -117,57 +460,100 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{{ url_for('about')}}">About</a></li>
-          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">News</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">Project</a></li>
           <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Registration</a></li>
-
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
     </div>
   </header>
+
   <main id="main">
     {% block content %}{% endblock %}
   </main>
+
   <footer id="footer">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3 class="--secondary-blue">COCONUT</h3>
-            <p>Computer Club Oriented Network Utility and Technology</p>
+    <div class="background-decoration">
+      <svg class="top-line" viewBox="0 0 150 80">
+        <path d="M10,60 Q75,10 140,40" stroke="white" stroke-width="1" fill="none" />
+      </svg>
+      <svg class="bottom-line" viewBox="0 0 200 100">
+        <path d="M20,80 Q100,20 180,60" stroke="white" stroke-width="1" fill="none" />
+      </svg>
+    </div>
+    <div class="mobile-decoration">
+      <div class="circle-top"></div>
+      <div class="circle-bottom"></div>
+    </div>
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-content">
+          <p>Bergabung Bersama COCONUT Computer Club.</p>
+          <a href="{{ url_for('daftar') }}" class="btn-join">Bergabung</a>
+        </div>
+      </div>
+      <div class="menu-section">
+        <h3>Menu Lainnya</h3>
+        <div class="desktop-menu">
+          <a href="{{ url_for('index') }}">Beranda</a>
+          <a href="{{ url_for('news') }}">Berita</a>
+          <a href="/blog">Blog</a>
+        </div>
+        <div class="mobile-menu">
+          <a href="{{ url_for('index') }}">Beranda</a>
+          <a href="{{ url_for('news') }}">Berita</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="bottom-content">
+          <div class="copyright">
+            &copy; 2025 <a href="https://coconut.or.id">Coconut Lab</a>. By hacklab
           </div>
-          <div class="col-lg-4 col-md-6 footer-links">
-            <h4 class="--secondary-blue">Menu</h4>
-              <a href="{{ url_for('index') }}">Home</a> <br>
-              <a href="{{ url_for('index') }}">About</a> <br>
-              <a href="{{ url_for('news') }}">News</a> 
-              <a href="{{ url_for('daftar') }}">Registration</a> <br>
-          </div>
-          <div class="col-lg-4 col-md-6 footer-links">
-            <h4 class="--secondary-blue">Sosial Media</h4>
-            <div class="social-links mt-3">
-              <a href="https://www.linkedin.com/company/coconut-computer-club/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              <a href="https://www.instagram.com/coconutdotorg/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="https://www.facebook.com/coconutcomputer" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
-            </div>
-          </div>
-          <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-          <div class="copyright text-center">
-            &copy; 2025 <a href="https://coconut.or.id" class="text-white"><strong><span>Coconut Lab</span></strong>.</a> Crafted with ❤️  by hacklab
-          </div>
+        </div>
       </div>
     </div>
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   </footer>
+
   <div id="preloader"></div>
 
-  <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+  <script>
+    // JavaScript to handle mobile menu toggle and scroll effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navbarUl = document.querySelector('.navbar ul');
+      const header = document.querySelector('#header');
+
+      // Toggle mobile menu
+      mobileNavToggle.addEventListener('click', () => {
+        navbarUl.classList.toggle('active');
+      });
+
+      // Add scrolled class to header on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // Add active class to current nav link
+      const navLinks = document.querySelectorAll('.navbar a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          if (window.innerWidth <= 768) {
+            navbarUl.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
 
   {% block scripts %}{% endblock %}
 </body>

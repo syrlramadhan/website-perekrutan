@@ -2,96 +2,605 @@
 
 {% block content %}
   <style>
-    :root{
-      --primary: #244a9b; /* deep blue */
-      --accent: #6dd5ed; /* aqua */
-      --accent-2: #2193b0; /* teal */
-      --muted: #6c757d;
-      --glass: rgba(255,255,255,0.7);
-      --card-bg: rgba(255,255,255,0.85);
-      --soft-shadow: 0 6px 24px rgba(16,24,40,0.08);
+    /* Importing Google Fonts for modern typography */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #1e40af; /* Vibrant navy blue */
+      --accent: #60a5fa; /* Bright sky blue */
+      --accent-2: #2563eb; /* Rich blue */
+      --muted: #6b7280; /* Softer gray for contrast */
+      --glass: rgba(255, 255, 255, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --soft-shadow: 0 6px 24px rgba(16, 24, 40, 0.1);
     }
 
-    /* Hero gradient + subtle background animation */
-    #hero{
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-2) 55%, var(--accent) 100%);
+    /* Typography base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--primary);
+    }
+
+    h1 { font-size: 2.5rem; } /* Reduced font size to fit in one line */
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+    h5 { font-size: 1.25rem; }
+    p, .lead { font-size: 1.1rem; line-height: 1.8; }
+    .text-muted { color: var(--muted); font-weight: 400; }
+
+    /* Animated Background */
+    .background-animation {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .background-animation::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -40%;
+      width: 320px;
+      height: 320px;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(37, 99, 235, 0.3));
+      border-radius: 50%;
+      filter: blur(48px);
+      animation: pulse 6s infinite;
+    }
+    .background-animation::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      left: -40%;
+      width: 320px;
+      height: 320px;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(37, 99, 235, 0.2));
+      border-radius: 50%;
+      filter: blur(48px);
+      animation: pulse 6s infinite 2s;
+    }
+    .background-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: bounce 4s infinite;
+      opacity: 0.6;
+    }
+    .particle-1 { top: 20%; left: 20%; animation-delay: 0s; }
+    .particle-2 { top: 40%; right: 32%; animation-delay: 1s; }
+    .particle-3 { bottom: 32%; left: 40%; animation-delay: 2s; }
+    .particle-4 { top: 60%; left: 33%; animation-delay: 3s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.5; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+      /* Hero Section */
+    #hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-2) 100%);
       color: white;
       position: relative;
       overflow: hidden;
-      padding-top: 4.5rem;
-      padding-bottom: 4.5rem;
+      padding: 0;
+      height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 100px;
     }
-    #hero .background-animation{ position:absolute; inset:0; opacity:0.12; filter: blur(24px); background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08), transparent 8%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.06), transparent 10%); z-index:0;}
-    #hero .container{ position:relative; z-index:1; }
-    #hero h1{ text-shadow: 0 6px 20px rgba(0,0,0,0.25); }
-    #hero .btn-primary{ background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)), rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color: white; box-shadow: 0 8px 30px rgba(8,10,20,0.18); }
+    #hero .container { 
+      position: relative; 
+      z-index: 1; 
+      width: 100%;
+      margin: 0 auto;
+    }
+    #hero .hero-card {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 24px;
+      padding: 3rem;
+      padding-bottom: 0; /* Minimized to keep image close to bottom */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 
+                  0 8px 32px rgba(0, 0, 0, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: visible;
+      max-width: 1100px;
+      margin: 0 auto;
+      margin-top: -30px; /* Shift card up by 30px */
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+    #hero .hero-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #hero h1 {
+      font-weight: 800;
+      font-size: 2.75rem;
+      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      position: relative;
+      z-index: 2;
+    }
+    #hero h2 {
+      font-weight: 600;
+      color: var(--accent-2);
+      opacity: 0.9;
+      font-size: 1.75rem;
+      position: relative;
+      z-index: 2;
+    }
+    #hero .lead {
+      color: #374151;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      position: relative;
+      z-index: 2;
+    }
+    #hero .btn-primary {
+      background: linear-gradient(135deg, var(--accent-2), var(--primary));
+      border: none;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      text-decoration: none;
+      display: inline-block;
+    }
+    #hero .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s;
+    }
+    #hero .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent-2));
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(37, 99, 235, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+    #hero .btn-primary:hover::before {
+      left: 100%;
+    }
+    #hero .col-lg-5 {
+      position: relative; /* Ensure positioning context */
+      height: 100%;
+    }
+    #hero .hero-illustration {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 140px; /* Shift image down by 140px */
+      margin-bottom: 0; /* No bottom margin */
+    }
+    #hero .hero-illustration img {
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+      transition: transform 0.3s ease;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0; /* Ensure image sticks to bottom */
+    }
+    #hero .hero-illustration img:hover {
+      transform: scale(1.02);
+    }
 
-    /* Stat grid */
-    .stat-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:1rem; }
-    .stat-box{ background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45)); border-radius:12px; padding:18px; box-shadow: var(--soft-shadow); text-align:center; }
-    .stat-box .num{ font-size:1.6rem; font-weight:700; color:var(--primary); }
-    .stat-box .label{ color:var(--muted); font-size:0.95rem; }
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+      #hero { 
+        padding: 0;
+        height: auto;
+        padding-top: 60px;
+        margin-bottom: 60px;
+      }
+      #hero .hero-card {
+        padding: 2rem 1.5rem;
+        padding-bottom: 0;
+        margin: 1rem;
+        margin-top: -15px; /* Reduced shift up for mobile */
+        border-radius: 20px;
+        max-width: calc(100% - 2rem);
+        overflow: visible;
+      }
+      #hero h1 { 
+        font-size: 2rem; 
+        text-align: center;
+      }
+      #hero h2 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      #hero .lead {
+        text-align: center;
+        font-size: 1rem;
+      }
+      #hero .hero-illustration {
+        margin-top: 70px; /* Reduced shift for mobile */
+        margin-bottom: 0;
+      }
+      #hero .hero-illustration img {
+        max-width: 90%;
+        margin-bottom: 0;
+      }
+    }
+    @media (max-width: 991px) {
+      #hero .hero-card {
+        text-align: center;
+        max-width: 95%;
+        overflow: visible;
+        margin-top: -20px; /* Adjusted shift for medium screens */
+      }
+      #hero .hero-illustration {
+        margin-top: 90px; /* Adjusted shift for medium screens */
+        margin-bottom: 0;
+      }
+    }
 
-    /* Cards: glass-like panels used across the page */
-    .card.shadow-sm{ background: var(--card-bg); border-radius:14px; border: none; box-shadow: var(--soft-shadow); }
-    .card p.lead, .card .lead{ color: #243342; }
+    /* News Section */
+    .news-section {
+      padding: 4rem 0;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* Single column for one news item */
+      gap: 2rem;
+      max-width: 500px; /* Reduced max-width to make card smaller */
+      margin: 0 auto;
+    }
+    .news-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      box-shadow: var(--soft-shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(16, 24, 40, 0.15);
+      border-color: var(--accent);
+    }
+    .news-card img {
+      width: 100%;
+      height: 250px; /* Increased height to prevent cropping */
+      object-fit: cover;
+      object-position: center;
+      border-radius: 16px 16px 0 0;
+    }
+    .news-card .news-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card .news-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(96, 165, 250, 0.2));
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .news-card h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    .news-card .news-date {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .news-card p {
+      font-size: 1rem;
+      color: #374151;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .news-card .btn-primary {
+      background: linear-gradient(135deg, var(--accent-2), var(--primary));
+      border: none;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      text-decoration: none;
+    }
+    .news-card .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent-2));
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+    }
+    @media (max-width: 767px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px; /* Smaller for mobile */
+      }
+      .news-card img {
+        height: 220px; /* Adjusted for mobile */
+      }
+    }
 
-    /* Timeline modern look */
-    .timeline{ display:flex; flex-direction:column; gap:1rem; }
-    .timeline-item{ display:flex; gap:1rem; align-items:flex-start; }
-    .timeline-icon{ min-width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; color:white; box-shadow: 0 8px 24px rgba(16,24,40,0.08); }
-    .timeline-content{ flex:1; }
-    .timeline-phase-badge{ display:inline-block; background: linear-gradient(90deg, rgba(36,74,155,0.12), rgba(33,147,176,0.08)); color:var(--primary); padding:6px 10px; border-radius:10px; font-weight:600; font-size:0.85rem; }
-
-    .timeline-content h4{ margin-top:0.2rem; margin-bottom:0.6rem; }
-
-    .timeline-progress{ margin-top:12px; }
-    .progress-track{ background: rgba(0,0,0,0.06); height:8px; border-radius:999px; overflow:hidden; }
-    .progress-fill{ height:100%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); border-radius:999px; }
-
-    /* Feature boxes */
-    .feature-box{ border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(245,247,250,0.9)); padding:28px; box-shadow: var(--soft-shadow); }
-    .icon-box-circle{ width:84px; height:84px; margin:0 auto; display:flex; align-items:center; justify-content:center; border-radius:50%; background: linear-gradient(135deg,var(--accent-2),var(--accent)); color:white; font-size:2rem; box-shadow: 0 12px 30px rgba(16,24,40,0.12); }
-
-    /* CTA */
-    .cta{ background: linear-gradient(180deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9)); color:white; padding:4rem 1rem; border-radius:14px; position:relative; overflow:hidden; }
-    .cta .btn-light{ background: rgba(255,255,255,0.95); color: var(--primary); font-weight:700; }
-
-    /* small helpers */
-    .bg-lightish{ background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,252,0.9)); }
-
-    @media (max-width: 767px){
-      #hero{ padding-top:3rem; padding-bottom:3rem; }
-      .icon-box-circle{ width:72px; height:72px; }
+    /* Existing styles for other sections */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .stat-box {
+      background: var(--glass);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: var(--soft-shadow);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-box:hover {
+      background: linear-gradient(180deg, rgba(147, 197, 253, 0.5), rgba(37, 99, 235, 0.3));
+      transform: scale(1.05);
+    }
+    .stat-box .num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Poppins', sans-serif;
+    }
+    .stat-box .label {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+    }
+    .card.shadow-sm {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      box-shadow: var(--soft-shadow);
+      transition: all 0.3s ease;
+    }
+    .card.shadow-sm:hover {
+      border-color: var(--accent);
+      transform: scale(1.03);
+    }
+    .card p.lead, .card .lead {
+      color: #1f2937;
+      font-family: 'Inter', sans-serif;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .timeline-icon {
+      min-width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.1);
+    }
+    .timeline-content {
+      flex: 1;
+    }
+    .timeline-phase-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(96, 165, 250, 0.2));
+      color: var(--primary);
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+    }
+    .timeline-content h4 {
+      margin-top: 0.2rem;
+      margin-bottom: 0.6rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    .timeline-progress {
+      margin-top: 12px;
+    }
+    .progress-track {
+      background: rgba(0, 0, 0, 0.06);
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+    .feature-box {
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(147, 197, 253, 0.3));
+      padding: 28px;
+      box-shadow: var(--soft-shadow);
+      transition: all 0.3s ease;
+    }
+    .feature-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(16, 24, 40, 0.15);
+    }
+    .icon-box-circle {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-size: 2rem;
+      box-shadow: 0 12px 30px rgba(16, 24, 40, 0.12);
+    }
+    .cta {
+      background: linear-gradient(180deg, var(--primary), var(--accent-2));
+      color: white;
+      padding: 4rem 1rem;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta .background-animation::before {
+      top: 10%;
+      left: 10%;
+      width: 200px;
+      height: 200px;
+    }
+    .cta .background-animation::after {
+      bottom: 10%;
+      right: 10%;
+      width: 200px;
+      height: 200px;
+    }
+    .cta .btn-light {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(147, 197, 253, 0.3));
+      color: var(--primary);
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      padding: 0.75rem 2rem;
+      border-radius: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .cta .btn-light:hover {
+      background: linear-gradient(90deg, rgba(147, 197, 253, 0.3), rgba(255, 255, 255, 0.95));
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    }
+    .faq-card .accordion-button {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(147, 197, 253, 0.3));
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    .faq-card .accordion-button:not(.collapsed) {
+      box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+      background: linear-gradient(180deg, rgba(147, 197, 253, 0.3), rgba(255, 255, 255, 0.98));
+    }
+    .faq-card .accordion-item + .accordion-item {
+      margin-top: 0.5rem;
+    }
+    .location-card .map-embed iframe {
+      min-height: 220px;
+      border-radius: 12px;
+    }
+    .location-card h3, .faq-card h3 {
+      font-size: 1.45rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    @media (max-width: 767px) {
+      .icon-box-circle { width: 72px; height: 72px; }
+      .stat-box .num { font-size: 1.5rem; }
+      .feature-box { padding: 20px; }
+    }
+    @media (max-width: 991px) {
+      .faq-card, .location-card { margin-bottom: 1rem; }
     }
   </style>
-  <!-- ======= Hero Section: Quantum Particles & Creative Growth ======= -->
+
+<!-- Hero Section -->
   <section id="hero" class="d-flex align-items-center position-relative overflow-hidden">
-    <div class="background-animation"></div>
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-      <div class="row align-items-center position-relative z-index-1">
-        <div class="col-lg-6 d-flex flex-column justify-content-center text-center text-lg-start">
-          <h1 class="display-3 fw-bold text-white mb-2">COCONUT Computer Club - Open Membership</h1>
-          <h2 class="display-5 fw-semibold mb-4 text-white-50">Chapter Bandung</h2>
-          <p class="lead mb-4 text-white">Bergabunglah dengan ekosistem belajar kami, tempat ide-ide brilian berkembang menjadi inovasi yang berdampak nyata.</p>
-          <div class="d-flex justify-content-center justify-content-lg-start gap-3 mt-4">
-            <a href="{{ url_for('daftar')}}" class="btn btn-primary btn-lg px-4 py-2 rounded-pill shadow-lg animate__animated animate__pulse animate__infinite">Join the Club</a>
+    <div class="background-animation">
+      <div class="background-particle particle-1"></div>
+      <div class="background-particle particle-2"></div>
+      <div class="background-particle particle-3"></div>
+      <div class="background-particle particle-4"></div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-11 col-xl-10">
+          <div class="hero-card">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <h1 class="mb-3">COCONUT Computer Club - Open Membership</h1>
+                <h2 class="mb-4">Chapter Bandung</h2>
+                <p class="lead mb-4">Bergabunglah dengan ekosistem belajar kami, tempat ide-ide brilian berkembang menjadi inovasi yang berdampak nyata.</p>
+                <div class="d-flex justify-content-center justify-content-lg-start mt-4">
+                  <a href="#" class="btn btn-primary btn-lg">
+                    <i class="bi bi-rocket-takeoff me-2"></i>
+                    Join the Club
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="hero-illustration">
+                  <img src="{{url_for('static', filename='assets/img/ilustrator.png')}}" class="img-fluid" alt="Mahasiswa COCONUT Computer Club">
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6 hero-img text-center mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
-          <img src="{{url_for('static', filename='assets/img/gmr1.png')}}" class="img-fluid rounded-4 shadow-lg animated" alt="Mahasiswa COCONUT Computer Club">
         </div>
       </div>
     </div>
-  </section><!-- End Hero -->
+  </section>
 
-  <!-- ======= Highlights Section: quick stats ======= -->
-  <section class="highlights">
+  <!-- Highlights Section -->
+  <section class="highlights py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
     <div class="container" data-aos="fade-up">
       <div class="row justify-content-center mb-4">
         <div class="col-lg-10 text-center">
-          <h3 class="fw-bold">COCONUT at a glance</h3>
-          <p class="text-muted">A research-focused community since 2008 that connects students, researchers and industry partners.</p>
+          <h3 class="fw-bold">COCONUT at a Glance</h3>
+          <p class="text-muted">A research-focused community since 2008 that connects students, researchers, and industry partners.</p>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -115,17 +624,16 @@
     </div>
   </section>
 
-
-  <!-- ======= About COCONUT Research Group Section ======= -->
+  <!-- About COCONUT Research Group Section -->
   <section id="about-us" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="row align-items-center">
         <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
           <div class="card p-4 shadow-sm border-0">
-            <p class="mb-4">COCONUT Computer Club didirikan pada tahun 2008 di STMIK Profesional, Indonesia, dengan visi menjadi institut riset terapan berkualitas tinggi. Kami bertujuan menciptakan revolusi IT di Indonesia dan membangun ekonomi berbasis pengetahuan.</p>
-            <p>Sejak itu, keanggotaan kami telah meluas ke berbagai universitas terkemuka seperti UNISMUH, UNM, UNHAS, UMI, dan UIN. Terdaftar resmi di Kementerian Hukum dan HAM, kami berdedikasi untuk melahirkan generasi baru peneliti dan insinyur muda.</p>
+            <p class="mb-4" style="text-align: justify;">Computer Club Oriented Network, Utility & Technology (COCONUT) didirikan pada bulan April 2008 di Sekolah Tinggi Manajemen Informatika dan Komputer (STMIK) Professional, Indonesia, untuk melaksanakan kegiatan riset, pembelajaran kolektif, inovasi dan pengembangan di bidang Ilmu Komputer dan Teknologi Informasi. COCONUT Computer Club diinisiasi sebagai think-tank riset terapan tingkat lanjut yang berkualitas tinggi, bekerja sama dengan industri serta institusi akademik di tingkat nasional dan internasional guna mendorong revolusi teknologi informasi di Indonesia dan membantu membangun perekonomian berbasis pengetahuan.</p>
+            <p style="text-align: justify;">Saat ini, COCONUT Computer Club telah memperluas keanggotaan di luar STMIK Professional, mencakup mahasiswa dari berbagai universitas seperti Universitas Muhammadiyah (UNISMUH), Universitas Negeri Makassar (UNM), Universitas Hasanuddin (UNHAS), Universitas Muslim Indonesia (UMI), dan Universitas Islam Negeri (UIN). Secara resmi terdaftar di Kementerian Hukum Republik Indonesia dengan nomor registrasi AHU-0012037.AH.01.07.TAHUN 2022, COCONUT berkomitmen untuk menciptakan generasi baru peneliti dan insinyur muda.</p>
             <div class="mt-3">
-              <a class="btn btn-primary rounded-pill ms-2" href="https://coconut.or.id/publications" target="_blank">Explore publications</a>
+              <a class="btn btn-primary rounded-pill ms-2" href="https://coconut.or.id/publications" target="_blank">Explore Publications</a>
             </div>
           </div>
         </div>
@@ -158,44 +666,10 @@
                 </div>
               </div>
             </div>
-            <p class="mt-4 mb-0 text-muted">COCONUT berkolaborasi dengan peneliti, institusi, konferensi, dan organisasi — baik lokal maupun internasional — untuk menerjemahkan riset menjadi solusi nyata.Banyak alumni kami telah menjadi profesional di industri global, bukti dari lingkungan suportif yang kami berikan.</p>
+            <img src="{{url_for('static', filename='assets/img/bersama.jpg')}}" class="img-fluid rounded-4 mt-4" alt="COCONUT Team Photo">
+            <p class="mt-4 mb-0 text-muted" style="text-align: justify;">COCONUT berkolaborasi dengan peneliti, institusi, konferensi, dan organisasi — baik lokal maupun internasional — untuk menerjemahkan riset menjadi solusi nyata. Banyak alumni kami telah menjadi profesional di industri global, bukti dari lingkungan suportif yang kami berikan.</p>
             <div class="mt-3">
-              <a class="btn btn-outline-primary rounded-pill" href="https://coconut.or.id/people" target="_blank">Meet the people</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!-- End About COCONUT -->
-
-  <!-- ======= Publications & Resources ======= -->
-  <section class="publications py-5 bg-light">
-    <div class="container" data-aos="fade-up">
-      <div class="row">
-        <div class="col-lg-16">
-          <h3 class="fw-bold">Latest publications & resources</h3>
-          <p class="text-muted">Keluaran dan sumber daya yang dipilih baru-baru ini dari kegiatan penelitian COCONUT.</p>
-          <div class="list-group">
-            <div class="publication-item">
-              <div>
-                <strong>An overview of applied ML projects</strong>
-                <div class="meta">2024 — Case studies & open datasets</div>
-              </div>
-              <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
-            </div>
-            <div class="publication-item">
-              <div>
-                <strong>Computer Vision for local industry</strong>
-                <div class="meta">2023 — Applied solutions & prototypes</div>
-              </div>
-              <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
-            </div>
-            <div class="publication-item">
-              <div>
-                <strong>Data & code resources</strong>
-                <div class="meta">Datasets, notebooks and tools</div>
-              </div>
-              <a href="https://coconut.or.id/resources" target="_blank" class="btn btn-sm btn-outline-primary">Explore</a>
+              <a class="btn btn-outline-primary rounded-pill" href="https://coconut.or.id/people" target="_blank">Meet the People</a>
             </div>
           </div>
         </div>
@@ -203,27 +677,64 @@
     </div>
   </section>
 
+  <!-- Publications & Resources -->
+  <section class="publications py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="fw-bold">Latest Publications & Resources</h3>
+          <p class="text-muted">Keluaran dan sumber daya yang dipilih baru-baru ini dari kegiatan penelitian COCONUT.</p>
+          <div class="list-group">
+            <div class="card shadow-sm border-0 mb-3">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>An Overview of Applied ML Projects</strong>
+                  <div class="text-muted">2024 — Case Studies & Open Datasets</div>
+                </div>
+                <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
+              </div>
+            </div>
+            <div class="card shadow-sm border-0 mb-3">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Computer Vision for Local Industry</strong>
+                  <div class="text-muted">2023 — Applied Solutions & Prototypes</div>
+                </div>
+                <a href="https://coconut.or.id/publications" target="_blank" class="btn btn-sm btn-outline-primary">Read</a>
+              </div>
+            </div>
+            <div class="card shadow-sm border-0 mb-3">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Data & Code Resources</strong>
+                  <div class="text-muted">Datasets, Notebooks, and Tools</div>
+                </div>
+                <a href="https://coconut.or.id/resources" target="_blank" class="btn btn-sm btn-outline-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
-  <!-- ======= Recruitment Process Section: Timeline Style ======= -->
+  <!-- Recruitment Process Section -->
   <section id="process" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-primary">Recruitment Roudmap</h2>
+        <h2 class="fw-bold text-primary">Recruitment Roadmap</h2>
         <p class="text-muted">Proses yang dirancang untuk menemukan potensi dan keselarasan</p>
       </div>
-
       <div class="row justify-content-center">
         <div class="col-lg-10">
           <div class="timeline">
-            <!-- Timeline Item 1: Requirement -->
             <div class="timeline-item">
-              <div class="timeline-icon bg-success">
-                <i class="bi bi-check-circle-fill text-white"></i>
+              <div class="timeline-icon">
+                <i class="bi bi-check-circle-fill"></i>
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 1</div>
-                <h4 class="fw-bold text-success mb-2">Tahap 1: Persyaratan</h4>
+                <h4 class="fw-bold mb-2">Tahap 1: Persyaratan</h4>
                 <p class="text-muted">Kesiapan Anda bergabung dengan ekosistem belajar COCONUT Computer Club.</p>
                 <ul class="list-unstyled mb-0">
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Mahasiswa aktif semester 1-3.</li>
@@ -236,15 +747,13 @@
                 </div>
               </div>
             </div>
-
-            <!-- Timeline Item 2: Test -->
             <div class="timeline-item">
-              <div class="timeline-icon bg-primary">
-                <i class="bi bi-pencil-square text-white"></i>
+              <div class="timeline-icon">
+                <i class="bi bi-pencil-square"></i>
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 2</div>
-                <h4 class="fw-bold text-primary mb-2">Tahap 2: Tes</h4>
+                <h4 class="fw-bold mb-2">Tahap 2: Tes</h4>
                 <p class="text-muted">Penilaian potensi melalui empat bagian: pilihan ganda, esai, psikotes, dan MBTI.</p>
                 <ul class="list-unstyled mb-0">
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Logika & Kreativitas</strong>: Cara menganalisis dan menyelesaikan masalah.</li>
@@ -257,15 +766,13 @@
                 </div>
               </div>
             </div>
-
-            <!-- Timeline Item 3: Interview -->
             <div class="timeline-item">
-              <div class="timeline-icon bg-info">
-                <i class="bi bi-person-fill text-white"></i>
+              <div class="timeline-icon">
+                <i class="bi bi-person-fill"></i>
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 3</div>
-                <h4 class="fw-bold text-info mb-2">Tahap 3: Wawancara</h4>
+                <h4 class="fw-bold mb-2">Tahap 3: Wawancara</h4>
                 <p class="text-muted">Kesempatan untuk mengenal motivasi, nilai, dan komitmen secara lebih mendalam.</p>
                 <ul class="list-unstyled mb-0">
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Motivasi Pribadi</strong>: Alasan bergabung dengan COCONUT.</li>
@@ -278,68 +785,97 @@
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
-
     </div>
-  </section><!-- End Recruitment Process -->
+  </section>
 
-  <!-- ======= Benefit & Impact Section ======= -->
-  <section id="benefits" class="py-5 bg-light benefits">
+  <!-- Benefit & Impact Section -->
+  <section id="benefits" class="py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
         <h2 class="fw-bold text-primary">Why Join Us?</h2>
         <p class="text-muted">More than just a club, this is a pathway to the future</p>
       </div>
-
       <div class="row gy-4">
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 border-0 text-center p-4">
+          <div class="feature-box text-center p-4 w-100">
             <div class="icon-box-circle">
-              <i class="bi bi-code-slash"></i>
+              <i class="bi bi-code-slash" style="color: white;"></i>
             </div>
             <h5 class="fw-bold mt-3">Structured Mentorship</h5>
             <p>Dapatkan bimbingan langsung dari anggota senior dan para profesional di bidang IT.</p>
             <div class="feature-meta">
-              <span class="pill">Mentoring</span>
-              <span class="pill">Live Projects</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Mentoring</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Live Projects</span>
             </div>
           </div>
         </div>
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 border-0 text-center p-4">
+          <div class="feature-box text-center p-4 w-100">
             <div class="icon-box-circle">
-              <i class="bi bi-briefcase-fill"></i>
+              <i class="bi bi-briefcase-fill" style="color: white;"></i>
             </div>
             <h5 class="fw-bold mt-3">Real Project Portfolio</h5>
             <p>Bangun portofolio yang kuat melalui proyek-proyek teknososial yang berdampak langsung.</p>
             <div class="feature-meta">
-              <span class="pill">Portfolio</span>
-              <span class="pill">Showcase</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Portfolio</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Showcase</span>
             </div>
           </div>
         </div>
         <div class="col-lg-4 d-flex">
-          <div class="card flex-grow-1 border-0 text-center p-4">
+          <div class="feature-box text-center p-4 w-100">
             <div class="icon-box-circle">
-              <i class="bi bi-hand-thumbs-up-fill"></i>
+              <i class="bi bi-hand-thumbs-up-fill" style="color: white;"></i>
             </div>
             <h5 class="fw-bold mt-3">Collaborative Environment</h5>
             <p>Belajar dan berinovasi bersama dalam lingkungan yang suportif dan inklusif.</p>
             <div class="feature-meta">
-              <span class="pill">Teamwork</span>
-              <span class="pill">Community</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Teamwork</span>
+              <span class="pill bg-[rgba(37,99,235,0.1)] text-[var(--primary)] px-2 py-1 rounded-full text-sm font-semibold">Community</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section><!-- End Benefit -->
-  <!-- ======= Metaphorical Intro Section ======= -->
-  <section id="metaphor" class="py-5 bg-light position-relative overflow-hidden">
-    <div class="bg-lines"></div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="news-section bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header text-center mb-5">
+        <h2 class="fw-bold text-primary">Latest News</h2>
+        <p class="text-muted">Stay updated with the latest events and announcements from COCONUT Computer Club.</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="news-grid">
+            <div class="news-card">
+              <img src="{{url_for('static', filename='assets/img/Flyer.jpg')}}" alt="COCONUT x IDSecConf 2025 Flyer">
+              <div class="news-content">
+                <div class="news-badge">Collaboration</div>
+                <h4>COCONUT x IDSecConf 2025</h4>
+                <div class="news-date">November 2025</div>
+                <p>Join us for a groundbreaking collaboration with IDSecConf, focusing on cutting-edge research and event organization in cybersecurity.</p>
+                <a href="#" class="btn btn-primary">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metaphorical Intro Section -->
+  <section id="metaphor" class="py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)] position-relative overflow-hidden">
+    <div class="background-animation">
+      <div class="background-particle particle-1"></div>
+      <div class="background-particle particle-2"></div>
+      <div class="background-particle particle-3"></div>
+      <div class="background-particle particle-4"></div>
+    </div>
     <div class="container text-center" data-aos="fade-up">
       <h2 class="fw-bold text-primary mb-4">Every Entity Best Seed</h2>
       <p class="lead mb-5 mx-auto" style="max-width: 800px;">
@@ -369,27 +905,31 @@
         </div>
       </div>
     </div>
-  </section><!-- End Metaphor -->
+  </section>
 
-  <!-- ======= CTA Section: Join Our Community ======= -->
+  <!-- CTA Section -->
   <section id="cta" class="cta py-5 text-white text-center position-relative overflow-hidden">
-    <div class="cta-bg-overlay"></div>
+    <div class="background-animation">
+      <div class="background-particle particle-1"></div>
+      <div class="background-particle particle-2"></div>
+      <div class="background-particle particle-3"></div>
+      <div class="background-particle particle-4"></div>
+    </div>
     <div class="container position-relative z-index-1" data-aos="fade-up">
       <h3 class="fw-bold display-6 mb-3">Siap Menjadi Bagian dari Perubahan?</h3>
       <p class="lead mt-3">Mari berkolaborasi, berinovasi, dan berkontribusi untuk masa depan teknologi yang lebih baik.</p>
-      <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar')}}">Join the Club</a>
+      <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar') }}">Join the Club</a>
     </div>
-  </section><!-- End CTA -->
+  </section>
 
-  <!-- ======= FAQ + Secretariat Section (two-column cards) ======= -->
+  <!-- FAQ + Secretariat Section -->
   <section id="faq-location" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="row gy-4 align-items-start">
-        <!-- Left: FAQ card -->
         <div class="col-lg-6" data-aos="fade-up">
           <div class="card shadow-sm border-0 p-4 h-100 faq-card">
             <div class="d-flex align-items-center justify-content-between mb-3">
-              <h3 class="fw-bold text-primary mb-0">General Question (FAQ)</h3>
+              <h3 class="fw-bold mb-0">General Question (FAQ)</h3>
               <small class="text-muted">Butuh bantuan lain? <a href="{{ url_for('daftar') }}" class="link-primary fw-semibold">Daftar / Kontak</a></small>
             </div>
             <p class="text-muted mb-3">Pertanyaan yang sering diajukan tentang proses pendaftaran dan kebijakan kami.</p>
@@ -481,13 +1021,11 @@
             </div>
           </div>
         </div>
-
-        <!-- Right: Location card -->
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="card shadow-sm border-0 p-4 h-100 location-card">
             <div class="d-flex align-items-start justify-content-between mb-3">
-              <h3 class="fw-bold text-primary mb-0">Location</h3>
-              <span class="badge bg-light text-primary">Kunjungi Kami</span>
+              <h3 class="fw-bold mb-0">Location</h3>
+              <span class="badge bg-[rgba(37,99,235,0.1)] text-[var(--primary)]">Kunjungi Kami</span>
             </div>
             <div class="ratio ratio-16x9 mb-3 map-embed rounded">
               <iframe class="rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.415053744265!2d107.61053075!3d-6.914744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e64c24a9a01f%3A0x6b4c3b5c4f24c7f5!2sBandung%2C%20Kota%20Bandung%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1725227181057!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -496,9 +1034,9 @@
               <div>
                 <h5 class="fw-semibold mb-2">Hubungi Kami</h5>
                 <ul class="list-unstyled mb-0">
-                  <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary"></i><a href="mailto:info@coconut.or.id" class="link-dark">hello@coconut.or.id</a></li>
-                  <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i>Jln. Emmysaelan III No 70, Makassar Indonesia</li>
-                  <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i>Jln. Dago Pakar Mawar 1 No 9, Bandung, Indonesia</li>
+                  <li class="mb-2"><i class="bi bi-envelope-fill me-2 text-[var(--primary)]"></i><a href="mailto:info@coconut.or.id" class="link-dark">hello@coconut.or.id</a></li>
+                  <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-[var(--primary)]"></i>Jln. Emmysaelan III No 70, Makassar Indonesia</li>
+                  <li class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-[var(--primary)]"></i>Jln. Dago Pakar Mawar 1 No 9, Bandung, Indonesia</li>
                 </ul>
               </div>
               <div class="mt-3 mt-sm-0">
@@ -509,17 +1047,5 @@
         </div>
       </div>
     </div>
-    <style>
-      /* local tweaks for FAQ + Location section */
-      .faq-card .accordion-button{ background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,247,250,0.98)); }
-      .faq-card .accordion-button:not(.collapsed){ box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04); }
-      .faq-card .accordion-item + .accordion-item{ margin-top: 0.5rem; }
-      .location-card .map-embed iframe{ min-height:220px; }
-      .location-card h3, .faq-card h3{ font-size:1.45rem; }
-      @media (max-width: 991px){
-        .faq-card, .location-card{ margin-bottom:1rem; }
-      }
-    </style>
   </section>
-
 {% endblock %}

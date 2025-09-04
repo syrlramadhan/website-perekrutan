@@ -1,346 +1,548 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<main id="main">
-    <style>
-        /* form theme: match base/index gradients and glass look */
-        :root{ --primary:#244a9b; --accent:#6dd5ed; --card-bg: rgba(255,255,255,0.92); --soft-shadow: 0 10px 30px rgba(18,28,56,0.06); }
-        #daftar-hero{ background: linear-gradient(135deg, rgba(36,74,155,0.95), rgba(33,147,176,0.9)); color: #fff; padding:3.5rem 0; }
-        #daftar-hero .background-animation{ opacity:0.08; filter: blur(20px); }
-        .card.p-4{ background: var(--card-bg); border-radius:14px; box-shadow: var(--soft-shadow); }
+<main id="main" class="mt-0">
+  <style>
+    /* Importing Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
 
-        .form-floating > .form-control{ border-radius:10px; padding:1.35rem 1rem; background: rgba(255,255,255,0.98); border: 1px solid rgba(36,74,155,0.08); }
-        .form-floating > label{ left: 1rem; top: 0.9rem; font-size:0.95rem; }
-        .form-floating .form-control:focus{ box-shadow: 0 8px 26px rgba(36,74,155,0.08); border-color: rgba(36,74,155,0.25); }
+    :root {
+      --primary: #1e3a8a;
+      --accent: #3b82f6;
+      --accent-2: #2563eb;
+      --muted: #6b7280;
+      --card-bg: rgba(255, 255, 255, 0.98);
+      --shadow: 0 8px 32px rgba(16, 24, 40, 0.12);
+      --border-radius: 12px;
+    }
 
-        /* radio styles */
-        .form-check-input{ width:18px; height:18px; border-radius:6px; border:1px solid rgba(36,74,155,0.12); }
-        .form-check-label{ margin-left:8px; font-weight:600; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #111827;
+      background: #f9fafb;
+      overflow-x: hidden;
+      margin: 0;
+    }
 
-        /* file input */
-        input[type='file'].form-control{ background: linear-gradient(180deg, #fff, #fbfdff); border-radius:10px; padding:.7rem .9rem; }
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+    }
 
-        textarea.form-control{ min-height:160px; border-radius:12px; padding:1rem; }
+    h1 { font-size: 3rem; letter-spacing: -0.025em; }
+    h2 { font-size: 2rem; }
+    p, .lead { font-size: 1.1rem; line-height: 1.8; }
+    .text-muted { color: var(--muted); }
 
-        /* submit button styling */
-        #submitButton{ background: linear-gradient(90deg,var(--primary),#2b63b0); border:none; color:#fff; font-weight:700; }
-        #submitButton:disabled{ opacity:0.6; transform:none; cursor:not-allowed; box-shadow:none; }
+    /* Enhanced Animated Background */
+    .background-animation {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.15;
+      z-index: -1;
+    }
+    .background-animation::before,
+    .background-animation::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(50px);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    .background-animation::before {
+      top: -15%;
+      right: -15%;
+      background: linear-gradient(135deg, var(--accent), rgba(37, 99, 235, 0.2));
+    }
+    .background-animation::after {
+      bottom: -15%;
+      left: -15%;
+      background: linear-gradient(135deg, var(--accent-2), rgba(96, 165, 250, 0.3));
+      animation-delay: 2s;
+    }
+    .background-particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: float 5s ease-in-out infinite;
+      opacity: 0.5;
+    }
+    .particle-1 { top: 15%; left: 25%; animation-delay: 0s; }
+    .particle-2 { top: 35%; right: 20%; animation-delay: 1.2s; }
+    .particle-3 { bottom: 25%; left: 30%; animation-delay: 2.4s; }
+    .particle-4 { top: 60%; left: 10%; animation-delay: 3.6s; }
 
-        .invalid-feedback{ font-size:0.9rem; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(10deg); }
+    }
 
-        @media (max-width:767px){ .card.p-4{ padding:1.5rem; } }
-    </style>
-    <section id="daftar-hero" class="d-flex align-items-center position-relative overflow-hidden py-5">
-        <div class="background-animation"></div>
-        <div class="container position-relative z-index-1" data-aos="fade-up">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-8">
-                    <h1 class="display-4 fw-bold --secondary-blue mb-3">Daftar Anggota Baru</h1>
-                    <p class="lead --secondary-blue">Isi formulir di bawah ini untuk memulai perjalananmu bersama COCONUT Computer Club.</p>
-                </div>
-            </div>
+    /* Hero Section */
+    #daftar-hero {
+      background: linear-gradient(120deg, var(--primary) 0%, var(--accent-2) 50%, var(--accent) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 0;
+      text-align: center;
+      margin-top: -80px; /* Menempel ke header */
+    }
+    #daftar-hero h1 {
+      font-weight: 800;
+      font-size: 3.5rem;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1rem;
+      color: white;
+    }
+    #daftar-hero .lead {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+      color: white;
+    }
+
+    /* Form Section */
+    #daftar-form {
+      background: linear-gradient(180deg, #f9fafb, rgba(147, 197, 253, 0.15));
+      padding: 1rem 0; /* Reduced padding to minimize vertical space */
+      margin-bottom: 0; /* Ensure no extra margin */
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      border: none;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 1.5rem; /* Reduced padding for a compact look */
+      margin-bottom: 0; /* Explicitly remove bottom margin */
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(16, 24, 40, 0.2);
+    }
+
+    /* Form Elements */
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+      border-radius: var(--border-radius);
+      padding: 1.5rem 1rem;
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      background: rgba(255, 255, 255, 0.99);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-floating > .form-control:focus,
+    .form-floating > .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      outline: none;
+    }
+    .form-floating > label {
+      left: 1rem;
+      top: 1rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 0 0.5rem;
+      transition: all 0.2s ease;
+    }
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+    .form-floating > .form-select:focus ~ label,
+    .form-floating > .form-select:not(:placeholder-shown) ~ label {
+      transform: translateY(-1rem) scale(0.85);
+      color: var(--accent);
+      background: var(--card-bg);
+      font-weight: 600;
+    }
+
+    /* Radio Buttons */
+    .form-check-input {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(37, 99, 235, 0.4);
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .form-check-input:checked {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+    .form-check-label {
+      margin-left: 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: #374151;
+    }
+    .form-check:hover .form-check-label { color: var(--accent); }
+
+    /* File Input */
+    input[type='file'].form-control {
+      border: 2px dashed rgba(37, 99, 235, 0.4);
+      background: rgba(255, 255, 255, 0.99);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input[type='file'].form-control:hover,
+    input[type='file'].form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Textarea */
+    textarea.form-control {
+      min-height: 160px;
+      border-radius: var(--border-radius);
+      resize: vertical;
+    }
+
+    /* Submit Button */
+    #submitButton {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border: none;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.9rem 3rem;
+      border-radius: 2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+    #submitButton:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    }
+    #submitButton:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Feedback Messages */
+    #submitSuccessMessage, #submitErrorMessage {
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 0; /* Ensure no bottom margin */
+    }
+    #submitSuccessMessage {
+      background: rgba(147, 197, 253, 0.3);
+      border: 1px solid var(--accent);
+    }
+    #submitErrorMessage {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+    }
+
+    /* Form */
+    #daftarForm {
+      margin-bottom: 0; /* Ensure form has no bottom margin */
+    }
+
+    /* Toast Styling */
+    .toast {
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      min-width: 300px;
+    }
+    .toast.bg-success { background: var(--accent) !important; }
+    .toast.bg-danger { background: #ef4444 !important; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 991px) {
+      #daftar-hero { padding: 3rem 0; }
+      #daftar-hero h1 { font-size: 2.5rem; }
+      .card { padding: 1rem; }
+    }
+    @media (max-width: 767px) {
+      #daftar-hero { padding: 2rem 0; }
+      #daftar-hero h1 { font-size: 2rem; }
+      #daftar-hero .lead { font-size: 1rem; }
+      .card { padding: 0.75rem; }
+      #submitButton { padding: 0.8rem 2.5rem; font-size: 1rem; }
+      .form-floating > label { font-size: 0.9rem; }
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section id="daftar-hero" class="d-flex align-items-center position-relative">
+    <div class="background-animation">
+      <div class="background-particle particle-1"></div>
+      <div class="background-particle particle-2"></div>
+      <div class="background-particle particle-3"></div>
+      <div class="background-particle particle-4"></div>
+    </div>
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-10">
+          <h1 class="mb-3" style="color: white;">Pendaftaran Anggota COCONUT Computer Club</h1>
+          <p class="lead">Bergabunglah dengan kami dengan mengisi formulir di bawah ini.</p>
         </div>
-    </section><section id="daftar-form" class="py-5">
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="card p-4 p-md-5 shadow-lg border-0 rounded-4">
-                        <div class="text-center mb-5">
-                            <h2 class="fw-bolder text-primary">Formulir Pendaftaran Anggota</h2>
-                            <p class="lead fw-normal text-muted mb-0">Isi setiap kolom dengan data yang valid dan akurat.</p>
-                        </div>
-                        <form id="daftarForm" class="row g-4">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="nama_lengkap" name="nama_lengkap" type="text" placeholder="Masukkan Nama Lengkap..." data-sb-validations="required" />
-                                    <label for="nama_lengkap">Nama Lengkap</label>
-                                    <div class="invalid-feedback" data-sb-feedback="nama_lengkap:required">Nama Lengkap diperlukan.</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="nama_panggilan" name="nama_panggilan" type="text" placeholder="Masukkan Nama Panggilan..." data-sb-validations="required" />
-                                    <label for="nama_panggilan">Nama Panggilan</label>
-                                    <div class="invalid-feedback" data-sb-feedback="nama_panggilan:required">Nama Panggilan diperlukan.</div>
-                                </div>
-                            </div>
+      </div>
+    </div>
+  </section>
 
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Jenis Kelamin</label>
-                                <div class="d-flex gap-4 mt-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="Pria" data-sb-validations="required" />
-                                        <label class="form-check-label" for="pria">Pria</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="Wanita" data-sb-validations="required" />
-                                        <label class="form-check-label" for="wanita">Wanita</label>
-                                    </div>
-                                </div>
-                                <div class="invalid-feedback" data-sb-feedback="jenis_kelamin:required">Pilih jenis kelamin.</div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                    <label for="email">Alamat Email</label>
-                                    <div class="invalid-feedback" data-sb-feedback="email:required">Email diperlukan.</div>
-                                    <div class="invalid-feedback" data-sb-feedback="email:email">Email tidak valid.</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="nomor_wa" name="nomor_wa" type="tel" placeholder="+62 812 4567 8910" data-sb-validations="required" pattern="[0-9]+" />
-                                    <label for="nomor_wa">Nomor WhatsApp</label>
-                                    <div class="invalid-feedback" data-sb-feedback="nomor_wa:required">Nomor WhatsApp diperlukan.</div>
-                                    <div class="invalid-feedback" data-sb-feedback="nomor_wa:pattern">Hanya angka yang diperbolehkan.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input class="form-control" id="username_telegram" name="username_telegram" type="text" placeholder="Masukkan Username Telegram..." data-sb-validations="required" />
-                                    <label for="username_telegram">Username Telegram</label>
-                                    <div class="invalid-feedback" data-sb-feedback="username_telegram:required">Username Telegram diperlukan.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Masukkan Alamat tempat tinggal..." data-sb-validations="required" />
-                                    <label for="alamat">Alamat Tempat Tinggal</label>
-                                    <div class="invalid-feedback" data-sb-feedback="alamat:required">Alamat tempat tinggal diperlukan.</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <select class="form-select" id="pilihan_tinggal" name="pilihan_tinggal" data-sb-validations="required">
-                                        <option value="" disabled selected>Pilihan Tinggal...</option>
-                                        <option value="Orangtua">Tinggal dengan Orangtua</option>
-                                        <option value="Keluarga">Tinggal dengan Keluarga</option>
-                                        <option value="Kost">Kost</option>
-                                    </select>
-                                    <div class="invalid-feedback" data-sb-feedback="pilihan_tinggal:required">Pilihan tempat tinggal diperlukan.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="kampus" name="kampus" type="text" placeholder="Masukkan Asal Kampus..." data-sb-validations="required" />
-                                    <label for="kampus">Asal Kampus</label>
-                                    <div class="invalid-feedback" data-sb-feedback="kampus:required">Asal Kampus diperlukan.</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input class="form-control" id="jurusan" name="jurusan" type="text" placeholder="Masukkan Jurusan..." data-sb-validations="required" />
-                                    <label for="jurusan">Jurusan</label>
-                                    <div class="invalid-feedback" data-sb-feedback="jurusan:required">Jurusan diperlukan.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="photo" class="form-label fw-semibold">Unggah Foto Anda <span class="text-muted">(file .jpg, .jpeg, .png)</span></label>
-                                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .jpeg, .png" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="photo:required">Foto Anda diperlukan.</div>
-                                <div class="invalid-feedback" data-sb-feedback="photo:accept">Hanya file .jpg, .jpeg, atau .png yang diperbolehkan.</div>
-                            </div>
-                            
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" id="alasan" name="alasan" type="text" placeholder="Masukkan alasan anda di sini..." style="height: 10rem" data-sb-validations="required"></textarea>
-                                    <label for="alasan">Alasan Masuk COCONUT</label>
-                                    <div class="invalid-feedback" data-sb-feedback="alasan:required">Alasan Masuk diperlukan.</div>
-                                </div>
-                            </div>
-
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3 text-success">
-                                    <div class="fw-bolder">Formulir pendaftaran berhasil dikirim!</div>
-                                    <p>Kami telah menerima datamu. Silakan cek emailmu untuk petunjuk selanjutnya.</p>
-                                    <a href="{{ url_for('index')}}">Kembali ke halaman utama</a>
-                                </div>
-                            </div>
-                            <div class="d-none" id="submitErrorMessage">
-                                <div class="text-center text-danger mb-3">Terjadi kesalahan saat mengirim formulir. Mohon coba lagi!</div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <button class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm" id="submitButton" type="submit">DAFTAR</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+  <!-- Form Section -->
+  <section id="daftar-form">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <div class="card">
+            <div class="text-center mb-4">
+              <h2>Formulir Pendaftaran</h2>
+              <p class="text-muted">Isi informasi dengan benar untuk bergabung dengan komunitas kami.</p>
             </div>
+            <form id="daftarForm" class="row g-4">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="nama_lengkap" name="nama_lengkap" type="text" placeholder="Nama Lengkap" required />
+                  <label for="nama_lengkap">Nama Lengkap</label>
+                  <div class="invalid-feedback">Nama Lengkap diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="nama_panggilan" name="nama_panggilan" type="text" placeholder="Nama Panggilan" required />
+                  <label for="nama_panggilan">Nama Panggilan</label>
+                  <div class="invalid-feedback">Nama Panggilan diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold mb-2">Jenis Kelamin</label>
+                <div class="d-flex gap-4 flex-wrap">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="Pria" required />
+                    <label class="form-check-label" for="pria">Pria</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="Wanita" required />
+                    <label class="form-check-label" for="wanita">Wanita</label>
+                  </div>
+                </div>
+                <div class="invalid-feedback d-block">Pilih jenis kelamin.</div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="email" name="email" type="email" placeholder="Email" required />
+                  <label for="email">Alamat Email</label>
+                  <div class="invalid-feedback">Email valid diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="nomor_wa" name="nomor_wa" type="tel" placeholder="Nomor WhatsApp" required pattern="[0-9]+" />
+                  <label for="nomor_wa">Nomor WhatsApp</label>
+                  <div class="invalid-feedback">Nomor WhatsApp diperlukan (hanya angka).</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input class="form-control" id="username_telegram" name="username_telegram" type="text" placeholder="Username Telegram" required />
+                  <label for="username_telegram">Username Telegram</label>
+                  <div class="invalid-feedback">Username Telegram diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Alamat" required />
+                  <label for="alamat">Alamat Tempat Tinggal</label>
+                  <div class="invalid-feedback">Alamat diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <select class="form-select" id="pilihan_tinggal" name="pilihan_tinggal" required>
+                    <option value="" disabled selected>Pilih...</option>
+                    <option value="Orangtua">Tinggal dengan Orangtua</option>
+                    <option value="Keluarga">Tinggal dengan Keluarga</option>
+                    <option value="Kost">Kost</option>
+                  </select>
+                  <label for="pilihan_tinggal">Pilihan Tinggal</label>
+                  <div class="invalid-feedback">Pilih tempat tinggal.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="kampus" name="kampus" type="text" placeholder="Asal Kampus" required />
+                  <label for="kampus">Asal Kampus</label>
+                  <div class="invalid-feedback">Asal Kampus diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input class="form-control" id="jurusan" name="jurusan" type="text" placeholder="Jurusan" required />
+                  <label for="jurusan">Jurusan</label>
+                  <div class="invalid-feedback">Jurusan diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold mb-2">Unggah Foto <span class="text-muted">(.jpg, .jpeg, .png, maks 2MB)</span></label>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.jpeg,.png" required />
+                <div class="invalid-feedback">Foto diperlukan (.jpg, .jpeg, .png, maks 2MB).</div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea class="form-control" id="alasan" name="alasan" placeholder="Alasan" required></textarea>
+                  <label for="alasan">Alasan Masuk COCONUT</label>
+                  <div class="invalid-feedback">Alasan diperlukan.</div>
+                </div>
+              </div>
+              <div class="col-12 d-none" id="submitSuccessMessage">
+                <div class="text-center text-success">
+                  <div class="fw-bold">Pendaftaran Berhasil!</div>
+                  <p>Cek email Anda untuk langkah selanjutnya.</p>
+                  <a href="{{ url_for('index') }}" class="btn btn-outline-primary rounded-pill px-4">Kembali ke Beranda</a>
+                </div>
+              </div>
+              <div class="col-12 d-none" id="submitErrorMessage">
+                <div class="text-center text-danger">Terjadi kesalahan. Coba lagi!</div>
+              </div>
+              <div class="col-12 text-center mt-3">
+                <button class="btn" id="submitButton" type="submit">DAFTAR SEKARANG</button>
+              </div>
+            </form>
+          </div>
         </div>
-    </section>
-
+      </div>
+    </div>
+  </section>
 </main>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    // Fungsionalitas formulir dan pengiriman data
-    document.addEventListener("DOMContentLoaded", function () {
-        const daftarForm = document.getElementById('daftarForm');
-        const submitButton = document.getElementById('submitButton');
-        const successMessage = document.getElementById('submitSuccessMessage');
-        const errorMessage = document.getElementById('submitErrorMessage');
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('daftarForm');
+    const submitButton = document.getElementById('submitButton');
+    const successMessage = document.getElementById('submitSuccessMessage');
+    const errorMessage = document.getElementById('submitErrorMessage');
 
-        function sendData(formData) {
-            // Debug: Log form data
-            console.log('Sending form data:');
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
-            
-            fetch('/api/postData', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(async response => {
-                console.log('Response status:', response.status);
-                let data = null;
-                try {
-                    data = await response.json();
-                } catch (e) {
-                    // response not JSON
-                }
-                if (!response.ok) {
-                    const msg = data && (data.message || data.error) ? (data.message || data.error) : `HTTP error! status: ${response.status}`;
-                    throw new Error(msg);
-                }
-                return data;
-            })
-            .then(data => {
-                    console.log('Response:', data);
-                    if (data && data.status === 'success') {
-                        daftarForm.reset();
-                        successMessage.classList.remove('d-none');
-                        errorMessage.classList.add('d-none');
-                        showToast('success', 'Pendaftaran berhasil! Terima kasih telah mendaftar.');
-                    } else {
-                        throw new Error((data && (data.message || data.error)) || 'Server responded with an error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    errorMessage.classList.remove('d-none');
-                    successMessage.classList.add('d-none');
-                    showToast('danger', 'Terjadi kesalahan: ' + error.message);
-                })
-            .finally(() => {
-                submitButton.disabled = false;
-            });
+    function showToast(type, message) {
+      const toast = document.createElement('div');
+      toast.className = `toast bg-${type} text-white`;
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>`;
+      document.getElementById('toast-container').appendChild(toast);
+      const bsToast = new bootstrap.Toast(toast, { delay: 4000 });
+      bsToast.show();
+      setTimeout(() => toast.remove(), 5000);
+    }
+
+    function validateForm() {
+      let isValid = true;
+      const fields = ['nama_lengkap', 'nama_panggilan', 'email', 'nomor_wa', 'username_telegram', 'alamat', 'pilihan_tinggal', 'kampus', 'jurusan', 'alasan'];
+      fields.forEach(id => {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) {
+          field.classList.add('is-invalid');
+          isValid = false;
+        } else {
+          field.classList.remove('is-invalid');
         }
+      });
 
-        daftarForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            console.log('Form submission started');
-            submitButton.disabled = true;
+      const gender = document.querySelector('input[name="jenis_kelamin"]:checked');
+      const genderGroup = document.querySelector('.d-flex.gap-4');
+      if (!gender) {
+        genderGroup.nextElementSibling.classList.add('d-block');
+        isValid = false;
+      } else {
+        genderGroup.nextElementSibling.classList.remove('d-block');
+      }
 
-            const formData = new FormData(this);
-            
-            // Handle photo file
-            const photoInput = document.getElementById('photo');
-            if (photoInput.files.length > 0) {
-                formData.set('photo', photoInput.files[0]);
-                console.log('Photo file added:', photoInput.files[0].name);
+      const email = document.getElementById('email');
+      if (email.value && !/^\S+@\S+\.\S+$/.test(email.value)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+      }
+
+      const wa = document.getElementById('nomor_wa');
+      if (wa.value && !/^[0-9+\-\s]{6,20}$/.test(wa.value)) {
+        wa.classList.add('is-invalid');
+        isValid = false;
+      }
+
+      const photo = document.getElementById('photo');
+      if (photo.files.length) {
+        const file = photo.files[0];
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!validTypes.includes(file.type) || file.size > 2 * 1024 * 1024) {
+          photo.classList.add('is-invalid');
+          isValid = false;
+        } else {
+          photo.classList.remove('is-invalid');
+        }
+      } else {
+        photo.classList.add('is-invalid');
+        isValid = false;
+      }
+
+      submitButton.disabled = !isValid;
+      return isValid;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitButton.disabled = true;
+
+      if (validateForm()) {
+        const formData = new FormData(form);
+        fetch('/api/postData', { method: 'POST', body: formData })
+          .then(response => {
+            if (!response.ok) throw new Error('Gagal mengirim formulir');
+            return response.json();
+          })
+          .then(data => {
+            if (data.status === 'success') {
+              form.reset();
+              successMessage.classList.remove('d-none');
+              errorMessage.classList.add('d-none');
+              showToast('success', 'Pendaftaran berhasil! Cek email Anda.');
             } else {
-                console.log('No photo file selected');
+              throw new Error('Kesalahan server');
             }
-
-            // Debug: Log all form fields
-            console.log('Form fields before sending:');
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-            
-            sendData(formData);
-        });
-            // Client-side validation: enable/disable submit button based on required fields
-            const requiredFields = [
-                'nama_lengkap','nama_panggilan','email','nomor_wa','username_telegram','alamat','pilihan_tinggal','kampus','jurusan','alasan'
-            ];
-
-            function fieldIsFilled(id) {
-                const el = document.getElementById(id);
-                if (!el) return false;
-                if (el.tagName === 'SELECT') return el.value && el.value.trim() !== '';
-                return el.value && el.value.trim() !== '';
-            }
-
-            function validateAll() {
-                // jenis_kelamin radio
-                const jk = document.querySelector('input[name="jenis_kelamin"]:checked');
-                const photoInput = document.getElementById('photo');
-                let ok = true;
-                if (!jk) ok = false;
-                for (const id of requiredFields) {
-                    if (!fieldIsFilled(id)) { ok = false; break; }
-                }
-                // photo required
-                if (!photoInput || photoInput.files.length === 0) ok = false;
-
-                // simple email check
-                const emailEl = document.getElementById('email');
-                if (emailEl && emailEl.value && !/^\S+@\S+\.\S+$/.test(emailEl.value)) ok = false;
-
-                // phone numeric check
-                const waEl = document.getElementById('nomor_wa');
-                if (waEl && waEl.value && !/^[0-9+\-\s]{6,20}$/.test(waEl.value)) ok = false;
-
-                submitButton.disabled = !ok;
-            }
-
-            // attach listeners
-            requiredFields.forEach(id => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                el.addEventListener('input', validateAll);
-                el.addEventListener('change', validateAll);
-            });
-            document.querySelectorAll('input[name="jenis_kelamin"]').forEach(r => r.addEventListener('change', validateAll));
-            const photoInputEl = document.getElementById('photo');
-            if (photoInputEl) photoInputEl.addEventListener('change', validateAll);
-            // initial check
-            validateAll();
+          })
+          .catch(() => {
+            errorMessage.classList.remove('d-none');
+            successMessage.classList.add('d-none');
+            showToast('danger', 'Terjadi kesalahan. Coba lagi.');
+          })
+          .finally(() => {
+            submitButton.disabled = false;
+          });
+      } else {
+        showToast('danger', 'Lengkapi formulir dengan benar.');
+        submitButton.disabled = false;
+      }
     });
-</script>
-<!-- Toast container -->
-<div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
 
-<script>
-// helper to show Bootstrap toast messages
-function showToast(type, message, title) {
-        title = title || (type === 'success' ? 'Sukses' : 'Error');
-        try {
-                const container = document.getElementById('toast-container');
-                if (!container) return;
-                const toastId = 'toast-' + Date.now();
-                const bgClass = type === 'success' ? 'bg-success text-white' : 'bg-danger text-white';
-                const html = `
-                <div id="${toastId}" class="toast ${bgClass}" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">${message}</div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>`;
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-                const toastEl = temp.firstElementChild;
-                container.appendChild(toastEl);
-                // eslint-disable-next-line no-undef
-                const bsToast = bootstrap && bootstrap.Toast ? new bootstrap.Toast(toastEl, { delay: 5000 }) : null;
-                if (bsToast) bsToast.show();
-                // remove toast from DOM after hidden
-                toastEl.addEventListener('hidden.bs.toast', function () { toastEl.remove(); });
-                // fallback removal after 6s if bootstrap not present
-                setTimeout(() => { if (document.getElementById(toastId)) toastEl.remove(); }, 7000);
-        } catch (e) {
-                console.warn('showToast error', e);
-                alert(message);
-        }
-}
+    form.querySelectorAll('input, select, textarea').forEach(input => {
+      input.addEventListener('input', validateForm);
+      input.addEventListener('change', validateForm);
+    });
+  });
 </script>
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 {% endblock %}
