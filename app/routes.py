@@ -72,6 +72,12 @@ def news():
 	return render_template('news.html')
 
 
+@app.route('/about')
+def about():
+	"""Render the About page."""
+	return render_template('about.html')
+
+
 
 @app.route('/api/getData', methods=['GET'])
 def getData():

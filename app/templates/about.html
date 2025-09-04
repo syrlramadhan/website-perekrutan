@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}About - COCONUT Computer Club{% endblock %}
+
+{% block content %}
+<section class="about-section container" data-aos="fade-up">
+  <div class="row gy-4">
+    <div class="col-lg-6">
+      <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid rounded" alt="COCONUT">
+    </div>
+    <div class="col-lg-6">
+      <h2>About COCONUT Computer Club</h2>
+      <p class="lead">COCONUT (Computer Club Oriented Network Utility and Technology) adalah komunitas mahasiswa yang fokus pada pengembangan kompetensi di bidang teknologi informasi, riset, dan proyek berbasis perangkat lunak dan perangkat keras.</p>
+      <h5>Visi</h5>
+      <p>Mendorong inovasi dan kolaborasi antar mahasiswa untuk menciptakan solusi teknologi yang berdampak.</p>
+
+      <h5>Misi</h5>
+      <ul>
+        <li>Menyelenggarakan pelatihan dan workshop untuk meningkatkan skill anggota.</li>
+        <li>Membina proyek-proyek riset dan pengembangan yang relevan dengan kebutuhan industri.</li>
+        <li>Membangun jejaring dan kolaborasi dengan komunitas teknologi di luar kampus.</li>
+      </ul>
+
+      <h5>Contact</h5>
+      <p>Untuk informasi lebih lanjut, kunjungi sosial media kami atau kirim email ke <a href="mailto:info@coconut.or.id">info@coconut.or.id</a>.</p>
+
+      <a href="{{ url_for('daftar') }}" class="btn btn-primary btn-header-cta">Daftar Sekarang</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
