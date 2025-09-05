@@ -9,8 +9,8 @@
   <meta content="Situs pendaftaran resmi COCONUT Computer Club cabang Bandung." name="description">
   <meta content="COCONUT, Computer Club, Pendaftaran, Bandung, IT, Teknologi" name="keywords">
 
-  <link href="{{ url_for('static', filename='assets/img/Asset 4@4x (1).png')}}" rel="icon">
-  <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <!-- Standardized favicons -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo.png') }}">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,8 +24,8 @@
       --white-text: #FFFFFF;
       --font-poppins: 'Poppins', sans-serif;
       --font-inter: 'Inter', sans-serif;
-      --header-offset: 80px; /* Increased for modern spacing */
-      --header-height: 80px; /* Height of the header for mobile menu positioning */
+      --header-offset: 80px; 
+      --header-height: 80px; 
     }
 
     body {
