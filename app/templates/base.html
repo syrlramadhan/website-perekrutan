@@ -25,6 +25,7 @@
       --font-poppins: 'Poppins', sans-serif;
       --font-inter: 'Inter', sans-serif;
       --header-offset: 80px; /* Increased for modern spacing */
+      --header-height: 80px; /* Height of the header for mobile menu positioning */
     }
 
     body {
@@ -33,7 +34,7 @@
       background-color: #F6F8FA;
     }
 
-    /* Modernized Header */
+    /* Header */
     #header {
       background: linear-gradient(90deg, rgba(30, 64, 175, 0.95), rgba(37, 99, 235, 0.9));
       color: var(--white-text);
@@ -42,7 +43,7 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
     }
@@ -122,46 +123,102 @@
 
     .mobile-nav-toggle {
       color: var(--white-text);
-      font-size: 28px; /* Slightly larger for better tap target */
+      font-size: 28px;
       display: none;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 4px;
+      margin-left: 1rem;
     }
 
     .mobile-nav-toggle:hover {
-      transform: rotate(90deg); /* Rotate for interactive feel */
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
     }
 
-    @media (max-width: 768px) {
-      .mobile-nav-toggle {
-        display: inline-block;
-      }
+    .mobile-nav-toggle.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
 
+    /* Desktop Navigation */
+    /* Aturan ini memastikan navbar selalu terlihat di layar besar */
+    .navbar ul {
+      display: flex; /* Mengatur item menu secara horizontal */
+    }
+    .mobile-nav-toggle {
+      display: none; /* Tombol hamburger disembunyikan di desktop */
+    }
+
+    /* --- */
+
+    /* Mobile Navigation - base (hidden on desktop) */
+    .navbar-mobile {
+      display: none; /* keep hidden by default on desktop */
+      position: fixed;
+      top: var(--header-height);
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background: rgba(30, 64, 175, 0.95);
+      transition: right 0.36s ease, opacity 0.36s ease;
+      z-index: 999;
+      backdrop-filter: blur(15px);
+      box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      padding-top: 1rem;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .navbar-mobile.active {
+      right: 0; /* Menampilkan menu di layar saat kelas 'active' ditambahkan */
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .navbar-mobile ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .navbar-mobile li {
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .navbar-mobile li:last-child {
+      border-bottom: none;
+    }
+    .navbar-mobile a {
+      display: block;
+      padding: 1rem 2rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--font-poppins);
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+    .navbar-mobile a:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+      padding-left: 2.5rem;
+    }
+
+    /* Aturan ini hanya berlaku untuk layar dengan lebar kurang dari 992px */
+    @media (max-width: 991px) {
       .navbar ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px; /* Adjusted for header height */
-        left: 0;
-        right: 0;
-        background: rgba(30, 64, 175, 0.95);
-        padding: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 0 0 8px 8px;
+        display: none; /* Menu utama disembunyikan secara default */
       }
-
-      .navbar ul.active {
-        display: flex;
+      .mobile-nav-toggle {
+        display: inline-block; /* Tombol hamburger ditampilkan */
       }
-
-      .navbar a {
-        padding: 12px;
-        font-size: 1.1rem; /* Larger text for mobile */
-        text-align: center;
-      }
-
-      .navbar a::after {
-        display: none; /* Remove underline effect on mobile */
+      .navbar-mobile {
+        display: flex; /* enable mobile menu container on small screens */
       }
     }
 
@@ -549,6 +606,16 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
+      <!-- Mobile Navigation Menu -->
+      <div id="navbar-mobile" class="navbar-mobile">
+        <ul>
+          <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}#affiliations">Affiliations</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}#news-events">News</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Registration</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 
@@ -624,36 +691,53 @@
   <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
   <script>
-    // JavaScript to handle mobile menu toggle and scroll effects
     document.addEventListener('DOMContentLoaded', () => {
       const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-      const navbarUl = document.querySelector('.navbar ul');
-      const header = document.querySelector('#header');
+      const mobileNav = document.getElementById('navbar-mobile');
+      const body = document.body;
 
-      // Toggle mobile menu
-      mobileNavToggle.addEventListener('click', () => {
-        navbarUl.classList.toggle('active');
-      });
+      if (!mobileNavToggle || !mobileNav) {
+        // safety: expected elements not found
+        console.warn('mobile nav toggle or navbar-mobile not found');
+        return;
+      }
 
-      // Add scrolled class to header on scroll
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('scrolled');
+      const closeMobileNav = () => {
+        mobileNav.classList.remove('active');
+        mobileNavToggle.classList.remove('bi-x');
+        mobileNavToggle.classList.add('bi-list');
+        body.style.overflow = '';
+        mobileNavToggle.setAttribute('aria-expanded', 'false');
+      };
+
+      const openMobileNav = () => {
+        mobileNav.classList.add('active');
+        mobileNavToggle.classList.remove('bi-list');
+        mobileNavToggle.classList.add('bi-x');
+        body.style.overflow = 'hidden'; // lock background scroll
+        mobileNavToggle.setAttribute('aria-expanded', 'true');
+      };
+
+      mobileNavToggle.addEventListener('click', (e) => {
+        if (mobileNav.classList.contains('active')) {
+          closeMobileNav();
         } else {
-          header.classList.remove('scrolled');
+          openMobileNav();
         }
       });
 
-      // Add active class to current nav link
-      const navLinks = document.querySelectorAll('.navbar a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          if (window.innerWidth <= 768) {
-            navbarUl.classList.remove('active');
-          }
-        });
+      // close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && !mobileNavToggle.contains(e.target) && mobileNav.classList.contains('active')) {
+          closeMobileNav();
+        }
+      });
+
+      // close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+          closeMobileNav();
+        }
       });
     });
   </script>

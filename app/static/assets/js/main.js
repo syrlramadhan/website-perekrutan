@@ -111,9 +111,8 @@
    * Mobile nav toggle
    */
   on('click', '.mobile-nav-toggle', function(e) {
-    select('#navbar').classList.toggle('navbar-mobile')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
+    select('.navbar ul').classList.toggle('active')
+    this.classList.toggle('active')
   })
 
   /**
@@ -133,12 +132,11 @@
     if (select(this.hash)) {
       e.preventDefault()
 
-      let navbar = select('#navbar')
-      if (navbar.classList.contains('navbar-mobile')) {
-        navbar.classList.remove('navbar-mobile')
+      let navbar = select('.navbar ul')
+      if (navbar.classList.contains('active')) {
+        navbar.classList.remove('active')
         let navbarToggle = select('.mobile-nav-toggle')
-        navbarToggle.classList.toggle('bi-list')
-        navbarToggle.classList.toggle('bi-x')
+        navbarToggle.classList.remove('active')
       } 
       scrollto(this.hash)
     }
@@ -168,9 +166,13 @@
   /**
    * Initiate  glightbox 
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  try {
+    const glightbox = GLightbox({
+      selector: '.glightbox'
+    });
+  } catch (error) {
+    console.log('GLightbox not available, skipping lightbox initialization');
+  }
 
   /**
    * Skills animation
@@ -222,9 +224,13 @@
   /**
    * Initiate portfolio lightbox 
    */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
+  try {
+    const portfolioLightbox = GLightbox({
+      selector: '.portfolio-lightbox'
+    });
+  } catch (error) {
+    console.log('GLightbox not available for portfolio, skipping');
+  }
 
   /**
    * Portfolio details slider
