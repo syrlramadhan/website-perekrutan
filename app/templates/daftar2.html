@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<main id="main" class="mt-0">
   <style>
     /* Importing Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
@@ -98,7 +97,7 @@
       overflow: hidden;
       padding: 4rem 0;
       text-align: center;
-      margin-top: -80px; /* Menempel ke header */
+      margin-top: -40px; /* Sedikit jarak dari header */
     }
     #daftar-hero h1 {
       font-weight: 800;
@@ -137,37 +136,19 @@
     }
 
     /* Form Elements */
-    .form-floating > .form-control,
-    .form-floating > .form-select {
+    .form-control,
+    .form-select {
       border-radius: var(--border-radius);
-      padding: 1.5rem 1rem;
+      padding: 0.75rem 1rem;
       border: 1px solid rgba(37, 99, 235, 0.25);
       background: rgba(255, 255, 255, 0.99);
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .form-floating > .form-control:focus,
-    .form-floating > .form-select:focus {
+    .form-control:focus,
+    .form-select:focus {
       border-color: var(--accent);
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
       outline: none;
-    }
-    .form-floating > label {
-      left: 1rem;
-      top: 1rem;
-      font-size: 0.95rem;
-      color: var(--muted);
-      font-weight: 500;
-      padding: 0 0.5rem;
-      transition: all 0.2s ease;
-    }
-    .form-floating > .form-control:focus ~ label,
-    .form-floating > .form-control:not(:placeholder-shown) ~ label,
-    .form-floating > .form-select:focus ~ label,
-    .form-floating > .form-select:not(:placeholder-shown) ~ label {
-      transform: translateY(-1rem) scale(0.85);
-      color: var(--accent);
-      background: var(--card-bg);
-      font-weight: 600;
     }
 
     /* Radio Buttons */
@@ -243,7 +224,7 @@
       border-radius: var(--border-radius);
       text-align: center;
       margin-top: 1rem;
-      margin-bottom: 0; /* Ensure no bottom margin */
+      margin-bottom: 0;
     }
     #submitSuccessMessage {
       background: rgba(147, 197, 253, 0.3);
@@ -280,7 +261,6 @@
       #daftar-hero .lead { font-size: 1rem; }
       .card { padding: 0.75rem; }
       #submitButton { padding: 0.8rem 2.5rem; font-size: 1rem; }
-      .form-floating > label { font-size: 0.9rem; }
     }
   </style>
 
@@ -302,6 +282,9 @@
     </div>
   </section>
 
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;"></div>
+
   <!-- Form Section -->
   <section id="daftar-form">
     <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -314,18 +297,12 @@
             </div>
             <form id="daftarForm" class="row g-4">
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="nama_lengkap" name="nama_lengkap" type="text" placeholder="Nama Lengkap" required />
-                  <label for="nama_lengkap">Nama Lengkap</label>
-                  <div class="invalid-feedback">Nama Lengkap diperlukan.</div>
-                </div>
+                <input class="form-control" id="nama_lengkap" name="nama_lengkap" type="text" placeholder="Nama Lengkap" required />
+                <div class="invalid-feedback">Nama Lengkap diperlukan.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="nama_panggilan" name="nama_panggilan" type="text" placeholder="Nama Panggilan" required />
-                  <label for="nama_panggilan">Nama Panggilan</label>
-                  <div class="invalid-feedback">Nama Panggilan diperlukan.</div>
-                </div>
+                <input class="form-control" id="nama_panggilan" name="nama_panggilan" type="text" placeholder="Nama Panggilan" required />
+                <div class="invalid-feedback">Nama Panggilan diperlukan.</div>
               </div>
               <div class="col-12">
                 <label class="form-label fw-semibold mb-2">Jenis Kelamin</label>
@@ -342,58 +319,37 @@
                 <div class="invalid-feedback d-block">Pilih jenis kelamin.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="email" name="email" type="email" placeholder="Email" required />
-                  <label for="email">Alamat Email</label>
-                  <div class="invalid-feedback">Email valid diperlukan.</div>
-                </div>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Email" required />
+                <div class="invalid-feedback">Email valid diperlukan.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="nomor_wa" name="nomor_wa" type="tel" placeholder="Nomor WhatsApp" required pattern="[0-9]+" />
-                  <label for="nomor_wa">Nomor WhatsApp</label>
-                  <div class="invalid-feedback">Nomor WhatsApp diperlukan (hanya angka).</div>
-                </div>
+                <input class="form-control" id="nomor_wa" name="nomor_wa" type="tel" placeholder="Nomor WhatsApp" required pattern="[0-9]+" />
+                <div class="invalid-feedback">Nomor WhatsApp diperlukan (hanya angka).</div>
               </div>
               <div class="col-12">
-                <div class="form-floating">
-                  <input class="form-control" id="username_telegram" name="username_telegram" type="text" placeholder="Username Telegram" required />
-                  <label for="username_telegram">Username Telegram</label>
-                  <div class="invalid-feedback">Username Telegram diperlukan.</div>
-                </div>
+                <input class="form-control" id="username_telegram" name="username_telegram" type="text" placeholder="Username Telegram" required />
+                <div class="invalid-feedback">Username Telegram diperlukan.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Alamat" required />
-                  <label for="alamat">Alamat Tempat Tinggal</label>
-                  <div class="invalid-feedback">Alamat diperlukan.</div>
-                </div>
+                <input class="form-control" id="alamat" name="alamat" type="text" placeholder="Alamat" required />
+                <div class="invalid-feedback">Alamat diperlukan.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <select class="form-select" id="pilihan_tinggal" name="pilihan_tinggal" required>
-                    <option value="" disabled selected>Pilih...</option>
-                    <option value="Orangtua">Tinggal dengan Orangtua</option>
-                    <option value="Keluarga">Tinggal dengan Keluarga</option>
-                    <option value="Kost">Kost</option>
-                  </select>
-                  <label for="pilihan_tinggal">Pilihan Tinggal</label>
-                  <div class="invalid-feedback">Pilih tempat tinggal.</div>
-                </div>
+                <select class="form-select" id="pilihan_tinggal" name="pilihan_tinggal" required>
+                  <option value="" disabled selected>Pilih Tempat Tinggal</option>
+                  <option value="Orangtua">Tinggal dengan Orangtua</option>
+                  <option value="Keluarga">Tinggal dengan Keluarga</option>
+                  <option value="Kost">Kost</option>
+                </select>
+                <div class="invalid-feedback">Pilih tempat tinggal.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="kampus" name="kampus" type="text" placeholder="Asal Kampus" required />
-                  <label for="kampus">Asal Kampus</label>
-                  <div class="invalid-feedback">Asal Kampus diperlukan.</div>
-                </div>
+                <input class="form-control" id="kampus" name="kampus" type="text" placeholder="Asal Kampus" required />
+                <div class="invalid-feedback">Asal Kampus diperlukan.</div>
               </div>
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input class="form-control" id="jurusan" name="jurusan" type="text" placeholder="Jurusan" required />
-                  <label for="jurusan">Jurusan</label>
-                  <div class="invalid-feedback">Jurusan diperlukan.</div>
-                </div>
+                <input class="form-control" id="jurusan" name="jurusan" type="text" placeholder="Jurusan" required />
+                <div class="invalid-feedback">Jurusan diperlukan.</div>
               </div>
               <div class="col-12">
                 <label class="form-label fw-semibold mb-2">Unggah Foto <span class="text-muted">(.jpg, .jpeg, .png, maks 2MB)</span></label>
@@ -401,16 +357,13 @@
                 <div class="invalid-feedback">Foto diperlukan (.jpg, .jpeg, .png, maks 2MB).</div>
               </div>
               <div class="col-12">
-                <div class="form-floating">
-                  <textarea class="form-control" id="alasan" name="alasan" placeholder="Alasan" required></textarea>
-                  <label for="alasan">Alasan Masuk COCONUT</label>
-                  <div class="invalid-feedback">Alasan diperlukan.</div>
-                </div>
+                <textarea class="form-control" id="alasan" name="alasan" placeholder="Alasan Bergabung" required></textarea>
+                <div class="invalid-feedback">Alasan diperlukan.</div>
               </div>
               <div class="col-12 d-none" id="submitSuccessMessage">
                 <div class="text-center text-success">
                   <div class="fw-bold">Pendaftaran Berhasil!</div>
-                  <p>Cek email Anda untuk langkah selanjutnya.</p>
+                  <p>Kami akan menghubungi kontak yang Anda berikan.</p>
                   <a href="{{ url_for('index') }}" class="btn btn-outline-primary rounded-pill px-4">Kembali ke Beranda</a>
                 </div>
               </div>
@@ -426,7 +379,6 @@
       </div>
     </div>
   </section>
-</main>
 {% endblock %}
 
 {% block scripts %}
@@ -520,7 +472,7 @@
               form.reset();
               successMessage.classList.remove('d-none');
               errorMessage.classList.add('d-none');
-              showToast('success', 'Pendaftaran berhasil! Cek email Anda.');
+              showToast('success', 'Pendaftaran berhasil! Kami akan menghubungi kontak Anda.');
             } else {
               throw new Error('Kesalahan server');
             }

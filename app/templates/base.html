@@ -43,7 +43,13 @@
       width: 100%;
       z-index: 1000;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    #header:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(90deg, rgba(30, 64, 175, 0.98), rgba(37, 99, 235, 0.95));
     }
 
     #header.scrolled {
@@ -83,17 +89,35 @@
       padding: 8px 12px;
       border-radius: 8px;
       position: relative;
-      transition: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
     }
 
-    .navbar a:hover, .navbar a.active {
-      color: var(--white-text) !important; /* Maintain white color */
-      background: none !important; /* No background change */
-      text-decoration: none !important; /* No decoration */
+    .navbar a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #93c5fd);
+      transition: width 0.3s ease;
     }
 
-    .navbar a::after {
-      display: none;
+    .navbar a:hover::before {
+      width: 100%;
+    }
+
+    .navbar a:hover {
+      color: var(--accent) !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .navbar a.active {
+      color: var(--accent) !important;
+      background: rgba(255, 255, 255, 0.1) !important;
     }
 
     .mobile-nav-toggle {
@@ -404,6 +428,64 @@
       color: var(--accent);
     }
 
+    /* Contact Section */
+    #footer .contact-section {
+      margin-bottom: 1.5rem;
+    }
+    #footer .contact-section h3 {
+      font-family: var(--font-poppins);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--white-text);
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      #footer .contact-section h3 {
+        text-align: left;
+      }
+    }
+    #footer .contact-section .contact-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    @media (min-width: 576px) {
+      #footer .contact-section .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+    }
+    #footer .contact-section .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      transition: all 0.3s ease;
+    }
+    #footer .contact-section .contact-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(5px);
+    }
+    #footer .contact-section .contact-item i {
+      color: var(--accent);
+      font-size: 1rem;
+      min-width: 20px;
+    }
+    #footer .contact-section .contact-item a {
+      color: var(--white-text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-family: var(--font-inter);
+      transition: color 0.3s ease;
+    }
+    #footer .contact-section .contact-item a:hover {
+      color: var(--accent);
+    }
+
     /* Scroll top button */
     .scroll-top {
       position: fixed;
@@ -460,7 +542,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{{ url_for('news') }}">Project</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}#affiliations">Affiliations</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('about') }}#news-events">News</a></li>
           <li><a class="nav-link scrollto" href="{{ url_for('daftar')}}">Registration</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -486,23 +570,42 @@
       <div class="circle-bottom"></div>
     </div>
     <div class="container">
-      <div class="cta-card">
-        <div class="cta-content">
-          <p>Bergabung Bersama COCONUT Computer Club.</p>
-          <a href="{{ url_for('daftar') }}" class="btn-join">Bergabung</a>
-        </div>
-      </div>
       <div class="menu-section">
         <h3>Menu Lainnya</h3>
         <div class="desktop-menu">
-          <a href="{{ url_for('index') }}">Beranda</a>
-          <a href="{{ url_for('news') }}">Berita</a>
-          <a href="/blog">Blog</a>
+          <a href="{{ url_for('index') }}">Home</a>
+          <a href="{{ url_for('about') }}#projects">About</a>
+          <a href="{{ url_for('about') }}#affiliations">Affiliations</a>
+          <a href="{{ url_for('about') }}#news-events">News</a>
+          <a href="/blog">Registration</a>
         </div>
         <div class="mobile-menu">
-          <a href="{{ url_for('index') }}">Beranda</a>
-          <a href="{{ url_for('news') }}">Berita</a>
-          <a href="/blog">Blog</a>
+          <a href="{{ url_for('index') }}">Home</a>
+          <a href="{{ url_for('about') }}#projects">About</a>
+          <a href="{{ url_for('about') }}#affiliations">Affiliations</a>
+          <a href="{{ url_for('about') }}#news-events">News</a>
+          <a href="/blog">Registration</a>
+        </div>
+      </div>
+      <div class="contact-section">
+        <h3>Hubungi Kami</h3>
+        <div class="contact-content">
+          <div class="contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <a href="mailto:hello@coconut.or.id">hello@coconut.or.id</a>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-linkedin"></i>
+            <a href="https://www.linkedin.com/company/coconut-computer-club" target="_blank">coconut computer club</a>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-instagram"></i>
+            <a href="https://www.instagram.com/coconutdotorg/" target="_blank">coconutdotorg</a>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-whatsapp"></i>
+            <a href="https://wa.me/6285657376820" target="_blank">+62 856-5737-6820</a>
+          </div>
         </div>
       </div>
       <div class="bottom-section">

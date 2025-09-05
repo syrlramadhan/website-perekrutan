@@ -27,207 +27,108 @@
 
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      line-height: 1.3;
-      color: var(--primary);
     }
 
-    h1 { font-size: 2.5rem; } /* Reduced font size to fit in one line */
-    h2 { font-size: 1.8rem; }
-    h3 { font-size: 1.75rem; }
-    h4 { font-size: 1.5rem; }
-    h5 { font-size: 1.25rem; }
-    p, .lead { font-size: 1.1rem; line-height: 1.8; }
-    .text-muted { color: var(--muted); font-weight: 400; }
-
-    /* Animated Background */
-    .background-animation {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .background-animation::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: -40%;
-      width: 320px;
-      height: 320px;
-      background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(37, 99, 235, 0.3));
-      border-radius: 50%;
-      filter: blur(48px);
-      animation: pulse 6s infinite;
-    }
-    .background-animation::after {
-      content: '';
-      position: absolute;
-      bottom: -40%;
-      left: -40%;
-      width: 320px;
-      height: 320px;
-      background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(37, 99, 235, 0.2));
-      border-radius: 50%;
-      filter: blur(48px);
-      animation: pulse 6s infinite 2s;
-    }
-    .background-particle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: bounce 4s infinite;
-      opacity: 0.6;
-    }
-    .particle-1 { top: 20%; left: 20%; animation-delay: 0s; }
-    .particle-2 { top: 40%; right: 32%; animation-delay: 1s; }
-    .particle-3 { bottom: 32%; left: 40%; animation-delay: 2s; }
-    .particle-4 { top: 60%; left: 33%; animation-delay: 3s; }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.3; }
-      50% { transform: scale(1.2); opacity: 0.5; }
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-      /* Hero Section */
+    /* CSS Kustom untuk Hero Section */
     #hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-2) 100%);
+      background: linear-gradient(135deg, #1f4287 0%, #0a2351 100%);
       color: white;
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-      height: 700px;
+      min-height: 80vh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 100px;
-    }
-    #hero .container { 
-      position: relative; 
-      z-index: 1; 
-      width: 100%;
-      margin: 0 auto;
-    }
-    #hero .hero-card {
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 24px;
-      padding: 3rem;
-      padding-bottom: 0; /* Minimized to keep image close to bottom */
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 
-                  0 8px 32px rgba(0, 0, 0, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      position: relative;
-      overflow: visible;
-      max-width: 1100px;
-      margin: 0 auto;
-      margin-top: -30px; /* Shift card up by 30px */
-      animation: heroFloat 6s ease-in-out infinite;
-    }
-    #hero .hero-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200px;
-      height: 200px;
-      background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), transparent);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    #hero h1 {
-      font-weight: 800;
-      font-size: 2.75rem;
-      color: var(--primary);
-      background: linear-gradient(135deg, var(--primary), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-      position: relative;
-      z-index: 2;
-    }
-    #hero h2 {
-      font-weight: 600;
-      color: var(--accent-2);
-      opacity: 0.9;
-      font-size: 1.75rem;
-      position: relative;
-      z-index: 2;
-    }
-    #hero .lead {
-      color: #374151;
-      font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      position: relative;
-      z-index: 2;
-    }
-    #hero .btn-primary {
-      background: linear-gradient(135deg, var(--accent-2), var(--primary));
-      border: none;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      padding: 1rem 2.5rem;
-      border-radius: 2rem;
-      font-size: 1.1rem;
-      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.3);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
-      z-index: 2;
-      text-decoration: none;
-      display: inline-block;
-    }
-    #hero .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.6s;
-    }
-    #hero .btn-primary:hover {
-      background: linear-gradient(135deg, var(--primary), var(--accent-2));
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 20px 50px rgba(37, 99, 235, 0.4);
-      color: white;
-      text-decoration: none;
-    }
-    #hero .btn-primary:hover::before {
-      left: 100%;
-    }
-    #hero .col-lg-5 {
-      position: relative; /* Ensure positioning context */
-      height: 100%;
-    }
-    #hero .hero-illustration {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      margin-top: 140px; /* Shift image down by 140px */
-      margin-bottom: 0; /* No bottom margin */
-    }
-    #hero .hero-illustration img {
-      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
-      transition: transform 0.3s ease;
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 0; /* Ensure image sticks to bottom */
-    }
-    #hero .hero-illustration img:hover {
-      transform: scale(1.02);
     }
 
+    /* Animasi Latar Belakang - Partikel */
+    .background-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .background-particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: moveParticles 20s infinite ease-in-out;
+    }
+
+    .particle-1 { width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s; }
+    .particle-2 { width: 120px; height: 120px; top: 50%; left: 70%; animation-delay: 5s; }
+    .particle-3 { width: 150px; height: 150px; top: 80%; left: 40%; animation-delay: 10s; }
+    .particle-4 { width: 60px; height: 60px; top: 30%; left: 90%; animation-delay: 15s; }
+
+    @keyframes moveParticles {
+      0% { transform: translate(0, 0); opacity: 0.8; }
+      50% { transform: translate(100px, -50px); opacity: 0.5; }
+      100% { transform: translate(0, 0); opacity: 0.8; }
+    }
+
+    /* Kartu utama Hero - Efek Glassmorphism Lebih Kuat */
+    .hero-card {
+      background: rgba(255, 255, 255, 0.75); 
+      backdrop-filter: blur(15px); 
+      border: 1px solid rgba(255, 255, 255, 0.3); 
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.15); 
+    }
+
+    .hero-card h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #0a2351; 
+      text-shadow: none;
+    }
+
+    .hero-card h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      text-shadow: none;
+    }
+
+    /* Teks paragraf di dalam hero-card */
+    .hero-card p {
+      color: #444; /* Warna teks lebih gelap untuk kontras */
+      text-shadow: none;
+    }
+
+    /* Judul besar di atas kartu (COCONUT Computer Club) */
+    .main-hero-title-outside-card {
+      font-size: 2.8rem; /* Sedikit lebih kecil agar kartu menonjol */
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px; /* Sesuaikan jarak */
+      color: white; /* Tetap putih di latar belakang biru gelap */
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Tombol Join */
+    .btn-primary {
+      background-color: #0d6efd; /* Biru standar Bootstrap */
+      border-color: #0d6efd;
+      color: white;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0b5ed7;
+      border-color: #0b5ed7;
+      transform: translateY(-2px);
+    }
+
+    /* Warna teks di dalam kartu */
+    .text-in-card {
+      color: #0a2351; /* Biru gelap untuk teks dalam kartu */
+    }
     /* Responsive adjustments */
     @media (max-width: 767px) {
       #hero { 
@@ -258,11 +159,12 @@
         font-size: 1rem;
       }
       #hero .hero-illustration {
-        margin-top: 70px; /* Reduced shift for mobile */
+        margin-top: 50px; /* Reduced shift for mobile */
+        margin-right: 80px;
         margin-bottom: 0;
       }
       #hero .hero-illustration img {
-        max-width: 90%;
+        max-width: 70%;
         margin-bottom: 0;
       }
     }
@@ -285,9 +187,8 @@
     }
     .news-grid {
       display: grid;
-      grid-template-columns: 1fr; /* Single column for one news item */
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      max-width: 500px; /* Reduced max-width to make card smaller */
       margin: 0 auto;
     }
     .news-card {
@@ -327,6 +228,11 @@
       font-weight: 600;
       font-size: 0.85rem;
       margin-bottom: 1rem;
+    }
+    .hero-illustration {
+      margin-top: 100px;
+      margin-right: 80px;
+      margin-bottom: -40px;
     }
     .news-card h4 {
       font-size: 1.25rem;
@@ -559,40 +465,204 @@
   </style>
 
 <!-- Hero Section -->
-  <section id="hero" class="d-flex align-items-center position-relative overflow-hidden">
-    <div class="background-animation">
-      <div class="background-particle particle-1"></div>
-      <div class="background-particle particle-2"></div>
-      <div class="background-particle particle-3"></div>
-      <div class="background-particle particle-4"></div>
-    </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-11 col-xl-10">
-          <div class="hero-card">
-            <div class="row align-items-center">
-              <div class="col-lg-7">
-                <h1 class="mb-3">COCONUT Computer Club - Open Membership</h1>
-                <h2 class="mb-4">Chapter Bandung</h2>
-                <p class="lead mb-4">Bergabunglah dengan ekosistem belajar kami, tempat ide-ide brilian berkembang menjadi inovasi yang berdampak nyata.</p>
-                <div class="d-flex justify-content-center justify-content-lg-start mt-4">
-                  <a href="#" class="btn btn-primary btn-lg">
-                    <i class="bi bi-rocket-takeoff me-2"></i>
-                    Join the Club
-                  </a>
-                </div>
+<style>
+  /* CSS Kustom untuk Hero Section - Glassmorphism Upgrade */
+  :root {
+    --glass-bg-start: rgba(255,255,255,0.06);
+    --glass-bg-end: rgba(255,255,255,0.02);
+    --glass-border: rgba(255,255,255,0.12);
+    --glass-accent-1: rgba(113,199,255,0.08);
+    --glass-accent-2: rgba(36,74,155,0.08);
+  }
+
+  #hero {
+    background: linear-gradient(135deg, #1f4287 0%, #0a2351 100%);
+    color: white;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animasi Latar Belakang - Partikel (lebih lembut untuk kontras dengan glass) */
+  .background-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /* overflow: hidden; */
+    /* pointer-events: none; */
+  }
+
+  .background-particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    animation: moveParticles 22s infinite ease-in-out;
+    filter: blur(2px);
+  }
+
+  .particle-1 { width: 90px; height: 90px; top: 6%; left: 12%; animation-delay: 0s; }
+  .particle-2 { width: 140px; height: 140px; top: 52%; left: 72%; animation-delay: 4s; }
+  .particle-3 { width: 170px; height: 170px; top: 78%; left: 36%; animation-delay: 9s; }
+  .particle-4 { width: 70px; height: 70px; top: 28%; left: 88%; animation-delay: 13s; }
+
+  @keyframes moveParticles {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+    50% { transform: translate(120px, -60px) scale(1.06); opacity: 0.45; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+  }
+
+  /* Kartu utama Hero - glass container dengan layer cahaya & sheen */
+  .hero-card {
+    position: relative;
+    border-radius: 28px;
+    padding: 40px;
+    background: linear-gradient(180deg, var(--glass-bg-start), var(--glass-bg-end));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 18px 50px rgba(2,6,23,0.55), inset 0 1px 0 rgba(255,255,255,0.03);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    overflow: hidden;
+    transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s ease;
+    }
+
+  /* soft glow border behind the card */
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, var(--glass-accent-1), transparent 40%, var(--glass-accent-2));
+    filter: blur(14px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  /* animated sheen that moves across the card */
+  .hero-card .sheen {
+    position: absolute;
+    top: -10%;
+    left: -40%;
+    width: 40%;
+    height: 120%;
+    transform: skewX(-18deg);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 100%);
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+    animation: sheen 6s linear infinite;
+    mix-blend-mode: overlay;
+  }
+
+  @keyframes sheen {
+    0% { transform: translateX(-120%) skewX(-18deg); }
+    100% { transform: translateX(220%) skewX(-18deg); }
+  }
+
+  /* content area sits above decorative layers */
+  .hero-card .content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-card h1, .hero-card h2, .hero-card p {
+    text-shadow: 0 6px 18px rgba(3,10,34,0.25);
+  }
+
+  .hero-card h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card h2, .hero-card h3 {
+    font-weight: 700;
+    color: #cfeaff;
+    letter-spacing: -0.5px;
+  }
+
+  /* Tombol Join: kontras dan elevated */
+  .btn-primary {
+    background-color: #d14138;
+    border-color: rgba(0,0,0,0.08);
+    color: white;
+    font-weight: 700;
+    padding: 12px 34px;
+    border-radius: 999px;
+    box-shadow: 0 12px 30px rgba(209,65,56,0.18);
+    transition: all 0.28s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 26px 56px rgba(2,6,23,0.45), 0 6px 18px rgba(209,65,56,0.12);
+  }
+
+  .text-light-blue { color: #9fd6ff; }
+  .text-dark-blue { color: #0A1C49; }
+
+  /* Illustration styling: let image overlap card edge slightly */
+  .hero-illustration { position: relative; z-index: 2; }
+  .hero-illustration img { max-width: 110%; transform: translateX(8%); transition: transform .35s ease; }
+  .hero-illustration img:hover { transform: translateX(6%) scale(1.03); }
+
+  /* Hover lift effect for the whole card */
+  .hero-card:hover { transform: translateY(-10px); }
+
+  /* Responsive tweaks */
+  @media (max-width: 991px) {
+    .hero-illustration img { max-width: 80%; transform: translateX(0); }
+    .hero-card { padding: 28px; }
+  }
+  @media (max-width: 767px) {
+    #hero { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .hero-card { border-radius: 18px; padding: 20px; }
+    .hero-card h1 { font-size: 1.9rem; text-align: center; }
+    .hero-card h2, .hero-card h3 { text-align: center; }
+    .hero-illustration { display: none; }
+  }
+</style>
+
+<section id="hero">
+  <div class="background-animation">
+    <div class="background-particle particle-1"></div>
+    <div class="background-particle particle-2"></div>
+    <div class="background-particle particle-3"></div>
+    <div class="background-particle particle-4"></div>
+  </div>
+  <div class="container py-5" data-aos="fade-up">        
+    <div class="row justify-content-center">
+      <div class="col-lg-11 col-xl-10">
+        <div class="hero-card">
+          <div class="row align-items-center">
+            <h1 class="text-center mb-5 fw-bold" style="font-size: 3rem; text-shadow: 0 4px 8px rgba(0,0,0,0.3);">COCONUT Computer Club</h1>
+            <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
+              <h2 class="display-5 fw-bold text-light-blue mb-2">Open Membership XV</h2>
+              <h3 class="lead mb-4 text-light-blue">Chapter Bandung</h3>
+              <p class="lead text-white mb-4">Bergabunglah dengan ekosistem belajar kami, tempat ide-ide brilian berkembang menjadi inovasi yang berdampak nyata.</p>
+              <div class="d-flex justify-content-center justify-content-lg-start mt-4">
+                <a href="{{ url_for('daftar')}}" class="btn btn-primary btn-lg">
+                  <i class="bi bi-rocket-takeoff me-2"></i>
+                  Join the Club
+                </a>
               </div>
-              <div class="col-lg-5">
-                <div class="hero-illustration">
-                  <img src="{{url_for('static', filename='assets/img/ilustrator.png')}}" class="img-fluid" alt="Mahasiswa COCONUT Computer Club">
-                </div>
+            </div>
+            <div class="col-lg-5 text-center d-none d-lg-block">
+              <div class="hero-illustration">
+                <img src="{{url_for('static', filename='assets/img/ilustrator.png')}}" class="img-fluid" alt="Mahasiswa COCONUT Computer Club">
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Highlights Section -->
   <section class="highlights py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
@@ -630,16 +700,15 @@
       <div class="row align-items-center">
         <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
           <div class="card p-4 shadow-sm border-0">
-            <p class="mb-4" style="text-align: justify;">Computer Club Oriented Network, Utility & Technology (COCONUT) didirikan pada bulan April 2008 di Sekolah Tinggi Manajemen Informatika dan Komputer (STMIK) Professional, Indonesia, untuk melaksanakan kegiatan riset, pembelajaran kolektif, inovasi dan pengembangan di bidang Ilmu Komputer dan Teknologi Informasi. COCONUT Computer Club diinisiasi sebagai think-tank riset terapan tingkat lanjut yang berkualitas tinggi, bekerja sama dengan industri serta institusi akademik di tingkat nasional dan internasional guna mendorong revolusi teknologi informasi di Indonesia dan membantu membangun perekonomian berbasis pengetahuan.</p>
-            <p style="text-align: justify;">Saat ini, COCONUT Computer Club telah memperluas keanggotaan di luar STMIK Professional, mencakup mahasiswa dari berbagai universitas seperti Universitas Muhammadiyah (UNISMUH), Universitas Negeri Makassar (UNM), Universitas Hasanuddin (UNHAS), Universitas Muslim Indonesia (UMI), dan Universitas Islam Negeri (UIN). Secara resmi terdaftar di Kementerian Hukum Republik Indonesia dengan nomor registrasi AHU-0012037.AH.01.07.TAHUN 2022, COCONUT berkomitmen untuk menciptakan generasi baru peneliti dan insinyur muda.</p>
+            <p class="mb-4" style="text-align: justify;">Computer Club Oriented Network, Utility & Technology (COCONUT) didirikan pada bulan April 2008 di Sekolah Tinggi Manajemen Informatika dan Komputer (STMIK) Professional, Indonesia, untuk melaksanakan kegiatan riset, pembelajaran kolektif, inovasi dan pengembangan di bidang Ilmu Komputer dan Teknologi Informasi.</p>
             <div class="mt-3">
-              <a class="btn btn-primary rounded-pill ms-2" href="https://coconut.or.id/publications" target="_blank">Explore Publications</a>
+              <a class="btn btn-primary rounded-pill ms-2" href="{{ url_for('about') }}">Pelajari Lebih Lanjut</a>
             </div>
           </div>
         </div>
         <div class="col-lg-6" data-aos="fade-left">
           <div class="card p-4 shadow-sm border-0 h-100 d-flex flex-column justify-content-center">
-            <h4 class="fw-semibold text-primary mb-3">Leading Research Fields</h4>
+            <h5 class="fw-semibold text-dark-blue mb-3">Bidang Utama Kami</h4>
             <div class="row gx-4 gy-2">
               <div class="col-md-6">
                 <div class="d-flex align-items-center">
@@ -666,10 +735,8 @@
                 </div>
               </div>
             </div>
-            <img src="{{url_for('static', filename='assets/img/bersama.jpg')}}" class="img-fluid rounded-4 mt-4" alt="COCONUT Team Photo">
-            <p class="mt-4 mb-0 text-muted" style="text-align: justify;">COCONUT berkolaborasi dengan peneliti, institusi, konferensi, dan organisasi — baik lokal maupun internasional — untuk menerjemahkan riset menjadi solusi nyata. Banyak alumni kami telah menjadi profesional di industri global, bukti dari lingkungan suportif yang kami berikan.</p>
             <div class="mt-3">
-              <a class="btn btn-outline-primary rounded-pill" href="https://coconut.or.id/people" target="_blank">Meet the People</a>
+              <a class="btn btn-outline-primary rounded-pill" href="{{ url_for('about') }}#projects">Lihat Proyek Kami</a>
             </div>
           </div>
         </div>
@@ -722,7 +789,7 @@
   <section id="process" class="py-5">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-primary">Recruitment Roadmap</h2>
+        <h2 class="fw-bold">Recruitment Roadmap</h2>
         <p class="text-muted">Proses yang dirancang untuk menemukan potensi dan keselarasan</p>
       </div>
       <div class="row justify-content-center">
@@ -734,7 +801,7 @@
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 1</div>
-                <h4 class="fw-bold mb-2">Tahap 1: Persyaratan</h4>
+                <h4 class="fw-bold mb-2">Tahap 1: Persyaratan Open Membership</h4>
                 <p class="text-muted">Kesiapan Anda bergabung dengan ekosistem belajar COCONUT Computer Club.</p>
                 <ul class="list-unstyled mb-0">
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Mahasiswa aktif semester 1-3.</li>
@@ -753,12 +820,15 @@
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 2</div>
-                <h4 class="fw-bold mb-2">Tahap 2: Tes</h4>
-                <p class="text-muted">Penilaian potensi melalui empat bagian: pilihan ganda, esai, psikotes, dan MBTI.</p>
+                <h4 class="fw-bold mb-2">Tahap 2: Screening</h4>
+                <p class="text-muted">Penilaian potensi melalui empat bagian: pilihan ganda, esai, psikotes, dan MBTI serta Kesempatan untuk mengenal motivasi, nilai, dan komitmen secara lebih mendalam.</p>
                 <ul class="list-unstyled mb-0">
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Logika & Kreativitas</strong>: Cara menganalisis dan menyelesaikan masalah.</li>
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Minat Teknologi</strong>: Ketertarikan pada pemrograman, desain, atau inovasi digital.</li>
                   <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Kepribadian</strong>: Gaya belajar dan komunikasi untuk kolaborasi tim.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Motivasi Pribadi</strong>: Alasan bergabung dengan COCONUT.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Keselarasan Nilai</strong>: Penyesuaian dengan budaya kolaborasi kami.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Kesiapan Belajar</strong>: Komitmen untuk terlibat aktif dalam proyek.</li>
                 </ul>
                 <div class="timeline-progress">
                   <div class="progress-label"><span>Kemajuan fase</span><small>2/3</small></div>
@@ -772,12 +842,11 @@
               </div>
               <div class="timeline-content card shadow-sm border-0 p-4">
                 <div class="timeline-phase-badge">Fase 3</div>
-                <h4 class="fw-bold mb-2">Tahap 3: Wawancara</h4>
-                <p class="text-muted">Kesempatan untuk mengenal motivasi, nilai, dan komitmen secara lebih mendalam.</p>
+                <h4 class="fw-bold mb-2">Tahap 3: Pengumuman</h4>
+                <p class="text-muted">Pengumuman keberhasilan dalam tahap pendaftaran.</p>
                 <ul class="list-unstyled mb-0">
-                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Motivasi Pribadi</strong>: Alasan bergabung dengan COCONUT.</li>
-                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Keselarasan Nilai</strong>: Penyesuaian dengan budaya kolaborasi kami.</li>
-                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i><strong>Kesiapan Belajar</strong>: Komitmen untuk terlibat aktif dalam proyek.</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Pengumuman dilaksanakan pada tanggal 22 September 2025</li>
+                  <li class="mb-1"><i class="bi bi-circle-fill text-muted me-2" style="font-size: 8px;"></i>Pengumuman akan diberitakan pada media sosial dan website resmi Pendaftaran COCONUT Computer Club</li>
                 </ul>
                 <div class="timeline-progress">
                   <div class="progress-label"><span>Kemajuan fase</span><small>3/3</small></div>
@@ -795,7 +864,7 @@
   <section id="benefits" class="py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
     <div class="container" data-aos="fade-up">
       <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-primary">Why Join Us?</h2>
+        <h2 class="fw-bold">Why Join Us?</h2>
         <p class="text-muted">More than just a club, this is a pathway to the future</p>
       </div>
       <div class="row gy-4">
@@ -842,32 +911,6 @@
     </div>
   </section>
 
-  <!-- News Section -->
-  <section id="news" class="news-section bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)]">
-    <div class="container" data-aos="fade-up">
-      <div class="section-header text-center mb-5">
-        <h2 class="fw-bold text-primary">Latest News</h2>
-        <p class="text-muted">Stay updated with the latest events and announcements from COCONUT Computer Club.</p>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <div class="news-grid">
-            <div class="news-card">
-              <img src="{{url_for('static', filename='assets/img/Flyer.jpg')}}" alt="COCONUT x IDSecConf 2025 Flyer">
-              <div class="news-content">
-                <div class="news-badge">Collaboration</div>
-                <h4>COCONUT x IDSecConf 2025</h4>
-                <div class="news-date">November 2025</div>
-                <p>Join us for a groundbreaking collaboration with IDSecConf, focusing on cutting-edge research and event organization in cybersecurity.</p>
-                <a href="#" class="btn btn-primary">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Metaphorical Intro Section -->
   <section id="metaphor" class="py-5 bg-gradient-to-br from-white to-[rgba(147,197,253,0.3)] position-relative overflow-hidden">
     <div class="background-animation">
@@ -877,7 +920,7 @@
       <div class="background-particle particle-4"></div>
     </div>
     <div class="container text-center" data-aos="fade-up">
-      <h2 class="fw-bold text-primary mb-4">Every Entity Best Seed</h2>
+      <h2 class="fw-bold mb-4">Every Entity Best Seed</h2>
       <p class="lead mb-5 mx-auto" style="max-width: 800px;">
         "Seperti partikel kuantum yang menunggu pengamatan untuk berkolaps menjadi realitas, atau seperti benih yang memerlukan cahaya fotosintesis dan resonansi emosional untuk bertransformasi menjadi karya. Kita adalah persilangan antara hukum entropi yang kacau dan keindahan fraktal; membutuhkan logika sains dan kelembutan seni untuk mencapai simetri sempurna dalam pertumbuhan."
       </p>
@@ -918,7 +961,21 @@
     <div class="container position-relative z-index-1" data-aos="fade-up">
       <h3 class="fw-bold display-6 mb-3">Siap Menjadi Bagian dari Perubahan?</h3>
       <p class="lead mt-3">Mari berkolaborasi, berinovasi, dan berkontribusi untuk masa depan teknologi yang lebih baik.</p>
-      <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar') }}">Join the Club</a>
+      <div class="row justify-content-center gy-3">
+        <div class="col-auto">
+          <a class="btn btn-light btn-lg px-4 mt-3 rounded-pill shadow-lg animate__animated animate__heartBeat animate__infinite" href="{{ url_for('daftar') }}">Join the Club</a>
+        </div>
+        <div class="col-auto">
+          <a class="btn btn-outline-light btn-lg px-4 mt-3 rounded-pill" href="{{ url_for('about') }}#news-events">
+            <i class="bi bi-newspaper me-2"></i>Latest News
+          </a>
+        </div>
+        <div class="col-auto">
+          <a class="btn btn-outline-light btn-lg px-4 mt-3 rounded-pill" href="{{ url_for('about') }}">
+            <i class="bi bi-info-circle me-2"></i>About Us
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 

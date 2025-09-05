@@ -3,29 +3,929 @@
 {% block title %}About - COCONUT Computer Club{% endblock %}
 
 {% block content %}
-<section class="about-section container" data-aos="fade-up">
-  <div class="row gy-4">
-    <div class="col-lg-6">
-      <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid rounded" alt="COCONUT">
-    </div>
-    <div class="col-lg-6">
-      <h2>About COCONUT Computer Club</h2>
-      <p class="lead">COCONUT (Computer Club Oriented Network Utility and Technology) adalah komunitas mahasiswa yang fokus pada pengembangan kompetensi di bidang teknologi informasi, riset, dan proyek berbasis perangkat lunak dan perangkat keras.</p>
-      <h5>Visi</h5>
-      <p>Mendorong inovasi dan kolaborasi antar mahasiswa untuk menciptakan solusi teknologi yang berdampak.</p>
+<style>
+  /* Importing Google Fonts for modern typography */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-      <h5>Misi</h5>
-      <ul>
-        <li>Menyelenggarakan pelatihan dan workshop untuk meningkatkan skill anggota.</li>
-        <li>Membina proyek-proyek riset dan pengembangan yang relevan dengan kebutuhan industri.</li>
-        <li>Membangun jejaring dan kolaborasi dengan komunitas teknologi di luar kampus.</li>
-      </ul>
+  :root {
+    --primary: #1e40af; /* Vibrant navy blue */
+    --accent: #60a5fa; /* Bright sky blue */
+    --accent-2: #2563eb; /* Rich blue */
+    --muted: #6b7280; /* Softer gray for contrast */
+    --glass: rgba(255, 255, 255, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --soft-shadow: 0 6px 24px rgba(16, 24, 40, 0.1);
+  }
 
-      <h5>Contact</h5>
-      <p>Untuk informasi lebih lanjut, kunjungi sosial media kami atau kirim email ke <a href="mailto:info@coconut.or.id">info@coconut.or.id</a>.</p>
+  /* Typography base styles */
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+    background: #fff;
+    overflow-x: hidden;
+  }
 
-      <a href="{{ url_for('daftar') }}" class="btn btn-primary btn-header-cta">Daftar Sekarang</a>
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 4rem 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  .hero-stats .stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--soft-shadow);
+    transition: transform 0.3s ease;
+  }
+
+  .hero-stats .stat-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .hero-stats .stat-item h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  /* Section styling */
+  .py-5 {
+    padding: 3rem 0;
+  }
+
+  .bg-light {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(147, 197, 253, 0.3)) !important;
+  }
+
+  /* Card styling */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid rgba(37, 99, 235, 0.1);
+    box-shadow: var(--soft-shadow);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(16, 24, 40, 0.15);
+    border-color: var(--accent);
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  /* Icon boxes */
+  .icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.1);
+  }
+
+  /* Project cards */
+  .project-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid rgba(37, 99, 235, 0.1);
+    box-shadow: var(--soft-shadow);
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(16, 24, 40, 0.15);
+    border-color: var(--accent);
+  }
+
+  .project-icon {
+    text-align: center;
+  }
+
+  .project-icon i {
+    font-size: 3rem;
+    color: var(--primary);
+  }
+
+  /* University items */
+  .university-item {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(37, 99, 235, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .university-item:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Achievement stats */
+  .achievement-stats h4 {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  /* CTA Section */
+  .bg-primary {
+    background: linear-gradient(180deg, var(--primary), var(--accent-2)) !important;
+  }
+
+  .btn-light {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(147, 197, 253, 0.3));
+    color: var(--primary);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .btn-light:hover {
+    background: linear-gradient(90deg, rgba(147, 197, 253, 0.3), rgba(255, 255, 255, 0.95));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-outline-light {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+  }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-stats .stat-item h3 {
+        font-size: 1.5rem;
+      }
+      
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .py-5 {
+        padding: 2rem 0;
+      }
+    }
+
+    /* News & Events Section */
+    #news-events {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(147, 197, 253, 0.3)) !important;
+    }
+
+    /* Project Cards for News */
+    #news-events .project-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      box-shadow: var(--soft-shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #news-events .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(16, 24, 40, 0.15);
+      border-color: var(--accent);
+    }
+
+    #news-events .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    #news-events .project-card:hover img {
+      transform: scale(1.05);
+    }
+
+    #news-events .project-card .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #news-events .project-card .badge {
+      display: inline-block;
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(96, 165, 250, 0.2));
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    #news-events .project-card h5 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    #news-events .project-card p {
+      font-size: 1rem;
+      color: #374151;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    #news-events .project-card .btn {
+      background: linear-gradient(135deg, var(--accent-2), var(--primary));
+      border: none;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      text-decoration: none;
+    }
+
+    #news-events .project-card .btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent-2));
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Enhanced Alert Styling */
+    .alert {
+      border-radius: 15px !important;
+      border: none !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+      backdrop-filter: blur(10px) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .alert::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+    }
+
+    .alert-info::before {
+      background: linear-gradient(90deg, #0dcaf0, #0d6efd);
+    }
+
+    .alert-success::before {
+      background: linear-gradient(90deg, #198754, #20c997);
+    }
+
+    .alert-warning::before {
+      background: linear-gradient(90deg, #ffc107, #fd7e14);
+    }
+
+    .alert-primary::before {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .alert i {
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+
+    .alert strong {
+      font-weight: 600;
+    }
+  </style><!-- Hero Section -->
+<section class="hero-section" data-aos="fade-up">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-6">
+        <div class="hero-content">
+          <h1>Tentang COCONUT Computer Club</h1>
+          <p class="lead text-muted mb-4">
+            Komunitas mahasiswa yang fokus pada pengembangan kompetensi di bidang teknologi informasi, 
+            riset, dan proyek berbasis perangkat lunak dan perangkat keras.
+          </p>
+          <div class="hero-stats d-flex gap-4 mb-4">
+            <div class="stat-item">
+              <h3>2008</h3>
+              <p class="mb-0 small">Didirikan</p>
+            </div>
+            <div class="stat-item">
+              <h3>10+</h3>
+              <p class="mb-0 small">Universitas</p>
+            </div>
+            <div class="stat-item">
+              <h3>100+</h3>
+              <p class="mb-0 small">Anggota</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <img src="{{ url_for('static', filename='assets/img/bersama.jpg') }}" 
+             class="img-fluid rounded shadow-lg" alt="COCONUT Computer Club" data-aos="zoom-in">
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Sejarah Section -->
+<section class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="h1 fw-bold mb-4">Sejarah Kami</h2>
+        <p class="lead mb-4">
+          Computer Club Oriented Network, Utility & Technology (COCONUT) didirikan pada April 2008 
+          di Sekolah Tinggi Informatika dan Komputer (STMIK) Professional, Indonesia.
+        </p>
+        <p class="mb-4">
+          COCONUT Computer Club diinisiasi sebagai think-tank riset terapan tingkat lanjut yang berkualitas tinggi, bekerja sama dengan industri serta institusi akademik di tingkat nasional dan internasional guna mendorong revolusi teknologi informasi di Indonesia dan membantu membangun perekonomian berbasis pengetahuan.
+        </p>
+        <div class="alert alert-primary" role="alert">
+          <strong>Terdaftar Resmi:</strong> AHU-0012037.AH.01.07.TAHUN 2022 - Kementerian Hukum dan HAM RI
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Visi Misi Section -->
+<section class="py-5">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4">
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box me-3">
+                <i class="bi bi-eye-fill fs-4"></i>
+              </div>
+              <h3 class="h4 mb-0">Visi</h3>
+            </div>
+            <p class="mb-0">
+              Mendorong inovasi dan kolaborasi antar mahasiswa untuk menciptakan solusi teknologi 
+              yang berdampak bagi kemajuan Indonesia sebagai ekonomi berbasis pengetahuan.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box me-3">
+                <i class="bi bi-graph-up fs-4"></i>
+              </div>
+              <h3 class="h4 mb-0">Misi</h3>
+            </div>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Menyelenggarakan pelatihan dan workshop untuk meningkatkan kompetensi anggota</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Membina proyek-proyek riset dan pengembangan yang relevan dengan industri</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Membangun jejaring dan kolaborasi dengan komunitas teknologi</li>
+              <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>Menciptakan generasi baru peneliti dan engineer muda</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bidang Fokus Section -->
+<section class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <div class="text-center mb-5">
+      <h2 class="h1 fw-bold mb-4">Bidang Fokus Kami</h2>
+      <p class="lead text-muted mb-4">Kami mengkhususkan diri dalam beberapa area teknologi terdepan yang membentuk masa depan digital Indonesia</p>
+      <p class="text-muted mx-auto" style="max-width: 700px; line-height: 1.7;">
+        Dengan pengalaman lebih dari satu dekade, COCONUT Computer Club telah mengembangkan keahlian khusus 
+        dalam empat pilar teknologi utama. Setiap bidang fokus kami didukung oleh riset terapan, proyek 
+        kolaboratif, dan komitmen untuk mentransfer pengetahuan kepada generasi muda Indonesia.
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-eye fs-3"></i>
+            </div>
+            <h5 class="card-title">Computer Vision</h5>
+            <p class="card-text text-muted">Pengembangan sistem penglihatan komputer canggih untuk aplikasi medis, industri, dan otomasi cerdas</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-shield-lock fs-3"></i>
+            </div>
+            <h5 class="card-title">Cyber Security</h5>
+            <p class="card-text text-muted">Solusi keamanan siber komprehensif untuk melindungi aset digital di era transformasi digital</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-robot fs-3"></i>
+            </div>
+            <h5 class="card-title">Machine Learning</h5>
+            <p class="card-text text-muted">Penerapan kecerdasan buatan untuk mengoptimalkan proses bisnis dan menciptakan solusi inovatif</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-speedometer2 fs-3"></i>
+            </div>
+            <h5 class="card-title">High Performance</h5>
+            <p class="card-text text-muted">Arsitektur sistem berperforma tinggi untuk menangani komputasi kompleks dan big data</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <div class="alert alert-info" role="alert" style="border-radius: 15px; border: none; background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(96, 165, 250, 0.1));">
+        <i class="bi bi-lightbulb-fill text-primary me-2"></i>
+        <strong>Teknologi Masa Depan:</strong> Kami terus mengembangkan keahlian di bidang Internet of Things (IoT), 
+        Blockchain, dan Quantum Computing untuk mempersiapkan anggota menghadapi revolusi industri 4.0.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-primary text-white">
+  <div class="container text-center" data-aos="fade-up">
+    <h2 class="h1 mb-4">Bergabunglah dengan Kami!</h2>
+    <p class="lead mb-4">
+      Jadilah bagian dari komunitas teknologi terdepan di Indonesia dan kembangkan 
+      potensi Anda bersama COCONUT Computer Club.
+    </p>
+    <div class="row justify-content-center gy-3">
+      <div class="col-auto">
+        <a href="{{ url_for('daftar') }}" class="btn btn-light px-4 py-3">
+          <i class="bi bi-person-plus me-2"></i>Daftar Sekarang
+        </a>
+      </div>
+      <div class="col-auto">
+        <a href="https://coconut.or.id" target="_blank" class="btn btn-outline-light px-4 py-3">
+          <i class="bi bi-globe me-2"></i>Kunjungi Website Resmi
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Keanggotaan Section -->
+<section class="py-5">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4 align-items-center">
+      <div class="col-lg-6">
+        <h2 class="h1 fw-bold mb-4">Keanggotaan & Kolaborasi</h2>
+        <p class="lead mb-4">
+          COCONUT telah memperluas keanggotaannya melampaui STMIK Professional dan kini mencakup 
+          mahasiswa dari berbagai universitas terkemuka di Indonesia.
+        </p>
+        <div class="universities-list">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Universitas Hasanuddin (UNHAS)</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Universitas Negeri Makassar (UNM)</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Universitas Muhammadiyah (UNISMUH)</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Universitas Muslim Indonesia (UMI)</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Universitas Islam Negeri (UIN)</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="university-item p-2 border rounded">
+                <small class="text-muted">Dan lainnya...</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Pencapaian Anggota</h5>
+            <p class="mb-3">
+              Banyak anggota COCONUT telah berkembang menjadi engineer dan profesional 
+              di industri teknologi global terkemuka.
+            </p>
+            <div class="achievement-stats">
+              <div class="row text-center">
+                <div class="col-4">
+                  <h4>200+</h4>
+                  <small class="text-muted">Proyek Riset</small>
+                </div>
+                <div class="col-4">
+                  <h4>30+</h4>
+                  <small class="text-muted">Kolaborasi</small>
+                </div>
+                <div class="col-4">
+                  <h4>50+</h4>
+                  <small class="text-muted">Publikasi</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="py-5 bg-light" id="projects">
+  <div class="container" data-aos="fade-up">
+    <div class="text-center mb-5">
+      <h2 class="h1 fw-bold mb-4">Riset Proyek Unggulan Kami</h2>
+      <p class="lead text-muted mb-4">Transformasi ide inovatif menjadi solusi teknologi yang berdampak nyata</p>
+      <p class="text-muted mx-auto" style="max-width: 800px; line-height: 1.7;">
+        Setiap proyek yang kami kembangkan merupakan hasil kolaborasi antara penelitian akademis dan 
+        kebutuhan industri. Dengan pendekatan riset-terapan, kami menciptakan solusi yang tidak hanya 
+        inovatif tetapi juga siap diimplementasikan untuk menyelesaikan masalah nyata di masyarakat.
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-robot text-primary fs-1"></i>
+            </div>
+            <h5 class="card-title">AI & Machine Learning</h5>
+            <p class="card-text">
+              Pengembangan model machine learning canggih untuk berbagai aplikasi praktis, 
+              termasuk computer vision untuk diagnosis medis, NLP untuk analisis sentimen, 
+              dan predictive analytics untuk industri 4.0.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-primary">Python</span>
+              <span class="badge bg-success">TensorFlow</span>
+              <span class="badge bg-info">OpenCV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-shield-check text-success fs-1"></i>
+            </div>
+            <h5 class="card-title">Cyber Security</h5>
+            <p class="card-text">
+              Riset dan pengembangan solusi keamanan siber terdepan, termasuk analisis 
+              kerentanan sistem, pengembangan sistem deteksi intrusi berbasis AI, 
+              dan protokol enkripsi untuk era digital.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-danger">Security</span>
+              <span class="badge bg-warning">Analysis</span>
+              <span class="badge bg-dark">Penetration Testing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-eye text-info fs-1"></i>
+            </div>
+            <h5 class="card-title">Computer Vision</h5>
+            <p class="card-text">
+              Pengembangan sistem pengenalan gambar dan video canggih untuk berbagai 
+              aplikasi kritis seperti deteksi objek real-time, analisis citra medis, 
+              dan sistem monitoring otomatis untuk industri.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-info">Computer Vision</span>
+              <span class="badge bg-primary">Deep Learning</span>
+              <span class="badge bg-success">Image Processing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-speedometer text-warning fs-1"></i>
+            </div>
+            <h5 class="card-title">High Performance Computing</h5>
+            <p class="card-text">
+              Optimisasi algoritma dan arsitektur sistem untuk performa tinggi, 
+              termasuk parallel computing, distributed systems, dan edge computing 
+              untuk menangani data skala besar secara efisien.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-warning">HPC</span>
+              <span class="badge bg-danger">Parallel Computing</span>
+              <span class="badge bg-dark">Optimization</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-cloud text-primary fs-1"></i>
+            </div>
+            <h5 class="card-title">Cloud Computing</h5>
+            <p class="card-text">
+              Pengembangan aplikasi berbasis cloud dan layanan web modern 
+              dengan skalabilitas tinggi, keamanan enterprise-grade, dan 
+              integrasi microservices untuk solusi bisnis digital.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-primary">AWS</span>
+              <span class="badge bg-info">Docker</span>
+              <span class="badge bg-success">Kubernetes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+          <div class="card-body">
+            <div class="project-icon mb-3">
+              <i class="bi bi-graph-up text-success fs-1"></i>
+            </div>
+            <h5 class="card-title">Data Science</h5>
+            <p class="card-text">
+              Analisis data besar dan pengembangan model prediktif canggih untuk 
+              berbagai domain industri, termasuk forecasting bisnis, analisis risiko, 
+              dan personalisasi pengalaman pengguna.
+            </p>
+            <div class="project-tags">
+              <span class="badge bg-success">Python</span>
+              <span class="badge bg-primary">Pandas</span>
+              <span class="badge bg-info">Jupyter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <div class="alert alert-success" role="alert" style="border-radius: 15px; border: none; background: linear-gradient(135deg, rgba(25, 135, 84, 0.1), rgba(40, 167, 69, 0.1));">
+        <i class="bi bi-trophy-fill text-success me-2"></i>
+        <strong>Impact & Innovation:</strong> Proyek-proyek kami telah menghasilkan 200+ publikasi, 
+        50+ kolaborasi industri, dan solusi yang diadopsi oleh perusahaan teknologi terkemuka di Indonesia.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Afiliasi & Hubungan Section -->
+<section id="affiliations" class="py-5">
+  <div class="container" data-aos="fade-up">
+    <div class="text-center mb-5">
+      <h2 class="h1 fw-bold mb-4">Afiliasi COCONUT Computer Club</h2>
+      <p class="lead text-muted mb-4">Menciptakan kemitraan strategis untuk memperluas dampak teknologi di Indonesia</p>
+      <p class="text-muted mx-auto" style="max-width: 800px; line-height: 1.7;">
+        Melalui kemitraan strategis dengan berbagai perusahaan dan inisiatif teknologi, 
+        COCONUT Computer Club memperluas jangkauan inovasinya. Kolaborasi ini tidak hanya 
+        memperkaya pengalaman anggota kami, tetapi juga menciptakan ekosistem teknologi 
+        yang saling mendukung untuk kemajuan industri digital Indonesia.
+      </p>
+    </div>
+    <div class="row g-4">
+      <!-- Lontar Research -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-search fs-3"></i>
+            </div>
+            <h5 class="card-title">Lontar Tech</h5>
+            <p class="card-text text-muted">Perusahaan riset teknologi yang fokus pada inovasi dan pengembangan solusi digital untuk transformasi bisnis.</p>
+            <a href="https://lontartech.id/" target="_blank" class="btn btn-outline-primary rounded-pill">
+              <i class="bi bi-globe me-2"></i>Kunjungi Website
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Algo Coffee -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-cup-hot fs-3"></i>
+            </div>
+            <h5 class="card-title">Algo Coffee</h5>
+            <p class="card-text text-muted">Bisnis sosial COCONUT yang menggabungkan passion teknologi dengan industri kreatif kopi Indonesia.</p>
+            <a href="https://web-algo.vercel.app/" target="_blank" class="btn btn-outline-primary rounded-pill">
+              <i class="bi bi-globe me-2"></i>Kunjungi Website
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- VulneraX -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-shield-check fs-3"></i>
+            </div>
+            <h5 class="card-title">VulneraX</h5>
+            <p class="card-text text-muted">Perusahaan keamanan siber terkemuka yang mengkhususkan diri dalam layanan keamanan operasional enterprise.</p>
+            <a href="https://web-algo.vercel.app/" target="_blank" class="btn btn-outline-primary rounded-pill">
+              <i class="bi bi-globe me-2"></i>Kunjungi Website
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cognir AI -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-robot fs-3"></i>
+            </div>
+            <h5 class="card-title">Cognir AI</h5>
+            <p class="card-text text-muted">Infrastruktur AI yang disederhanakan untuk mentransformasi bisnis dengan solusi AI yang impactful dan skalabel.</p>
+            <a href="https://cognir.ai/" target="_blank" class="btn btn-outline-primary rounded-pill">
+              <i class="bi bi-globe me-2"></i>Kunjungi Website
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- KotaCloud -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card h-100 text-center">
+          <div class="card-body">
+            <div class="icon-box mb-3">
+              <i class="bi bi-cloud fs-3"></i>
+            </div>
+            <h5 class="card-title">KotaCloud</h5>
+            <p class="card-text text-muted">Layanan cloud computing yang menyediakan infrastruktur skalabel dan solusi cloud modern untuk bisnis digital.</p>
+            <a href="https://kotacloud.vercel.app/" target="_blank" class="btn btn-outline-primary rounded-pill">
+              <i class="bi bi-globe me-2"></i>Kunjungi Website
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <div class="alert alert-warning" role="alert" style="border-radius: 15px; border: none; background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.2));">
+        <i class="bi bi-handshake-fill text-warning me-2"></i>
+        <strong>Kolaborasi Berkelanjutan:</strong> Kami terus menjalin kemitraan strategis dengan 
+        perusahaan teknologi, universitas, dan komunitas inovasi untuk menciptakan dampak yang lebih besar.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News & Events Section -->
+<section id="news-events" class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <div class="text-center mb-5">
+      <h2 class="h1 fw-bold mb-4">Berita & Acara Terbaru</h2>
+      <p class="lead text-muted mb-4">Jelajahi inovasi terdepan dan kolaborasi strategis dari COCONUT Computer Club</p>
+      <p class="text-muted mx-auto" style="max-width: 700px; line-height: 1.7;">
+        Tetap terhubung dengan perkembangan terkini dari komunitas teknologi terbesar di Indonesia. 
+        Dari proyek riset terobosan hingga kolaborasi strategis dengan industri, kami terus 
+        menciptakan dampak positif melalui inovasi dan pendidikan teknologi.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Card 2 -->
+      <div class="col-md-6 col-lg-4 d-flex">
+        <article class="project-card" data-aos="fade-up" data-aos-delay="150">
+          <img src="{{ url_for('static', filename='assets/img/gmr1.png') }}" alt="Open Membership">
+          <div class="card-body">
+            <span class="badge">Community Program</span>
+            <h5>Open Membership — Bandung Chapter</h5>
+            <p>Kami mencari talenta baru untuk bergabung dalam tim riset dan pengembangan. Lihat timeline seleksi, persyaratan, dan FAQ pendaftaran.</p>
+            <a href="{{ url_for('daftar') }}" class="btn">Join Now</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 6 -->
+      <div class="col-md-6 col-lg-4 d-flex">
+        <article class="project-card" data-aos="fade-up" data-aos-delay="350">
+          <img src="{{ url_for('static', filename='assets/img/Flyer.jpg') }}" alt="IDSecConf Collaboration">
+          <div class="card-body">
+            <span class="badge">Conference Collaboration</span>
+            <h5>IDSecConf 2025 Partnership</h5>
+            <p>Kolaborasi terobosan dengan IDSecConf, yang berfokus pada penelitian mutakhir dan penyelenggaraan acara di bidang keamanan siber.</p>
+            <a href="https://2025.idsecconf.org/" target="_blank" class="btn">Learn About</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 1 -->
+      <div class="col-md-6 col-lg-4 d-flex">
+        <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <img src="{{ url_for('static', filename='assets/img/inesa.png') }}" alt="Proyek INESA">
+          <div class="card-body">
+            <span class="badge">Social Tech Research</span>
+            <h5>INESA — Inovasi & Edukasi Desa</h5>
+            <p>Proyek riset sosial-teknologi kami yang membantu adopsi teknologi di komunitas pedesaan. Lihat studi kasus dan peluang kolaborasi.</p>
+            <a href="https://inesa.id" target="_blank" class="btn">Learn More</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-6 col-lg-4 d-flex">
+        <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <img src="{{ url_for('static', filename='assets/img/coc.png') }}" alt="Open Class">
+          <div class="card-body">
+            <span class="badge">Educational Program</span>
+            <h5>COCONUT Open Class — Workshop Series</h5>
+            <p>Workshop intensif untuk mahasiswa dan profesional. Materi praktek langsung dari anggota dan mitra industri.</p>
+            <a href="https://daftar-coc.vercel.app/" target="_blank" class="btn">Explore Classes</a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <div class="alert alert-primary" role="alert" style="border-radius: 15px; border: none; background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(96, 165, 250, 0.1));">
+        <i class="bi bi-bell-fill text-primary me-2"></i>
+        <strong>Tetap Terhubung:</strong> Ikuti kanal resmi kami untuk mendapatkan update terbaru 
+        tentang acara, proyek, dan kesempatan kolaborasi di dunia teknologi Indonesia.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Call to Action Section -->
+
 {% endblock %}

@@ -67,10 +67,6 @@ def daftar():
 
 
 
-@app.route('/news')
-def news():
-	return render_template('news.html')
-
 
 @app.route('/about')
 def about():
